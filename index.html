@@ -2,146 +2,153 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Ezi Akaun Bendahari - KV Kulim</title>
-    <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Ezi Akaun Bendahari - Premium Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1e40af; --header-bg: #92d050; --table-border: #000; --debit-clr: #27ae60; --kredit-clr: #e74c3c; }
-        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; padding: 20px; font-size: 11.5px; color: #333; }
-        .wrapper { max-width: 1350px; margin: auto; background: white; padding: 30px; border: 1px solid #ccc; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        :root { 
+            --primary: #1e293b; /* Midnight Slate */
+            --accent: #b45309;  /* Deep Gold */
+            --bg: #f8fafc; 
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --debit: #059669;
+            --kredit: #dc2626;
+        }
         
-        .ezi-header { text-align: center; font-family: Arial, sans-serif; font-weight: 900; color: var(--primary); font-size: 30px; letter-spacing: 2px; margin-bottom: 5px; }
-        .main-header { background-color: var(--header-bg); text-align: center; padding: 15px; border: 2px solid var(--table-border); margin-bottom: 25px; }
-        .editable-org { font-family: Arial, sans-serif; border: none; display: block; width: 100%; font-size: 24px; font-weight: bold; text-transform: uppercase; background: none; text-align: center; }
-        .editable-acc { font-family: Arial, sans-serif; border: none; display: block; width: 100%; font-size: 18px; font-weight: bold; background: none; text-align: center; color: #444; margin-top: 5px; }
-
-        .section-title { background: #2c3e50; color: white; padding: 8px 15px; border-radius: 5px 5px 0 0; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: -1px; }
-        .report-header { font-size: 16px; font-weight: bold; text-decoration: underline; margin-bottom: 10px; color: #000; text-align: left; }
-        .section { border: 1px solid #2c3e50; padding: 20px; margin-bottom: 30px; border-radius: 0 5px 5px 5px; background: #fff; }
-
-        .baki-awal-box { background: #fff3cd; border: 2px solid #ffeeba; padding: 12px; margin-bottom: 25px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 30px; color: #334155; line-height: 1.6; }
+        .wrapper { max-width: 1300px; margin: auto; background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         
-        .grid-input { display: grid; gap: 12px; align-items: end; }
-        .input-group { display: flex; flex-direction: column; }
-        .input-group label { font-weight: 600; margin-bottom: 5px; font-size: 10px; text-transform: uppercase; color: #555; }
+        /* Header Premium */
+        .main-header { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 30px; text-align: center; }
+        .editable-org { font-size: 28px; font-weight: 700; color: var(--primary); border: none; width: 100%; text-align: center; text-transform: uppercase; outline: none; background: transparent; }
+        .editable-acc { font-size: 16px; color: #64748b; border: none; width: 100%; text-align: center; outline: none; background: transparent; }
+
+        /* Tajuk Seksyen */
+        .section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: 1px; margin-bottom: 10px; display: block; border-left: 4px solid var(--accent); padding-left: 10px; }
+        .section { background: #fff; border: 1px solid var(--border); padding: 25px; border-radius: 8px; margin-bottom: 35px; }
+
+        /* Kotak Input & Button */
+        .grid-input { display: grid; gap: 15px; align-items: end; }
+        .input-group label { font-size: 10px; font-weight: 600; color: #94a3b8; margin-bottom: 5px; text-transform: uppercase; }
+        input, select { padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; color: var(--primary); transition: 0.3s; }
+        input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.1); }
         
-        input, select { padding: 8px; border: 1px solid #bbb; border-radius: 4px; font-size: 11.5px; }
-        .btn { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
-        .btn-green { background: #27ae60; }
-        .btn-red { background: #c0392b; }
-        .btn-blue { background: #1e40af; }
-        .btn-print { background: #4b6584; width: 100%; font-size: 16px; padding: 18px; margin-top: 20px; }
-        .btn-delete { background: #ff4757; border-radius: 50%; width: 22px; height: 22px; padding: 0; font-size: 14px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; font-size: 12px; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-accent { background: var(--accent); color: white; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: #64748b; }
+        .btn-outline:hover { background: #f1f5f9; }
+        .btn-print { background: var(--primary); width: 100%; padding: 15px; font-size: 14px; margin-top: 20px; color: #fff; }
 
-        table { width: 100%; border-collapse: collapse; border: 2px solid var(--table-border); margin-bottom: 10px; background: #fff; }
-        th, td { border: 1px solid var(--table-border); padding: 8px; text-align: center; }
-        th { background: #b4c6e7; }
-        .row-footer { background: #d1d8e0; font-weight: bold; }
+        /* Jadual Premium */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+        th { background: #f1f5f9; color: var(--primary); padding: 12px; text-align: center; font-weight: 600; border-bottom: 2px solid var(--border); }
+        td { padding: 12px; border-bottom: 1px solid var(--border); text-align: center; }
+        .row-footer { background: #f8fafc; font-weight: 700; }
+        .baki-box { background: #fffbeb; color: #92400e; padding: 15px; border-radius: 8px; border: 1px solid #fef3c7; margin-bottom: 25px; font-weight: 600; }
 
-        .storage-panel { background: #e9ecef; padding: 12px; border-radius: 8px; display: flex; gap: 10px; margin-bottom: 20px; }
-        .sig-container { margin-top: 40px; display: flex; flex-direction: column; }
-        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 55px; line-height: 0.5; }
+        /* Signature & Branding */
+        .sig-container { margin-top: 60px; }
+        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 60px; color: var(--primary); }
+        .sig-line { border-bottom: 1px solid #000; width: 250px; margin: 10px 0; }
 
         @media print { 
-            .no-print, .storage-panel, .section-title, .baki-awal-box { display: none !important; } 
-            .wrapper { border: none; box-shadow: none; padding: 0; } 
-            .section { border: none; padding: 0; margin-bottom: 40px; }
-            body { background: white; padding: 0; }
-            table { font-size: 10px; }
+            .no-print, .btn, .section-title { display: none !important; }
+            .wrapper { box-shadow: none; padding: 0; }
+            body { padding: 0; background: #fff; }
+            .section { border: none; padding: 0; }
         }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
-    <div class="ezi-header no-print">EZI AKAUN BENDAHARI</div>
-    
     <div class="main-header">
         <input type="text" class="editable-org" value="NAMA ORGANISASI ANDA" id="org-name">
-        <input type="text" class="editable-acc" value="LAPORAN AKAUN KEWANGAN TAHUN 2026" id="acc-name">
+        <input type="text" class="editable-acc" value="Laporan Penyata Kewangan Tahunan 2026" id="acc-name">
     </div>
 
-    <div class="no-print storage-panel">
-        <button class="btn btn-blue" onclick="saveData()">💾 Simpan Fail Mentah</button>
-        <button class="btn btn-blue" onclick="document.getElementById('fileInput').click()">📂 Buka Fail Mentah</button>
-        <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
+    <div class="no-print" style="display:flex; justify-content: space-between; margin-bottom: 20px;">
+        <div style="display:flex; gap:10px;">
+            <button class="btn btn-outline" onclick="saveData()">Simpan Fail</button>
+            <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">Buka Fail</button>
+            <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
+        </div>
+        <div class="baki-box" style="margin-bottom:0; padding: 8px 15px;">
+            Baki b/h: RM <input type="number" id="baki-awal-input" value="0.00" step="0.01" oninput="refreshSistem()" style="border:none; background:transparent; font-weight:700; width:100px; color:inherit;">
+        </div>
     </div>
 
-    <div class="no-print baki-awal-box">
-        <span>💰 BAKI BAWA HADAPAN (RM):</span>
-        <input type="number" id="baki-awal-input" step="0.01" value="0.00" oninput="refreshSistem()" style="width: 140px;">
-    </div>
-
-    <div class="no-print section-title">MAKLUMAT PROFIL</div>
+    <div class="no-print section-title">Pendaftaran Ahli & Bendahari</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 0.8fr 2fr 1.5fr;">
-            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama" placeholder="Ahmad Bin Abu"></div>
-            <div class="input-group"><label>Jawatan Ahli</label><input type="text" id="reg-ajk" placeholder="AJK / Ahli Biasa"></div>
-            <button class="btn btn-blue" onclick="daftarAhli()">+ Daftar</button>
+        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 1fr 2fr 1.5fr;">
+            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama"></div>
+            <div class="input-group"><label>Jawatan Ahli</label><input type="text" id="reg-ajk"></div>
+            <button class="btn btn-primary" onclick="daftarAhli()">Daftar</button>
             <div class="input-group"><label>Nama Bendahari</label><input type="text" id="ben-nama" oninput="updateBen()"></div>
             <div class="input-group"><label>Jawatan</label><input type="text" id="ben-jawatan" oninput="updateBen()"></div>
         </div>
     </div>
 
-    <div class="no-print section-title">INPUT TRANSAKSI UMUM (Belanja / Pendapatan Selain Yuran)</div>
+    <div class="no-print section-title">Transaksi Umum</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 1fr;">
-            <div class="input-group"><label>Nama Transaksi</label><input type="text" id="gen-nama" placeholder="Cth: Sewa Khemah / Jualan Kupon"></div>
-            <div class="input-group"><label>Jenis Akaun</label>
+        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 1.5fr;">
+            <div class="input-group"><label>Keterangan</label><input type="text" id="gen-nama"></div>
+            <div class="input-group"><label>Kategori</label>
                 <select id="gen-akaun">
-                    <option value="Sumbangan">Sumbangan</option><option value="Pelbagai">Pelbagai Masuk</option>
-                    <option value="Utiliti">Utiliti</option><option value="Jamuan">Jamuan</option><option value="Alatan">Alatan Pejabat</option><option value="Lain-lain">Lain-lain</option>
+                    <option>Sumbangan</option><option>Pelbagai Masuk</option><option>Utiliti</option><option>Jamuan</option><option>Alatan Pejabat</option>
                 </select>
             </div>
             <div class="input-group"><label>Tarikh</label><input type="date" id="gen-tkh"></div>
-            <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref" placeholder="No. Resit/Baucar"></div>
+            <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref"></div>
             <div class="input-group"><label>Amaun (RM)</label><input type="number" id="gen-amt" step="0.01"></div>
-            <div style="display:flex; gap:4px;">
-                <button class="btn btn-green" onclick="rekodGen('DEBIT')">MASUK</button>
-                <button class="btn btn-red" onclick="rekodGen('KREDIT')">KELUAR</button>
+            <div style="display:flex; gap:5px;">
+                <button class="btn btn-primary" style="background:#059669" onclick="rekodGen('DEBIT')">MASUK</button>
+                <button class="btn btn-primary" style="background:#dc2626" onclick="rekodGen('KREDIT')">KELUAR</button>
             </div>
         </div>
     </div>
 
-    <div class="no-print section-title">INPUT TRANSAKSI YURAN</div>
+    <div class="no-print section-title">Kutipan Yuran</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2fr 1fr 0.8fr 1fr 1fr 1fr 1fr;">
+        <div class="grid-input" style="grid-template-columns: 2.5fr 1fr 1fr 1.5fr 1.5fr 1fr 1.5fr;">
             <div class="input-group"><label>Nama Ahli</label><select id="yur-id"></select></div>
-            <div class="input-group"><label>Jenis Akaun</label><input type="text" value="Yuran Ahli" readonly style="background:#f9f9f9"></div>
             <div class="input-group"><label>Bulan</label><select id="yur-bulan"><option>Jan</option><option>Feb</option><option>Mac</option><option>Apr</option><option>Mei</option><option>Jun</option><option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option></select></div>
             <div class="input-group"><label>Tarikh</label><input type="date" id="yur-tkh"></div>
             <div class="input-group"><label>Rujukan</label><input type="text" id="yur-ref"></div>
-            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="yur-amt" step="0.01"></div>
-            <button class="btn btn-blue" onclick="rekodYuran()">REKOD YURAN</button>
+            <div class="input-group"><label>Amaun</label><input type="number" id="yur-amt" step="0.01"></div>
+            <button class="btn btn-accent" onclick="rekodYuran()" style="grid-column: span 2;">Rekod Bayaran Yuran</button>
         </div>
     </div>
 
     <div class="section">
-        <div class="report-header">I. LAPORAN STATUS KUTIPAN YURAN AHLI</div>
+        <div style="font-weight:700; margin-bottom:15px; border-bottom: 1px solid #eee;">I. RINGKASAN YURAN AHLI</div>
         <table id="table-yuran">
-            <thead><tr><th>Bil</th><th>Nama Ahli</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
+            <thead><tr><th>Bil</th><th>Nama</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
             <tbody></tbody>
         </table>
     </div>
 
     <div class="section">
-        <div class="report-header">II. REKOD TRANSAKSI TUNAI (LEJAR AM)</div>
+        <div style="font-weight:700; margin-bottom:15px; border-bottom: 1px solid #eee;">II. BUKU TUNAI / LEJAR AM</div>
         <table id="table-lejar">
-            <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Akaun & Butiran Transaksi</th><th>Debit (RM)</th><th>Kredit (RM)</th><th>Baki (RM)</th><th class="no-print">Aksi</th></tr></thead>
+            <thead><tr><th>Tarikh</th><th>Ref</th><th style="text-align:left">Perincian Transaksi</th><th>Debit</th><th>Kredit</th><th>Baki</th><th class="no-print"></th></tr></thead>
             <tbody></tbody>
             <tfoot>
-                <tr class="row-footer"><td colspan="3" style="text-align:right">JUMLAH KESELURUHAN (RM)</td><td id="foot-debit">0.00</td><td id="foot-kredit">0.00</td><td id="foot-baki" style="background:#fff2cc">0.00</td><td class="no-print"></td></tr>
+                <tr class="row-footer"><td colspan="3" style="text-align:right">JUMLAH KESELURUHAN (RM)</td><td id="foot-debit"></td><td id="foot-kredit"></td><td id="foot-baki" style="color:var(--accent)"></td><td class="no-print"></td></tr>
             </tfoot>
         </table>
     </div>
 
     <div class="sig-container">
-        <p>Disediakan oleh,</p>
+        <p style="font-size:12px;">Disediakan oleh,</p>
         <div id="out-sig" class="sig-font">Tandatangan</div>
-        <div style="border-bottom: 2px solid #000; width: 220px; margin-bottom: 5px;"></div>
-        <strong id="out-nama">(NAMA PENUH)</strong><br><span id="out-jaw">Bendahari</span>
+        <div class="sig-line"></div>
+        <strong id="out-nama" style="font-size:13px;">(NAMA PENUH)</strong><br>
+        <span id="out-jaw" style="font-size:12px; color:#64748b;">Bendahari</span>
     </div>
 
-    <button class="btn btn-blue btn-print no-print" onclick="window.print()">🖨️ CETAK SEMUA LAPORAN (PDF)</button>
+    <button class="btn btn-print no-print" onclick="window.print()">Cetak Laporan Rasmi</button>
 </div>
 
 <script>
@@ -161,17 +168,8 @@
     function rekodGen(jenis) {
         const amt = Number(document.getElementById('gen-amt').value);
         const tkh = document.getElementById('gen-tkh').value;
-        if(!amt || !tkh) return alert("Sila isi Tarikh dan Amaun!");
-        transaksi.push({ 
-            id: Date.now(), 
-            nama: document.getElementById('gen-nama').value, 
-            akaun: document.getElementById('gen-akaun').value, 
-            tkh: tkh, 
-            ref: document.getElementById('gen-ref').value, 
-            amt: amt, 
-            jenis: jenis, 
-            isYuran: false 
-        });
+        if(!amt || !tkh) return alert("Sila isi data!");
+        transaksi.push({ id: Date.now(), nama: document.getElementById('gen-nama').value, akaun: document.getElementById('gen-akaun').value, tkh: tkh, ref: document.getElementById('gen-ref').value, amt: amt, jenis: jenis, isYuran: false });
         refreshSistem();
     }
 
@@ -184,7 +182,7 @@
         refreshSistem();
     }
 
-    function hapus(id) { if(confirm("Hapus rekod ini?")) { transaksi = transaksi.filter(t => t.id !== id); refreshSistem(); } }
+    function hapus(id) { if(confirm("Padam transaksi?")) { transaksi = transaksi.filter(t => t.id !== id); refreshSistem(); } }
 
     function refreshSistem() {
         const sel = document.getElementById('yur-id');
@@ -197,27 +195,23 @@
         let td = 0, tk = 0;
 
         const row0 = tbodyLejar.insertRow();
-        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left"><strong>Baki b/h</strong></td><td>-</td><td>-</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print"></td>`;
+        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left; color:#94a3b8">Baki Bawa Hadapan</td><td>-</td><td>-</td><td style="font-weight:700">${baki.toFixed(2)}</td><td class="no-print"></td>`;
 
         transaksi.sort((a,b) => new Date(a.tkh) - new Date(b.tkh)).forEach(t => {
             let d = t.jenis === 'DEBIT' ? t.amt : 0;
             let k = t.jenis === 'KREDIT' ? t.amt : 0;
             baki += (d - k); td += d; tk += k;
-
-            let p = "";
-            if(t.isYuran) {
-                let a = senaraiAhli.find(x => x.id == t.ahliId);
-                if(a) { a.yuran[t.bulan] = t.amt; p = `<strong>Yuran Ahli</strong> - ${a.nama} (${t.bulan})`; }
-            } else { p = `<strong>${t.akaun}</strong> - ${t.nama}`; }
+            let p = t.isYuran ? `<strong>Yuran Ahli</strong> - ${senaraiAhli.find(x=>x.id==t.ahliId).nama} (${t.bulan})` : `<strong>${t.akaun}</strong> - ${t.nama}`;
+            if(t.isYuran) senaraiAhli.find(x=>x.id==t.ahliId).yuran[t.bulan] = t.amt;
 
             const row = tbodyLejar.insertRow();
-            row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left">${p}</td><td class="txt-debit">${d||''}</td><td class="txt-kredit">${k||''}</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print">
-                <button class="btn btn-delete" onclick="hapus(${t.id})">×</button>
-                ${t.isYuran ? `<button class="btn btn-blue" style="font-size:9px; padding:2px 5px;" onclick="cetakResit('${t.id}')">Resit</button>` : ''}
+            row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left">${p}</td><td style="color:var(--debit)">${d||''}</td><td style="color:var(--kredit)">${k||''}</td><td style="font-weight:700">${baki.toFixed(2)}</td><td class="no-print">
+                <button class="btn btn-outline" style="padding:2px 8px;" onclick="hapus(${t.id})">×</button>
+                ${t.isYuran ? `<button class="btn btn-outline" style="padding:2px 8px; font-size:10px;" onclick="cetakResit('${t.id}')">Resit</button>` : ''}
             </td>`;
         });
         document.getElementById('foot-debit').innerText = td.toFixed(2);
-        document.getElementById('foot-kredit').innerText = tk.innerText = tk.toFixed(2);
+        document.getElementById('foot-kredit').innerText = tk.toFixed(2);
         document.getElementById('foot-baki').innerText = baki.toFixed(2);
         renderYuranTable();
     }
@@ -228,7 +222,7 @@
         senaraiAhli.forEach((a, i) => {
             let sum = 0;
             let tr = tbody.insertRow();
-            tr.innerHTML = `<td>${i+1}</td><td style="text-align:left">${a.nama}</td><td>${a.jawatan}</td>${bulanKeys.map(b=>{ let v=a.yuran[b]||0; sum+=v; return `<td>${v||''}</td>`}).join('')}<td>${sum.toFixed(2)}</td>`;
+            tr.innerHTML = `<td>${i+1}</td><td style="text-align:left; font-weight:600">${a.nama}</td><td style="font-size:11px; color:#64748b">${a.jawatan}</td>${bulanKeys.map(b=>{ let v=a.yuran[b]||0; sum+=v; return `<td>${v||''}</td>`}).join('')}<td><strong>${sum.toFixed(2)}</strong></td>`;
         });
     }
 
@@ -242,7 +236,7 @@
     function saveData() {
         const data = JSON.stringify({ ahli: senaraiAhli, trx: transaksi, bakiAwal: document.getElementById('baki-awal-input').value, config: { org: document.getElementById('org-name').value, acc: document.getElementById('acc-name').value, ben: document.getElementById('ben-nama').value, jaw: document.getElementById('ben-jawatan').value } });
         const blob = new Blob([data], { type: 'application/json' });
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `EziAkaun_Data.json`; a.click();
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `EziAkaun_Premium.json`; a.click();
     }
 
     function loadData(e) {
@@ -266,7 +260,7 @@
         const nBen = document.getElementById('ben-nama').value;
         const org = document.getElementById('org-name').value;
         const win = window.open('', '', 'width=800,height=600');
-        win.document.write(`<html><head><link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet"><style>body{font-family:Arial,sans-serif;padding:40px;border:3px solid #000;width:148mm;height:105mm;margin:auto}.header{text-align:center;border-bottom:2px solid #000;padding-bottom:10px;margin-bottom:20px}.stamp-area{display:flex;align-items:center;gap:40px;margin-top:30px}.double-stamp{width:170px;height:170px;border:2px solid #1e40af;outline:6px solid #1e40af;outline-offset:8px;border-radius:50%;color:#1e40af;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:bold;line-height:1.0;padding:15px;box-sizing:border-box;transform:rotate(-8deg);text-transform:uppercase}.sig{font-family:'Herr Von Muellerhoff',cursive;font-size:65px;line-height:0.5}.box{border:2px solid #000;padding:10px;font-size:22px;font-weight:bold;width:fit-content;margin:20px 0}</style></head><body><div class="header"><h3>${org}</h3><p>RESIT RASMI PENERIMAAN</p></div><p>No. Ref: <strong>${t.ref}</strong> | Tarikh: <strong>${t.tkh}</strong></p><p>Diterima daripada: <strong>${ahli.nama.toUpperCase()}</strong><br>Bayaran: Yuran Ahli Bulan ${t.bulan}</p><div class="box">RM ${parseFloat(t.amt).toFixed(2)}</div><div class="stamp-area"><div class="double-stamp">DITERIMA BENDAHARI<br>BERTARIKH<br>${t.tkh}</div><div><div class="sig">${nBen}</div>__________________________<br><strong>${nBen.toUpperCase()}</strong><br>Bendahari</div></div><script>window.print();<\/script></body></html>`);
+        win.document.write(`<html><head><link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet"><style>body{font-family:Arial,sans-serif;padding:40px;border:3px solid #000;width:148mm;height:105mm;margin:auto}.header{text-align:center;border-bottom:2px solid #000;padding-bottom:10px;margin-bottom:20px}.double-stamp{width:170px;height:170px;border:2px solid #1e40af;outline:6px solid #1e40af;outline-offset:8px;border-radius:50%;color:#1e40af;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:bold;line-height:1.0;padding:15px;box-sizing:border-box;transform:rotate(-8deg);text-transform:uppercase}.sig{font-family:'Herr Von Muellerhoff',cursive;font-size:65px;line-height:0.5}.box{border:2px solid #000;padding:10px;font-size:22px;font-weight:bold;width:fit-content;margin:20px 0}</style></head><body><div class="header"><h3>${org}</h3><p>RESIT RASMI PENERIMAAN</p></div><p>No. Ref: <strong>${t.ref}</strong> | Tarikh: <strong>${t.tkh}</strong></p><p>Diterima daripada: <strong>${ahli.nama.toUpperCase()}</strong><br>Bayaran: Yuran Ahli Bulan ${t.bulan}</p><div class="box">RM ${parseFloat(t.amt).toFixed(2)}</div><div style="display:flex;align-items:center;gap:40px;margin-top:30px"><div class="double-stamp">DITERIMA BENDAHARI<br>BERTARIKH<br>${t.tkh}</div><div><div class="sig">${nBen}</div>__________________________<br><strong>${nBen.toUpperCase()}</strong><br>Bendahari</div></div><script>window.print();<\/script></body></html>`);
         win.document.close();
     }
 </script>
