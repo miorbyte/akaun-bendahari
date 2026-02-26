@@ -5,44 +5,43 @@
     <title>Ezi Akaun Bendahari - KV Kulim</title>
     <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2c3e50; --header-bg: #92d050; --table-border: #000; --debit-clr: #27ae60; --kredit-clr: #e74c3c; }
-        body { font-family: 'Poppins', sans-serif; background: #f4f4f4; padding: 20px; font-size: 12px; }
-        .wrapper { max-width: 1350px; margin: auto; background: white; padding: 25px; border: 1px solid #ccc; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        :root { --primary: #1e40af; --header-bg: #92d050; --table-border: #000; --debit-clr: #27ae60; --kredit-clr: #e74c3c; }
+        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; padding: 20px; font-size: 12px; color: #333; }
+        .wrapper { max-width: 1350px; margin: auto; background: white; padding: 30px; border: 1px solid #ccc; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        .ezi-header { text-align: center; font-family: Arial, sans-serif; font-weight: 900; color: #1e40af; font-size: 32px; letter-spacing: 2px; margin-bottom: 5px; }
-        
-        /* Header Editable */
-        .main-header { background-color: var(--header-bg); text-align: center; padding: 15px; border: 2px solid var(--table-border); margin-bottom: 20px; }
-        .editable-org { font-family: Arial, sans-serif; border: none; display: block; width: 100%; font-size: 26px; font-weight: bold; text-transform: uppercase; background: none; text-align: center; margin-bottom: 5px; }
-        .editable-acc { font-family: Arial, sans-serif; border: none; display: block; width: 100%; font-size: 20px; font-weight: bold; background: none; text-align: center; color: #333; }
+        /* Header Section */
+        .ezi-header { text-align: center; font-family: Arial, sans-serif; font-weight: 900; color: var(--primary); font-size: 32px; letter-spacing: 2px; margin-bottom: 5px; }
+        .main-header { background-color: var(--header-bg); text-align: center; padding: 20px; border: 2px solid var(--table-border); margin-bottom: 25px; }
+        .editable-org { font-family: Arial, sans-serif; border: none; display: block; width: 100%; font-size: 24px; font-weight: bold; text-transform: uppercase; background: none; text-align: center; }
+        .editable-acc { font-family: Arial, sans-serif; border: none; display: block; width: 100%; font-size: 18px; font-weight: bold; background: none; text-align: center; color: #444; margin-top: 5px; }
 
-        .baki-awal-box { background: #fff3cd; border: 2px solid #ffeeba; padding: 15px; margin-bottom: 20px; border-radius: 8px; display: flex; align-items: center; gap: 15px; font-weight: bold; }
-        .section { margin-bottom: 20px; padding: 20px; border: 1px solid #ddd; background: #fff; border-radius: 8px; }
-        .grid-input { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; align-items: end; }
+        /* Section Titles */
+        .section-title { background: #2c3e50; color: white; padding: 8px 15px; border-radius: 5px 5px 0 0; font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: -1px; }
+        .section { border: 1px solid #2c3e50; padding: 20px; margin-bottom: 25px; border-radius: 0 5px 5px 5px; background: #fff; position: relative; }
+
+        .baki-awal-box { background: #fff3cd; border: 2px solid #ffeeba; padding: 15px; margin-bottom: 25px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        
+        .grid-input { display: grid; gap: 15px; align-items: end; }
         .input-group { display: flex; flex-direction: column; }
-        .input-group label { font-weight: 600; margin-bottom: 5px; font-size: 11px; text-transform: uppercase; color: #555; }
-
-        table { width: 100%; border-collapse: collapse; border: 2px solid var(--table-border); margin-bottom: 30px; }
-        th, td { border: 1px solid var(--table-border); padding: 10px; text-align: center; }
-        th { background: #b4c6e7; font-weight: bold; }
+        .input-group label { font-weight: 600; margin-bottom: 5px; font-size: 10.5px; text-transform: uppercase; color: #555; }
         
-        .txt-debit { color: var(--debit-clr); font-weight: bold; }
-        .txt-kredit { color: var(--kredit-clr); font-weight: bold; }
-        .row-baki-awal { background: #f8f9fa; font-style: italic; }
+        input, select { padding: 10px; border: 1px solid #bbb; border-radius: 4px; font-size: 12px; }
+        .btn { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
+        .btn-green { background: #27ae60; }
+        .btn-red { background: #c0392b; }
+        .btn-blue { background: #1e40af; }
+        .btn-delete { background: #ff4757; border-radius: 50%; width: 22px; height: 22px; padding: 0; font-size: 14px; }
+
+        table { width: 100%; border-collapse: collapse; border: 2px solid var(--table-border); margin-bottom: 20px; background: #fff; }
+        th, td { border: 1px solid var(--table-border); padding: 8px; text-align: center; }
+        th { background: #b4c6e7; }
         .row-footer { background: #d1d8e0; font-weight: bold; }
 
-        input, select { padding: 10px; border: 1px solid #999; border-radius: 4px; font-size: 12px; }
-        .btn { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; display: inline-flex; align-items: center; justify-content: center; }
-        .btn-green { background: #28a745; }
-        .btn-red { background: #dc3545; }
-        .btn-blue { background: #1e40af; }
-        .btn-delete { background: #ff4757; border-radius: 50%; width: 25px; height: 25px; padding: 0; }
-        
-        .storage-panel { background: #e9ecef; padding: 15px; border-radius: 8px; display: flex; gap: 10px; margin-bottom: 20px; }
+        .storage-panel { background: #e9ecef; padding: 12px; border-radius: 8px; display: flex; gap: 10px; margin-bottom: 20px; }
         .sig-container { margin-top: 50px; }
-        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 60px; line-height: 0.5; }
+        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 55px; line-height: 0.5; }
 
-        @media print { .no-print, .storage-panel, .baki-awal-box { display: none !important; } .wrapper { border: none; box-shadow: none; } }
+        @media print { .no-print, .storage-panel, .section-title, .baki-awal-box { display: none !important; } .wrapper { border: none; box-shadow: none; } .section { border: none; padding: 0; } }
     </style>
 </head>
 <body>
@@ -52,69 +51,83 @@
     
     <div class="main-header">
         <input type="text" class="editable-org" value="NAMA ORGANISASI ANDA" id="org-name">
-        <input type="text" class="editable-acc" value="AKAUN KEWANGAN TAHUN 2026" id="acc-name">
+        <input type="text" class="editable-acc" value="LAPORAN AKAUN KEWANGAN TAHUN 2026" id="acc-name">
     </div>
 
     <div class="no-print storage-panel">
-        <button class="btn btn-blue" onclick="saveData()">💾 Simpan Fail Mentah</button>
-        <button class="btn btn-blue" onclick="document.getElementById('fileInput').click()">📂 Buka Fail Mentah</button>
+        <button class="btn btn-blue" onclick="saveData()">💾 Simpan Fail</button>
+        <button class="btn btn-blue" onclick="document.getElementById('fileInput').click()">📂 Buka Fail</button>
         <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
     </div>
 
     <div class="no-print baki-awal-box">
-        <span>💰 BAKI DARI TAHUN LEPAS (RM):</span>
-        <input type="number" id="baki-awal-input" step="0.01" value="0.00" oninput="refreshSistem()" style="width: 150px; font-weight: bold;">
+        <span>💰 BAKI BAWA HADAPAN TAHUN LEPAS (RM):</span>
+        <input type="number" id="baki-awal-input" step="0.01" value="0.00" oninput="refreshSistem()" style="width: 150px;">
     </div>
 
+    <div class="no-print section-title">MAKLUMAT PROFIL & BENDAHARI</div>
     <div class="no-print section">
-        <div class="grid-input">
-            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama"></div>
-            <div class="input-group"><label>Jawatan Ahli</label><input type="text" id="reg-ajk"></div>
-            <button class="btn btn-blue" onclick="daftarAhli()">Daftar Ahli</button>
-            <div class="input-group"><label>Bendahari</label><input type="text" id="ben-nama" oninput="updateBen()"></div>
-            <div class="input-group"><label>Jawatan</label><input type="text" id="ben-jawatan" oninput="updateBen()"></div>
+        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 0.8fr 2fr 1.5fr;">
+            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama" placeholder="Ahmad Bin Abu"></div>
+            <div class="input-group"><label>Jawatan Ahli</label><input type="text" id="reg-ajk" placeholder="Pengerusi/AJK"></div>
+            <button class="btn btn-blue" onclick="daftarAhli()">+ Daftar</button>
+            <div class="input-group"><label>Nama Bendahari</label><input type="text" id="ben-nama" oninput="updateBen()"></div>
+            <div class="input-group"><label>Jawatan Bendahari</label><input type="text" id="ben-jawatan" oninput="updateBen()"></div>
         </div>
     </div>
 
+    <div class="no-print section-title">INPUT TRANSAKSI UMUM (Belanja / Pendapatan Selain Yuran)</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 0.8fr 1.2fr 1fr 1.2fr;">
-            <div class="input-group"><label>Nama Ahli (Yuran)</label><select id="trx-id" onchange="autoPilihAkaun()"><option value="">-- Umum --</option></select></div>
-            <div class="input-group"><label>Kategori Akaun</label>
-                <select id="trx-akaun">
-                    <option value="">-- Pilih --</option>
-                    <optgroup label="DEBIT (MASUK)"><option value="Yuran Ahli">Yuran Ahli</option><option value="Sumbangan">Sumbangan</option><option value="Pelbagai">Pelbagai Masuk</option></optgroup>
-                    <optgroup label="KREDIT (KELUAR)"><option value="Utiliti">Utiliti</option><option value="Jamuan">Jamuan</option><option value="Alatan">Alatan Pejabat</option></optgroup>
+        <div class="grid-input" style="grid-template-columns: 1.5fr 1fr 2.5fr 1fr 1fr 1fr 1fr;">
+            <div class="input-group"><label>Nama Transaksi</label><input type="text" id="gen-nama" placeholder="Cth: Sewa Khemah"></div>
+            <div class="input-group"><label>Jenis Akaun</label>
+                <select id="gen-akaun">
+                    <option value="Sumbangan">Sumbangan</option><option value="Pelbagai">Pelbagai Masuk</option>
+                    <option value="Utiliti">Utiliti</option><option value="Jamuan">Jamuan</option><option value="Alatan">Alatan Pejabat</option>
                 </select>
             </div>
-            <div class="input-group"><label>Bulan</label><select id="trx-bulan"><option value="">-</option><option>Jan</option><option>Feb</option><option>Mac</option><option>Apr</option><option>Mei</option><option>Jun</option><option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option></select></div>
-            <div class="input-group"><label>Tarikh Transaksi</label><input type="date" id="trx-tkh"></div>
-            <div class="input-group"><label>No. Ref</label><input type="text" id="trx-ref"></div>
-            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="trx-amaun" step="0.01"></div>
-        </div>
-        <div class="input-group" style="margin-top:15px;">
-            <label>Perincian Audit</label>
-            <input type="text" id="trx-perkara" placeholder="Butiran penuh transaksi">
-        </div>
-        <div style="margin-top:20px; display: flex; gap: 15px;">
-            <button class="btn btn-green" style="flex:1" onclick="tambahTransaksi('DEBIT')">REKOD MASUK</button>
-            <button class="btn btn-red" style="flex:1" onclick="tambahTransaksi('KREDIT')">REKOD KELUAR</button>
+            <div class="input-group"><label>Butiran Tambahan</label><input type="text" id="gen-detail" placeholder="Cth: Program Sukan"></div>
+            <div class="input-group"><label>Tarikh</label><input type="date" id="gen-tkh"></div>
+            <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref" placeholder="No. Resit"></div>
+            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="gen-amt" step="0.01"></div>
+            <div style="display:flex; gap:5px;">
+                <button class="btn btn-green" onclick="rekodGen('DEBIT')">MASUK</button>
+                <button class="btn btn-red" onclick="rekodGen('KREDIT')">KELUAR</button>
+            </div>
         </div>
     </div>
 
-    <h3>Laporan Status Yuran Keahlian</h3>
-    <table id="table-yuran">
-        <thead><tr><th>Bil</th><th>Nama Ahli</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
-        <tbody></tbody>
-    </table>
+    <div class="no-print section-title">INPUT TRANSAKSI YURAN (Khas Untuk Yuran Ahli)</div>
+    <div class="no-print section" style="border-color: #1e40af;">
+        <div class="grid-input" style="grid-template-columns: 2fr 1fr 0.8fr 1fr 1fr 1fr 1fr;">
+            <div class="input-group"><label>Pilih Ahli</label><select id="yur-id"></select></div>
+            <div class="input-group"><label>Jenis Akaun</label><input type="text" value="Yuran Ahli" readonly style="background:#eee;"></div>
+            <div class="input-group"><label>Bulan</label><select id="yur-bulan"><option>Jan</option><option>Feb</option><option>Mac</option><option>Apr</option><option>Mei</option><option>Jun</option><option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option></select></div>
+            <div class="input-group"><label>Tarikh</label><input type="date" id="yur-tkh"></div>
+            <div class="input-group"><label>Rujukan</label><input type="text" id="yur-ref"></div>
+            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="yur-amt" step="0.01"></div>
+            <button class="btn btn-blue" onclick="rekodYuran()">REKOD YURAN</button>
+        </div>
+    </div>
 
-    <h3>Buku Tunai (Lejar Am)</h3>
-    <table id="table-lejar">
-        <thead><tr><th>Tarikh</th><th>Ref</th><th style="text-align:left">Perincian Akaun</th><th>Debit</th><th>Kredit</th><th>Baki</th><th class="no-print">Aksi</th></tr></thead>
-        <tbody></tbody>
-        <tfoot>
-            <tr class="row-footer"><td colspan="3" style="text-align:right">JUMLAH KESELURUHAN</td><td id="foot-debit">0.00</td><td id="foot-kredit">0.00</td><td id="foot-baki" style="background:#fff2cc">0.00</td><td class="no-print"></td></tr>
-        </tfoot>
-    </table>
+    <div class="section-title">LAPORAN STATUS YURAN AHLI</div>
+    <div class="section">
+        <table id="table-yuran">
+            <thead><tr><th>Bil</th><th>Nama Ahli</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="section-title">BUKU TUNAI / LEJAR AM</div>
+    <div class="section">
+        <table id="table-lejar">
+            <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Perihal Akaun & Butiran</th><th>Debit (RM)</th><th>Kredit (RM)</th><th>Baki (RM)</th><th class="no-print">Aksi</th></tr></thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr class="row-footer"><td colspan="3" style="text-align:right">JUMLAH KESELURUHAN (RM)</td><td id="foot-debit">0.00</td><td id="foot-kredit">0.00</td><td id="foot-baki" style="background:#fff2cc">0.00</td><td class="no-print"></td></tr>
+            </tfoot>
+        </table>
+    </div>
 
     <div class="sig-container">
         <p>Disediakan oleh,</p>
@@ -133,75 +146,100 @@
         const n = document.getElementById('reg-nama').value;
         const j = document.getElementById('reg-ajk').value;
         if(!n) return;
-        senaraiAhli.push({ id: Date.now(), nama: n, jawatan: j, yuran: { Jan:0, Feb:0, Mac:0, Apr:0, Mei:0, Jun:0, Jul:0, Ogo:0, Sep:0, Okt:0 } });
+        senaraiAhli.push({ id: Date.now(), nama: n, jawatan: j, yuran: {} });
         refreshSistem();
         document.getElementById('reg-nama').value = ''; document.getElementById('reg-ajk').value = '';
     }
 
-    function autoPilihAkaun() {
-        if(document.getElementById('trx-id').value) document.getElementById('trx-akaun').value = "Yuran Ahli";
-    }
-
-    function tambahTransaksi(jenis) {
-        const d = {
+    function rekodGen(jenis) {
+        const amt = Number(document.getElementById('gen-amt').value);
+        const tkh = document.getElementById('gen-tkh').value;
+        if(!amt || !tkh) return alert("Sila isi Tarikh dan Amaun!");
+        
+        transaksi.push({
             id: Date.now(),
-            ahliId: document.getElementById('trx-id').value,
-            akaun: document.getElementById('trx-akaun').value,
-            bulan: document.getElementById('trx-bulan').value,
-            tkh: document.getElementById('trx-tkh').value,
-            ref: document.getElementById('trx-ref').value,
-            amt: Number(document.getElementById('trx-amaun').value),
-            perincian: document.getElementById('trx-perkara').value,
-            jenis: jenis
-        };
-        if(!d.amt || !d.tkh || !d.akaun) return alert("Sila lengkapkan maklumat!");
-        transaksi.push(d);
+            nama: document.getElementById('gen-nama').value,
+            akaun: document.getElementById('gen-akaun').value,
+            detail: document.getElementById('gen-detail').value,
+            tkh: tkh,
+            ref: document.getElementById('gen-ref').value,
+            amt: amt,
+            jenis: jenis,
+            isYuran: false
+        });
         refreshSistem();
     }
 
-    function hapusTransaksi(id) {
-        if(confirm("Hapus rekod ini?")) {
-            transaksi = transaksi.filter(t => t.id !== id);
-            refreshSistem();
-        }
+    function rekodYuran() {
+        const ahliId = document.getElementById('yur-id').value;
+        const amt = Number(document.getElementById('yur-amt').value);
+        const tkh = document.getElementById('yur-tkh').value;
+        if(!ahliId || !amt || !tkh) return alert("Lengkapkan maklumat yuran!");
+
+        transaksi.push({
+            id: Date.now(),
+            ahliId: ahliId,
+            akaun: 'Yuran Ahli',
+            bulan: document.getElementById('yur-bulan').value,
+            tkh: tkh,
+            ref: document.getElementById('yur-ref').value,
+            amt: amt,
+            jenis: 'DEBIT',
+            isYuran: true
+        });
+        refreshSistem();
+    }
+
+    function hapus(id) {
+        if(confirm("Hapus rekod ini?")) { transaksi = transaksi.filter(t => t.id !== id); refreshSistem(); }
     }
 
     function refreshSistem() {
-        senaraiAhli.forEach(a => bulanKeys.forEach(b => a.yuran[b] = 0));
-        const sel = document.getElementById('trx-id');
-        const current = sel.value;
-        sel.innerHTML = '<option value="">-- Umum --</option>';
+        // Update Yuran Dropdown
+        const sel = document.getElementById('yur-id');
+        sel.innerHTML = '';
         senaraiAhli.forEach(a => sel.add(new Option(a.nama, a.id)));
-        sel.value = current;
 
-        const tbody = document.querySelector('#table-lejar tbody');
-        tbody.innerHTML = '';
-        let bakiAwal = Number(document.getElementById('baki-awal-input').value) || 0;
-        let bakiBerjalan = bakiAwal;
+        // Reset Table Yuran
+        senaraiAhli.forEach(a => bulanKeys.forEach(b => a.yuran[b] = 0));
+
+        const tbodyLejar = document.querySelector('#table-lejar tbody');
+        tbodyLejar.innerHTML = '';
+        let baki = Number(document.getElementById('baki-awal-input').value) || 0;
         let td = 0, tk = 0;
 
-        // Baris Baki Awal
-        const row0 = tbody.insertRow(); row0.className = "row-baki-awal";
-        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left"><strong>Baki b/h</strong></td><td>-</td><td>-</td><td style="font-weight:bold">${bakiBerjalan.toFixed(2)}</td><td class="no-print"></td>`;
+        // Baki b/h
+        const row0 = tbodyLejar.insertRow();
+        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left"><strong>Baki b/h</strong></td><td>-</td><td>-</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print"></td>`;
 
         transaksi.sort((a,b) => new Date(a.tkh) - new Date(b.tkh)).forEach(t => {
             let dbt = t.jenis === 'DEBIT' ? t.amt : 0;
             let kdt = t.jenis === 'KREDIT' ? t.amt : 0;
-            bakiBerjalan += (dbt - kdt);
+            baki += (dbt - kdt);
             td += dbt; tk += kdt;
 
-            let ahli = senaraiAhli.find(x => x.id == t.ahliId);
-            if(t.akaun === "Yuran Ahli" && ahli) ahli.yuran[t.bulan] = t.amt;
+            let displayPerihal = "";
+            if(t.isYuran) {
+                let ahli = senaraiAhli.find(x => x.id == t.ahliId);
+                if(ahli) {
+                    ahli.yuran[t.bulan] = t.amt;
+                    displayPerihal = `<strong>Yuran Ahli</strong> - ${ahli.nama} (${t.bulan})`;
+                }
+            } else {
+                displayPerihal = `<strong>${t.akaun}</strong> - ${t.nama} (${t.detail})`;
+            }
 
-            const row = tbody.insertRow();
-            row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left"><strong>${t.akaun}</strong> - ${t.perincian} ${ahli ? '('+ahli.nama+')' : ''}</td><td class="txt-debit">${dbt||''}</td><td class="txt-kredit">${kdt||''}</td><td style="font-weight:bold">${bakiBerjalan.toFixed(2)}</td><td class="no-print">
-                <button class="btn btn-delete" onclick="hapusTransaksi(${t.id})">×</button>
-                ${t.akaun === 'Yuran Ahli' ? `<button class="btn btn-blue" style="font-size:9px; padding:2px 5px; margin-left:5px;" onclick="cetakResit('${ahli.nama}', '${t.bulan}', '${t.amt}', '${t.ref}', '${t.tkh}')">RESIT</button>` : ''}
+            const row = tbodyLejar.insertRow();
+            row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left">${displayPerihal}</td><td class="txt-debit">${dbt||''}</td><td class="txt-kredit">${kdt||''}</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print">
+                <button class="btn btn-delete" onclick="hapus(${t.id})">×</button>
+                ${t.isYuran ? `<button class="btn btn-blue" style="font-size:9px; padding:2px 5px;" onclick="cetakResit('${t.id}')">Resit</button>` : ''}
             </td>`;
         });
+
         document.getElementById('foot-debit').innerText = td.toFixed(2);
         document.getElementById('foot-kredit').innerText = tk.toFixed(2);
-        document.getElementById('foot-baki').innerText = bakiBerjalan.toFixed(2);
+        document.getElementById('foot-baki').innerText = baki.toFixed(2);
+
         renderYuranTable();
     }
 
@@ -211,7 +249,7 @@
         senaraiAhli.forEach((a, i) => {
             let sum = 0;
             let tr = tbody.insertRow();
-            tr.innerHTML = `<td>${i+1}</td><td style="text-align:left">${a.nama}</td><td>${a.jawatan}</td>${bulanKeys.map(b=>{ let v=a.yuran[b]; sum+=v; return `<td>${v||''}</td>`}).join('')}<td>${sum.toFixed(2)}</td>`;
+            tr.innerHTML = `<td>${i+1}</td><td style="text-align:left">${a.nama}</td><td>${a.jawatan}</td>${bulanKeys.map(b=>{ let v=a.yuran[b]||0; sum+=v; return `<td>${v||''}</td>`}).join('')}<td>${sum.toFixed(2)}</td>`;
         });
     }
 
@@ -243,8 +281,10 @@
         reader.readAsText(e.target.files[0]);
     }
 
-    function cetakResit(nama, bulan, amaun, ref, tkh) {
-        const nBen = document.getElementById('ben-nama').value || "Bendahari";
+    function cetakResit(id) {
+        const t = transaksi.find(x => x.id == id);
+        const ahli = senaraiAhli.find(x => x.id == t.ahliId);
+        const nBen = document.getElementById('ben-nama').value;
         const org = document.getElementById('org-name').value;
         const win = window.open('', '', 'width=800,height=600');
         win.document.write(`<html><head><link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet"><style>
@@ -253,22 +293,19 @@
             .stamp-area { display: flex; align-items: center; gap: 40px; margin-top: 30px; }
             .double-stamp { 
                 width: 170px; height: 170px; 
-                border: 2px solid #1e40af; outline: 6px solid #1e40af; outline-offset: 8px; /* Double Line Jauh */
-                border-radius: 50%; color: #1e40af; 
-                display: flex; align-items: center; justify-content: center; 
-                text-align: center; font-size: 11px; font-weight: bold; 
-                line-height: 1.0; /* Jarak Teks 1.0 */
-                padding: 15px; box-sizing: border-box; transform: rotate(-8deg); text-transform: uppercase;
+                border: 2px solid #1e40af; outline: 6px solid #1e40af; outline-offset: 8px; 
+                border-radius: 50%; color: #1e40af; display: flex; align-items: center; justify-content: center; 
+                text-align: center; font-size: 11px; font-weight: bold; line-height: 1.0; padding: 15px; box-sizing: border-box; transform: rotate(-8deg); text-transform: uppercase;
             }
             .sig { font-family: 'Herr Von Muellerhoff', cursive; font-size: 65px; line-height: 0.5; }
             .box { border: 2px solid #000; padding: 10px; font-size: 22px; font-weight: bold; width: fit-content; margin: 20px 0; }
         </style></head><body>
             <div class="header"><h3>${org}</h3><p>RESIT RASMI PENERIMAAN</p></div>
-            <p>No. Ref: <strong>${ref}</strong> | Tarikh: <strong>${tkh}</strong></p>
-            <p>Diterima daripada: <strong>${nama.toUpperCase()}</strong><br>Bayaran: Yuran Ahli Bulan ${bulan}</p>
-            <div class="box">RM ${parseFloat(amaun).toFixed(2)}</div>
+            <p>No. Ref: <strong>${t.ref}</strong> | Tarikh: <strong>${t.tkh}</strong></p>
+            <p>Diterima daripada: <strong>${ahli.nama.toUpperCase()}</strong><br>Bayaran: Yuran Ahli Bulan ${t.bulan}</p>
+            <div class="box">RM ${parseFloat(t.amt).toFixed(2)}</div>
             <div class="stamp-area">
-                <div class="double-stamp">DITERIMA BENDAHARI<br>BERTARIKH<br>${tkh}</div>
+                <div class="double-stamp">DITERIMA BENDAHARI<br>BERTARIKH<br>${t.tkh}</div>
                 <div><div class="sig">${nBen}</div>__________________________<br><strong>${nBen.toUpperCase()}</strong><br>Bendahari</div>
             </div><script>window.print();<\/script></body></html>`);
         win.document.close();
