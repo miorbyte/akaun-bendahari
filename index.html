@@ -2,71 +2,74 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Lejar AJK KV Kulim</title>
+    <title>Sistem Lejar Bendahari KV Kulim</title>
     <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2c3e50; --header-bg: #92d050; --table-border: #000; }
+        :root { --primary: #2c3e50; --header-bg: #92d050; --table-border: #000; --debit-clr: #27ae60; --kredit-clr: #e74c3c; }
         body { font-family: 'Poppins', sans-serif; background: #f4f4f4; padding: 20px; font-size: 12px; }
         .wrapper { max-width: 1200px; margin: auto; background: white; padding: 25px; border: 1px solid #ccc; }
         
-        .main-header { background-color: var(--header-bg); text-align: center; padding: 12px; border: 2px solid var(--table-border); margin-bottom: 20px; }
-        .main-header h2 { margin: 0; font-size: 1.1rem; text-transform: uppercase; font-weight: 700; }
+        /* Header Editable */
+        .main-header { background-color: var(--header-bg); text-align: center; padding: 15px; border: 2px solid var(--table-border); margin-bottom: 20px; }
+        .editable-title { border: 1px dashed transparent; cursor: pointer; display: block; width: 100%; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; background: none; text-align: center; font-family: inherit; }
+        .editable-title:hover { border: 1px dashed #333; background: rgba(255,255,255,0.2); }
+        .sub-title { font-size: 1rem; font-weight: 600; margin-top: 5px; }
 
         .section { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fff; border-radius: 8px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
         
+        /* Table Styles */
         table { width: 100%; border-collapse: collapse; border: 2px solid var(--table-border); margin-bottom: 30px; }
-        th, td { border: 1px solid var(--table-border); padding: 6px; text-align: center; }
+        th, td { border: 1px solid var(--table-border); padding: 8px; text-align: center; }
         th { background: #b4c6e7; font-weight: bold; }
-        .col-nama { text-align: left; padding-left: 8px; }
+        .col-nama { text-align: left; padding-left: 10px; }
         .col-jawatan { background: #fff2cc; }
-        .row-jumlah { background: #b4c6e7; font-weight: bold; }
-
-        /* Lejar Colors */
-        .debit { color: #27ae60; font-weight: bold; }
-        .kredit { color: #c0392b; font-weight: bold; }
-        .baki-row { background: #f8f9fa; font-weight: bold; }
-
-        input, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        .btn { padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; }
-        .btn-yuran { background: #28a745; }
-        .btn-umum { background: #dc3545; }
-        .btn-blue { background: #2e75b6; }
-
-        .sig-container { margin-top: 30px; width: 300px; }
-        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 45px; color: #000; line-height: 0.5; margin-bottom: 5px; }
         
-        @media print { .no-print { display: none !important; } .wrapper { border: none; width: 100%; } }
+        /* Ledger Specific */
+        .txt-debit { color: var(--debit-clr); font-weight: bold; }
+        .txt-kredit { color: var(--kredit-clr); font-weight: bold; }
+        .row-footer { background: #d1d8e0; font-weight: bold; }
+        .row-baki { background: #f1f2f6; font-weight: bold; }
+
+        input, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; }
+        .btn { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
+        .btn-green { background: #28a745; }
+        .btn-red { background: #dc3545; }
+        .btn-blue { background: #2e75b6; }
+        .btn:hover { opacity: 0.8; }
+
+        .sig-container { margin-top: 40px; }
+        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 50px; line-height: 0.5; }
+
+        @media print { .no-print { display: none !important; } .wrapper { border: none; width: 100%; } .editable-title { border: none; } }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="main-header">
-        <h2 id="view-title">AJK PENGURUSAN KOLEJ VOKASIONAL KULIM</h2>
-        <h2 id="view-subtitle">LEJAR TRANSAKSI & REKOD YURAN 2025/2026</h2>
+        <input type="text" class="editable-title" value="AJK PENGURUSAN KOLEJ VOKASIONAL KULIM" id="main-title-input">
+        <input type="text" class="editable-title sub-title" value="A/K PENERIMAAN 2025 SEHINGGA 2026" id="sub-title-input">
     </div>
 
-    <div class="no-print section">
-        <div class="grid">
-            <div>
-                <h3>Daftar Ahli</h3>
-                <input type="text" id="reg-nama" placeholder="Nama Penuh">
-                <input type="text" id="reg-ajk" placeholder="Jawatan AJK">
-                <button class="btn btn-blue" style="width:100%; margin-top:5px;" onclick="daftarAhli()">+ Simpan Ahli</button>
-            </div>
-            <div>
-                <h3>Bendahari</h3>
-                <input type="text" id="ben-nama" placeholder="Nama Bendahari" oninput="updateBen()">
-                <input type="text" id="ben-jawatan" placeholder="Jawatan" oninput="updateBen()">
-            </div>
+    <div class="no-print grid">
+        <div class="section">
+            <h3 style="margin-top:0">1. Urus Ahli</h3>
+            <input type="text" id="reg-nama" placeholder="Nama Penuh">
+            <input type="text" id="reg-ajk" placeholder="Jawatan">
+            <button class="btn btn-blue" style="width:100%; margin-top:10px;" onclick="daftarAhli()">+ Daftar Ahli</button>
+        </div>
+        <div class="section">
+            <h3 style="margin-top:0">2. Urus Bendahari</h3>
+            <input type="text" id="ben-nama" placeholder="Nama Bendahari" oninput="updateBen()">
+            <input type="text" id="ben-jawatan" placeholder="Jawatan" oninput="updateBen()">
         </div>
     </div>
 
     <div class="no-print section">
-        <h3>Input Transaksi (Lejar)</h3>
+        <h3 style="margin-top:0">3. Rekod Transaksi Lejar</h3>
         <div class="grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr;">
-            <select id="trx-id"></select>
+            <select id="trx-id" onchange="autoPerkara()"></select>
             <select id="trx-bulan">
                 <option value="">-- Bulan --</option>
                 <option>Jan</option><option>Feb</option><option>Mac</option><option>April</option>
@@ -77,49 +80,52 @@
             <input type="date" id="trx-tkh">
             <input type="number" id="trx-amaun" placeholder="RM 0.00">
         </div>
-        <input type="text" id="trx-perkara" placeholder="Keterangan Transaksi Umum" style="margin: 10px 0;">
+        <input type="text" id="trx-perkara" placeholder="Keterangan Transaksi (Contoh: Bayar Bil Elektrik)" style="margin: 10px 0;">
         <div style="display: flex; gap: 10px;">
-            <button class="btn btn-yuran" onclick="prosesTransaksi('DEBIT_YURAN')">MASUK YURAN (DEBIT)</button>
-            <button class="btn btn-blue" onclick="prosesTransaksi('DEBIT_UMUM')">MASUK UMUM (DEBIT)</button>
-            <button class="btn btn-umum" onclick="prosesTransaksi('KREDIT')">KELUAR WANG (KREDIT)</button>
+            <button class="btn btn-green" onclick="tambahLejar('DEBIT')">MASUK WANG / YURAN (DEBIT)</button>
+            <button class="btn btn-red" onclick="tambahLejar('KREDIT')">KELUAR WANG (KREDIT)</button>
         </div>
     </div>
 
-    <h3>Laporan Status Yuran Ahli</h3>
+    <hr>
+
+    <h3>Laporan Status Yuran Keahlian</h3>
     <table id="master-table">
         <thead>
             <tr>
                 <th width="30">Bil</th>
                 <th>NAMA</th>
-                <th width="140">Jawatan</th>
+                <th width="150">Jawatan</th>
                 <th>Jan</th><th>Feb</th><th>Mac</th><th>April</th><th>Mei</th><th>Jun</th>
                 <th>Julai</th><th>Ogos</th><th>Sept</th><th>Okt</th>
-                <th>JUMLAH</th>
+                <th>JUMLAH (RM)</th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
 
-    <h3>Laporan Rekod Transaksi Keseluruhan (Format Lejar)</h3>
+    <h3>Rekod Transaksi Keseluruhan (Format Lejar)</h3>
+    
     <table id="table-lejar">
         <thead>
             <tr>
                 <th width="100">Tarikh</th>
                 <th width="100">No. Ref</th>
                 <th style="text-align:left; padding-left:10px;">Keterangan / Perkara</th>
-                <th width="100">Debit (RM)</th>
-                <th width="100">Kredit (RM)</th>
+                <th width="120">Debit (RM)</th>
+                <th width="120">Kredit (RM)</th>
                 <th width="120">Baki (RM)</th>
                 <th class="no-print" width="60">Resit</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            </tbody>
         <tfoot>
-            <tr class="baki-row">
-                <td colspan="3" style="text-align:right">JUMLAH KESELURUHAN</td>
-                <td id="total-debit">0.00</td>
-                <td id="total-kredit">0.00</td>
-                <td id="total-baki" style="background:#d1e7dd">0.00</td>
+            <tr class="row-footer">
+                <td colspan="3" style="text-align:right">JUMLAH KESELURUHAN (RM)</td>
+                <td id="foot-debit">0.00</td>
+                <td id="foot-kredit">0.00</td>
+                <td id="foot-baki" style="background:#fff2cc">0.00</td>
                 <td class="no-print"></td>
             </tr>
         </tfoot>
@@ -128,12 +134,12 @@
     <div class="sig-container">
         <p>Disediakan oleh,</p>
         <div id="out-sig" class="sig-font">Tandatangan</div>
-        <div style="border-bottom: 1.5px solid #000; width: 220px; margin-bottom: 5px;"></div>
+        <div style="border-bottom: 2px solid #000; width: 250px; margin-bottom: 5px;"></div>
         <strong id="out-nama" style="text-transform: uppercase;">(NAMA PENUH)</strong><br>
         <span id="out-ben">Bendahari Organisasi</span>
     </div>
 
-    <button class="btn btn-blue no-print" style="width:100%; margin-top:30px; padding:15px;" onclick="window.print()">CETAK LAPORAN LEJAR</button>
+    <button class="btn btn-blue no-print" style="width:100%; margin-top:30px; padding:15px;" onclick="window.print()">CETAK LAPORAN PENUH</button>
 </div>
 
 <script>
@@ -146,7 +152,8 @@
     function daftarAhli() {
         const nama = document.getElementById('reg-nama').value;
         const ajk = document.getElementById('reg-ajk').value;
-        if(!nama) return;
+        if(!nama) return alert("Sila isi nama ahli!");
+
         senaraiAhli.push({
             id: Date.now(), nama, jawatan: ajk,
             yuran: { Jan:0, Feb:0, Mac:0, April:0, Mei:0, Jun:0, Julai:0, Ogos:0, Sept:0, Okt:0 }
@@ -163,25 +170,36 @@
         senaraiAhli.forEach((ahli, index) => {
             let rowSum = 0;
             let row = tbody.insertRow();
-            row.innerHTML = `<td>${index + 1}</td><td class="col-nama">${ahli.nama}</td><td class="col-jawatan">${ahli.jawatan}</td>
+            row.innerHTML = `<td>${index+1}</td><td class="col-nama">${ahli.nama}</td><td class="col-jawatan">${ahli.jawatan}</td>
                 ${bulanKeys.map(b => {
                     let v = Number(ahli.yuran[b]) || 0; rowSum += v;
                     return `<td>${v > 0 ? v : ''}</td>`;
                 }).join('')}
-                <td style="font-weight:bold">${rowSum}</td>`;
+                <td style="font-weight:bold">${rowSum.toFixed(2)}</td>`;
         });
     }
 
     function updateDropdown() {
         const sel = document.getElementById('trx-id');
-        sel.innerHTML = '<option value="">-- TRANSAKSI UMUM --</option>';
+        sel.innerHTML = '<option value="">-- Transaksi Umum --</option>';
         senaraiAhli.forEach(a => {
             let opt = document.createElement('option');
             opt.value = a.id; opt.text = a.nama; sel.add(opt);
         });
     }
 
-    function prosesTransaksi(jenis) {
+    function autoPerkara() {
+        const id = document.getElementById('trx-id').value;
+        const perkaraInput = document.getElementById('trx-perkara');
+        if(id) {
+            const ahli = senaraiAhli.find(a => a.id == id);
+            perkaraInput.value = `Yuran: ${ahli.nama}`;
+        } else {
+            perkaraInput.value = "";
+        }
+    }
+
+    function tambahLejar(jenis) {
         const idAhli = document.getElementById('trx-id').value;
         const bulan = document.getElementById('trx-bulan').value;
         const ref = document.getElementById('trx-ref').value;
@@ -189,20 +207,19 @@
         const amt = Number(document.getElementById('trx-amaun').value);
         const perkara = document.getElementById('trx-perkara').value;
 
-        if(!amt || !tkh) return alert("Sila masukkan Tarikh dan Amaun!");
+        if(!amt || !tkh || !perkara) return alert("Lengkapkan Tarikh, Perkara dan Amaun!");
 
-        let ket = perkara;
         let dbt = 0, kdt = 0;
+        let isYuran = false;
 
-        if(jenis === 'DEBIT_YURAN') {
-            let ahli = senaraiAhli.find(a => a.id == idAhli);
-            if(!ahli || !bulan) return alert("Pilih Ahli & Bulan untuk yuran!");
-            ahli.yuran[bulan] = amt;
-            ket = `Yuran: ${ahli.nama} (${bulan})`;
+        if(jenis === 'DEBIT') {
             dbt = amt;
-            renderMatriks();
-        } else if(jenis === 'DEBIT_UMUM') {
-            dbt = amt;
+            if(idAhli && bulan) {
+                let ahli = senaraiAhli.find(a => a.id == idAhli);
+                ahli.yuran[bulan] = amt;
+                isYuran = true;
+                renderMatriks();
+            }
         } else {
             kdt = amt;
         }
@@ -211,31 +228,22 @@
         totalDebit += dbt;
         totalKredit += kdt;
 
-        tambahKeLejar(tkh, ref, ket, dbt, kdt, bakiSemasa, jenis === 'DEBIT_YURAN', idAhli, bulan);
-        updateTotals();
-    }
-
-    function tambahKeLejar(tkh, ref, ket, dbt, kdt, baki, isYuran, idA, bln) {
         const tbody = document.querySelector('#table-lejar tbody');
         const row = tbody.insertRow();
-        const ahli = senaraiAhli.find(a => a.id == idA);
-        
         row.innerHTML = `
             <td>${tkh}</td><td>${ref || '-'}</td>
-            <td style="text-align:left; padding-left:10px;">${ket}</td>
-            <td class="debit">${dbt > 0 ? dbt.toFixed(2) : ''}</td>
-            <td class="kredit">${kdt > 0 ? kdt.toFixed(2) : ''}</td>
-            <td style="font-weight:bold">${baki.toFixed(2)}</td>
+            <td style="text-align:left; padding-left:10px;">${perkara} ${bulan ? '('+bulan+')' : ''}</td>
+            <td class="txt-debit">${dbt > 0 ? dbt.toFixed(2) : ''}</td>
+            <td class="txt-kredit">${kdt > 0 ? kdt.toFixed(2) : ''}</td>
+            <td style="font-weight:bold">${bakiSemasa.toFixed(2)}</td>
             <td class="no-print">
-                ${isYuran ? `<button class="btn btn-blue" style="padding:2px 5px; font-size:10px" onclick="cetakResit('${ahli.nama}', '${bln}', '${dbt}', '${ahli.jawatan}', '${ref}')">RESIT</button>` : '-'}
+                ${isYuran ? `<button class="btn btn-blue" style="font-size:10px; padding:2px 5px;" onclick="cetakResit('${perkara}', '${bulan}', '${amt}', '${ref}')">RESIT</button>` : '-'}
             </td>
         `;
-    }
 
-    function updateTotals() {
-        document.getElementById('total-debit').innerText = totalDebit.toFixed(2);
-        document.getElementById('total-kredit').innerText = totalKredit.toFixed(2);
-        document.getElementById('total-baki').innerText = bakiSemasa.toFixed(2);
+        document.getElementById('foot-debit').innerText = totalDebit.toFixed(2);
+        document.getElementById('foot-kredit').innerText = totalKredit.toFixed(2);
+        document.getElementById('foot-baki').innerText = bakiSemasa.toFixed(2);
     }
 
     function updateBen() {
@@ -244,24 +252,26 @@
         document.getElementById('out-nama').innerText = n ? "(" + n.toUpperCase() + ")" : "(NAMA PENUH)";
     }
 
-    function cetakResit(nama, bulan, amaun, ajk, ref) {
+    function cetakResit(nama, bulan, amaun, ref) {
         const nBen = document.getElementById('ben-nama').value || "Bendahari";
-        const tajuk = document.getElementById('view-title').innerText;
+        const tajuk = document.getElementById('main-title-input').value;
         const win = window.open('', '', 'width=500,height=600');
         const tkhToday = new Date().toLocaleDateString('ms-MY');
 
         win.document.write(`
             <html><head><link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
             <style>
-                body { font-family: sans-serif; padding: 30px; border: 4px double #000; position: relative; }
+                body { font-family: sans-serif; padding: 40px; border: 5px double #000; position: relative; }
                 .stamp { position: absolute; right: 30px; bottom: 120px; width: 100px; height: 100px; border: 3px solid #1e40af; border-radius: 50%; color: #1e40af; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 10px; font-weight: bold; transform: rotate(-15deg); opacity: 0.7; }
-                .sig { font-family: 'Herr Von Muellerhoff', cursive; font-size: 50px; }
+                .sig { font-family: 'Herr Von Muellerhoff', cursive; font-size: 55px; }
+                .box { border: 2px solid #000; padding: 10px; width: fit-content; font-size: 20px; font-weight: bold; margin: 20px 0; }
             </style>
             </head><body>
                 <center><h3>${tajuk}</h3><p>RESIT RASMI PENERIMAAN</p><hr></center>
                 <p>No. Ref: ${ref} | Tarikh: ${tkhToday}</p>
-                <p>Diterima daripada: <strong>${nama.toUpperCase()}</strong><br>Jawatan: ${ajk}<br>Bayaran: <strong>Yuran Bulan ${bulan}</strong></p>
-                <h2 style="border:2px solid #000; width:fit-content; padding:5px 15px;">RM ${parseFloat(amaun).toFixed(2)}</h2>
+                <p>Diterima daripada: <strong>${nama.toUpperCase()}</strong><br>
+                Bayaran: <strong>Yuran Keahlian Bulan ${bulan}</strong></p>
+                <div class="box">RM ${parseFloat(amaun).toFixed(2)}</div>
                 <div class="stamp">DIESAHKAN<br>${tkhToday}<br>BENDAHARI</div>
                 <div style="margin-top:40px;">Diterima oleh:<br><div class="sig">${nBen}</div>_________________<br><strong>${nBen.toUpperCase()}</strong></div>
                 <script>window.print();<\/script>
