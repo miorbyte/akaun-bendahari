@@ -2,75 +2,64 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Ezi Akaun Bendahari - Premium Compact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ezi Akaun Bendahari - Mobile Friendly</title>
     <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --primary: #1e293b; 
-            --accent: #b45309;  
-            --bg: #f1f5f9; 
-            --white: #ffffff;
-            --border-thick: #1e293b;
-            --debit: #059669;
-            --kredit: #dc2626;
+            --primary: #1e293b; --accent: #b45309; --bg: #f1f5f9; 
+            --white: #ffffff; --border-thick: #1e293b; --debit: #059669; --kredit: #dc2626;
         }
         
-        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 20px; color: #334155; font-size: 12px; }
-        .wrapper { max-width: 1300px; margin: auto; background: var(--white); padding: 35px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 10px; color: #334155; font-size: 13px; margin: 0; }
+        .wrapper { max-width: 1300px; margin: auto; background: var(--white); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         
-        /* Nama Template Yang Dikembalikan */
-        .template-name { 
-            text-align: center; 
-            font-weight: 800; 
-            color: var(--accent); 
-            letter-spacing: 3px; 
-            font-size: 14px; 
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
+        .template-name { text-align: center; font-weight: 800; color: var(--accent); letter-spacing: 2px; font-size: 12px; margin-bottom: 5px; text-transform: uppercase; }
+        .main-header { border-bottom: 4px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
+        .editable-org { font-size: 22px; font-weight: 800; color: var(--primary); border: none; width: 100%; text-align: center; text-transform: uppercase; outline: none; background: transparent; }
+        .editable-acc { font-size: 14px; color: #475569; border: none; width: 100%; text-align: center; outline: none; background: transparent; font-weight: 600; }
 
-        .main-header { border-bottom: 4px solid var(--accent); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
-        .editable-org { font-size: 28px; font-weight: 800; color: var(--primary); border: none; width: 100%; text-align: center; text-transform: uppercase; outline: none; background: transparent; margin-bottom: 2px; }
-        .editable-acc { font-size: 15px; color: #475569; border: none; width: 100%; text-align: center; outline: none; background: transparent; font-weight: 600; }
-
-        .section-title { font-size: 10.5px; font-weight: 800; text-transform: uppercase; color: var(--white); background: var(--primary); padding: 4px 12px; border-radius: 4px 4px 0 0; display: inline-block; }
+        .section-title { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--white); background: var(--primary); padding: 4px 10px; border-radius: 4px 4px 0 0; display: inline-block; }
         .section { background: #fff; border: 2px solid var(--primary); padding: 15px; border-radius: 0 4px 4px 4px; margin-bottom: 20px; }
 
-        .grid-input { display: grid; gap: 10px; align-items: end; }
-        .input-group label { font-size: 10px; font-weight: 700; color: var(--primary); margin-bottom: 3px; text-transform: uppercase; }
-        
-        input, select { 
-            padding: 8px; 
-            border: 2px solid var(--border-thick); 
-            border-radius: 4px; 
-            font-size: 12px; 
-            color: var(--primary); 
-            font-weight: 600;
+        /* Mobile Responsive Grid */
+        .grid-input { 
+            display: grid; 
+            gap: 12px; 
+            grid-template-columns: 1fr; /* Default 1 column for mobile */
         }
+
+        @media (min-width: 768px) {
+            .grid-input { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+            .grid-input.profile { grid-template-columns: 2fr 1.2fr 0.8fr 2fr 1.2fr; }
+            .grid-input.general { grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr 1.4fr; }
+            .grid-input.yuran { grid-template-columns: 2.5fr 0.8fr 1fr 1fr 1fr 1.5fr; }
+            body { padding: 20px; }
+            .wrapper { padding: 35px; }
+        }
+
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-size: 10px; font-weight: 700; color: var(--primary); margin-bottom: 4px; text-transform: uppercase; }
         
-        .btn { padding: 9px 15px; border-radius: 4px; font-weight: 700; cursor: pointer; border: none; font-size: 11px; text-transform: uppercase; transition: 0.2s; }
+        input, select { padding: 12px; border: 2px solid var(--border-thick); border-radius: 6px; font-size: 14px; color: var(--primary); font-weight: 600; width: 100%; box-sizing: border-box; }
+        
+        .btn { padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; border: none; font-size: 12px; text-transform: uppercase; text-align: center; }
         .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { opacity: 0.9; }
         .btn-accent { background: var(--accent); color: white; }
-        .btn-outline { background: white; border: 2px solid var(--primary); color: var(--primary); }
-        .btn-print { background: var(--primary); width: 100%; padding: 15px; font-size: 14px; margin-top: 25px; color: #fff; letter-spacing: 1px; }
+        .btn-outline { background: white; border: 2px solid var(--primary); color: var(--primary); font-size: 10px; padding: 8px; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 5px; }
-        th { background: #e2e8f0; color: var(--primary); padding: 10px; border: 1px solid var(--primary); font-weight: 700; font-size: 11px; }
-        td { padding: 8px; border: 1px solid #cbd5e1; text-align: center; color: #1e293b; }
-        .row-footer { background: #f8fafc; font-weight: 800; border-top: 2px solid var(--primary); }
+        /* Scrollable Table for Mobile */
+        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 5px; border: 1px solid #cbd5e1; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th { background: #e2e8f0; color: var(--primary); padding: 10px; border: 1px solid var(--primary); font-size: 11px; }
+        td { padding: 10px; border: 1px solid #cbd5e1; text-align: center; font-size: 12px; }
 
-        .baki-box { background: #fef3c7; color: #92400e; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--accent); font-weight: 800; display: flex; align-items: center; gap: 10px; }
-
-        .sig-container { margin-top: 40px; }
-        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 55px; color: var(--primary); line-height: 0.4; }
-        .sig-line { border-bottom: 2px solid var(--primary); width: 220px; margin: 10px 0; }
+        .baki-box { background: #fef3c7; color: #92400e; padding: 15px; border-radius: 6px; border: 2px solid var(--accent); font-weight: 800; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 
         @media print { 
             .no-print, .btn, .section-title, .template-name { display: none !important; }
-            .wrapper { box-shadow: none; padding: 0; }
-            .section { border: none; padding: 0; margin-bottom: 30px; }
-            th { background: #eee !important; color: #000 !important; }
+            .table-container { overflow: visible; border: none; }
+            table { min-width: 100%; }
         }
     </style>
 </head>
@@ -83,31 +72,32 @@
         <input type="text" class="editable-acc" value="Laporan Penyata Kewangan Tahunan 2026" id="acc-name">
     </div>
 
-    <div class="no-print" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <div style="display:flex; gap:8px;">
-            <button class="btn btn-outline" onclick="saveData()">💾 Simpan Fail</button>
-            <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">📂 Buka Fail</button>
+    <div class="no-print">
+        <div style="display:flex; gap:5px; margin-bottom: 10px;">
+            <button class="btn btn-outline" style="flex:1" onclick="saveData()">💾 Simpan</button>
+            <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('fileInput').click()">📂 Buka</button>
             <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
         </div>
         <div class="baki-box">
-            Baki b/h (RM): <input type="number" id="baki-awal-input" value="0.00" step="0.01" oninput="refreshSistem()" style="border:none; background:transparent; font-weight:900; width:90px; color:inherit; padding:0;">
+            <span>Baki b/h (RM)</span>
+            <input type="number" id="baki-awal-input" value="0.00" step="0.01" oninput="refreshSistem()" style="border:none; background:transparent; font-weight:900; width:100px; text-align:right; color:inherit; padding:0; font-size: 18px;">
         </div>
     </div>
 
     <div class="no-print section-title">Profil & Bendahari</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2fr 1.2fr 0.8fr 2fr 1.2fr;">
-            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama" placeholder="Contoh: Ali Bin Abu"></div>
-            <div class="input-group"><label>Jawatan</label><input type="text" id="reg-ajk" placeholder="AJK / Ahli"></div>
+        <div class="grid-input profile">
+            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama" placeholder="Contoh: Ali"></div>
+            <div class="input-group"><label>Jawatan</label><input type="text" id="reg-ajk" placeholder="Contoh: AJK"></div>
             <button class="btn btn-primary" onclick="daftarAhli()">+ Daftar</button>
-            <div class="input-group"><label>Nama Bendahari</label><input type="text" id="ben-nama" oninput="updateBen()"></div>
+            <div class="input-group"><label>Bendahari</label><input type="text" id="ben-nama" oninput="updateBen()"></div>
             <div class="input-group"><label>Jawatan</label><input type="text" id="ben-jawatan" oninput="updateBen()"></div>
         </div>
     </div>
 
     <div class="no-print section-title">Transaksi Umum</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr 1.4fr;">
+        <div class="grid-input general">
             <div class="input-group"><label>Keterangan</label><input type="text" id="gen-nama"></div>
             <div class="input-group"><label>Kategori</label>
                 <select id="gen-akaun">
@@ -117,7 +107,7 @@
             <div class="input-group"><label>Tarikh</label><input type="date" id="gen-tkh"></div>
             <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref"></div>
             <div class="input-group"><label>Amaun (RM)</label><input type="number" id="gen-amt" step="0.01"></div>
-            <div style="display:flex; gap:4px;">
+            <div style="display:flex; gap:5px;">
                 <button class="btn btn-primary" style="background:#059669; flex:1;" onclick="rekodGen('DEBIT')">Masuk</button>
                 <button class="btn btn-primary" style="background:#dc2626; flex:1;" onclick="rekodGen('KREDIT')">Keluar</button>
             </div>
@@ -126,7 +116,7 @@
 
     <div class="no-print section-title">Kutipan Yuran</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 2.5fr 0.8fr 1fr 1fr 1fr 1.5fr;">
+        <div class="grid-input yuran">
             <div class="input-group"><label>Pilih Ahli</label><select id="yur-id"></select></div>
             <div class="input-group"><label>Bulan</label><select id="yur-bulan"><option>Jan</option><option>Feb</option><option>Mac</option><option>Apr</option><option>Mei</option><option>Jun</option><option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option></select></div>
             <div class="input-group"><label>Tarikh</label><input type="date" id="yur-tkh"></div>
@@ -136,38 +126,39 @@
         </div>
     </div>
 
-    <div class="section" style="border:none; padding:0;">
-        <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; margin-bottom:10px; color: var(--primary);">I. RINGKASAN STATUS YURAN AHLI</div>
+    <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; margin-bottom:10px; color: var(--primary);">I. RINGKASAN STATUS YURAN AHLI</div>
+    <div class="table-container">
         <table id="table-yuran">
             <thead><tr><th>Bil</th><th>Nama Ahli</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
             <tbody></tbody>
         </table>
     </div>
 
-    <div class="section" style="border:none; padding:0; margin-top:30px;">
-        <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; margin-bottom:10px; color: var(--primary);">II. BUKU TUNAI / LEJAR AM</div>
+    <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; margin: 30px 0 10px 0; color: var(--primary);">II. BUKU TUNAI / LEJAR AM</div>
+    <div class="table-container">
         <table id="table-lejar">
             <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Perincian Transaksi</th><th>Debit</th><th>Kredit</th><th>Baki</th><th class="no-print">Aksi</th></tr></thead>
             <tbody></tbody>
             <tfoot>
-                <tr class="row-footer"><td colspan="3" style="text-align:right">JUMLAH KESELURUHAN (RM)</td><td id="foot-debit"></td><td id="foot-kredit"></td><td id="foot-baki" style="color:var(--accent)"></td><td class="no-print"></td></tr>
+                <tr style="background:#f8fafc; font-weight:800; border-top: 2px solid var(--primary);">
+                    <td colspan="3" style="text-align:right">JUMLAH (RM)</td><td id="foot-debit"></td><td id="foot-kredit"></td><td id="foot-baki" style="color:var(--accent)"></td><td class="no-print"></td>
+                </tr>
             </tfoot>
         </table>
     </div>
 
-    <div class="sig-container">
+    <div class="sig-container" style="margin-top: 40px;">
         <p>Disediakan oleh,</p>
-        <div id="out-sig" class="sig-font">Tandatangan</div>
-        <div class="sig-line"></div>
-        <strong id="out-nama">(NAMA PENUH)</strong><br>
-        <span id="out-jaw">Bendahari</span>
+        <div id="out-sig" style="font-family:'Herr Von Muellerhoff', cursive; font-size:55px; color:var(--primary); line-height:0.4;">Tandatangan</div>
+        <div style="border-bottom: 2px solid var(--primary); width: 220px; margin: 10px 0;"></div>
+        <strong id="out-nama">(NAMA PENUH)</strong><br><span id="out-jaw">Bendahari</span>
     </div>
 
     <button class="btn btn-print no-print" onclick="window.print()">Cetak Laporan Keseluruhan</button>
 </div>
 
 <script>
-    /* Logic Remains Stable */
+    // Logic remains identical to maintain functionality across all versions
     let senaraiAhli = []; let transaksi = []; const bulanKeys = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogo', 'Sep', 'Okt'];
     function daftarAhli() { const n = document.getElementById('reg-nama').value; const j = document.getElementById('reg-ajk').value; if(!n) return; senaraiAhli.push({ id: Date.now(), nama: n, jawatan: j, yuran: {} }); refreshSistem(); document.getElementById('reg-nama').value = ''; document.getElementById('reg-ajk').value = ''; }
     function rekodGen(jenis) { const amt = Number(document.getElementById('gen-amt').value); const tkh = document.getElementById('gen-tkh').value; if(!amt || !tkh) return alert("Isi Tarikh & Amaun!"); transaksi.push({ id: Date.now(), nama: document.getElementById('gen-nama').value, akaun: document.getElementById('gen-akaun').value, tkh: tkh, ref: document.getElementById('gen-ref').value, amt: amt, jenis: jenis, isYuran: false }); refreshSistem(); }
@@ -182,12 +173,11 @@
         transaksi.sort((a,b) => new Date(a.tkh) - new Date(b.tkh)).forEach(t => {
             let d = t.jenis === 'DEBIT' ? t.amt : 0; let k = t.jenis === 'KREDIT' ? t.amt : 0;
             baki += (d - k); td += d; tk += k;
-            let p = t.isYuran ? `<strong>Yuran Ahli</strong> - ${senaraiAhli.find(x=>x.id==t.ahliId).nama} (${t.bulan})` : `<strong>${t.akaun}</strong> - ${t.nama}`;
+            let p = t.isYuran ? `<strong>Yuran</strong> - ${senaraiAhli.find(x=>x.id==t.ahliId).nama} (${t.bulan})` : `<strong>${t.akaun}</strong> - ${t.nama}`;
             if(t.isYuran) senaraiAhli.find(x=>x.id==t.ahliId).yuran[t.bulan] = t.amt;
             const row = tbodyLejar.insertRow();
             row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left">${p}</td><td style="color:var(--debit); font-weight:700;">${d||''}</td><td style="color:var(--kredit); font-weight:700;">${k||''}</td><td style="font-weight:700">${baki.toFixed(2)}</td><td class="no-print">
                 <button class="btn btn-outline" style="padding:1px 6px;" onclick="hapus(${t.id})">×</button>
-                ${t.isYuran ? `<button class="btn btn-outline" style="padding:1px 6px; font-size:10px;" onclick="cetakResit('${t.id}')">Resit</button>` : ''}
             </td>`;
         });
         document.getElementById('foot-debit').innerText = td.toFixed(2); document.getElementById('foot-kredit').innerText = tk.toFixed(2); document.getElementById('foot-baki').innerText = baki.toFixed(2);
@@ -195,13 +185,8 @@
         senaraiAhli.forEach((a, i) => { let sum = 0; let tr = tbodyYur.insertRow(); tr.innerHTML = `<td>${i+1}</td><td style="text-align:left; font-weight:700">${a.nama}</td><td style="font-size:11px; color:#475569">${a.jawatan}</td>${bulanKeys.map(b=>{ let v=a.yuran[b]||0; sum+=v; return `<td>${v||''}</td>`}).join('')}<td><strong>${sum.toFixed(2)}</strong></td>`; });
     }
     function updateBen() { const n = document.getElementById('ben-nama').value; document.getElementById('out-sig').innerText = n || "Tandatangan"; document.getElementById('out-nama').innerText = "(" + (n.toUpperCase() || "NAMA") + ")"; document.getElementById('out-jaw').innerText = document.getElementById('ben-jawatan').value || "Bendahari"; }
-    function saveData() { const data = JSON.stringify({ ahli: senaraiAhli, trx: transaksi, bakiAwal: document.getElementById('baki-awal-input').value, config: { org: document.getElementById('org-name').value, acc: document.getElementById('acc-name').value, ben: document.getElementById('ben-nama').value, jaw: document.getElementById('ben-jawatan').value } }); const blob = new Blob([data], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `EziAkaun_Premium.json`; a.click(); }
+    function saveData() { const data = JSON.stringify({ ahli: senaraiAhli, trx: transaksi, bakiAwal: document.getElementById('baki-awal-input').value, config: { org: document.getElementById('org-name').value, acc: document.getElementById('acc-name').value, ben: document.getElementById('ben-nama').value, jaw: document.getElementById('ben-jawatan').value } }); const blob = new Blob([data], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `EziAkaun_Mobile.json`; a.click(); }
     function loadData(e) { const reader = new FileReader(); reader.onload = (event) => { const data = JSON.parse(event.target.result); senaraiAhli = data.ahli; transaksi = data.trx; document.getElementById('baki-awal-input').value = data.bakiAwal; document.getElementById('org-name').value = data.config.org; document.getElementById('acc-name').value = data.config.acc; document.getElementById('ben-nama').value = data.config.ben; document.getElementById('ben-jawatan').value = data.config.jaw; refreshSistem(); updateBen(); }; reader.readAsText(e.target.files[0]); }
-    function cetakResit(id) {
-        const t = transaksi.find(x => x.id == id); const ahli = senaraiAhli.find(x => x.id == t.ahliId); const nBen = document.getElementById('ben-nama').value; const org = document.getElementById('org-name').value; const win = window.open('', '', 'width=800,height=600');
-        win.document.write(`<html><head><link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet"><style>body{font-family:Arial,sans-serif;padding:40px;border:3px solid #000;width:148mm;height:105mm;margin:auto}.header{text-align:center;border-bottom:2px solid #000;padding-bottom:10px;margin-bottom:20px}.double-stamp{width:170px;height:170px;border:2px solid #1e40af;outline:6px solid #1e40af;outline-offset:8px;border-radius:50%;color:#1e40af;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:bold;line-height:1.0;padding:15px;box-sizing:border-box;transform:rotate(-8deg);text-transform:uppercase}.sig{font-family:'Herr Von Muellerhoff',cursive;font-size:65px;line-height:0.5}.box{border:2px solid #000;padding:10px;font-size:22px;font-weight:bold;width:fit-content;margin:20px 0}</style></head><body><div class="header"><h3>${org}</h3><p>RESIT RASMI PENERIMAAN</p></div><p>No. Ref: <strong>${t.ref}</strong> | Tarikh: <strong>${t.tkh}</strong></p><p>Diterima daripada: <strong>${ahli.nama.toUpperCase()}</strong><br>Bayaran: Yuran Ahli Bulan ${t.bulan}</p><div class="box">RM ${parseFloat(t.amt).toFixed(2)}</div><div style="display:flex;align-items:center;gap:40px;margin-top:30px"><div class="double-stamp">DITERIMA BENDAHARI<br>BERTARIKH<br>${t.tkh}</div><div><div class="sig">${nBen}</div>__________________________<br><strong>${nBen.toUpperCase()}</strong><br>Bendahari</div></div><script>window.print();<\/script></body></html>`);
-        win.document.close();
-    }
 </script>
 
 </body>
