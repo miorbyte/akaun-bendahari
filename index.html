@@ -82,20 +82,19 @@
         </div>
     </div>
 
-    <div class="no-print section-title">INPUT TRANSAKSI UMUM (Belanja/Lain-lain)</div>
+    <div class="no-print section-title">INPUT TRANSAKSI UMUM (Belanja / Pendapatan Selain Yuran)</div>
     <div class="no-print section">
-        <div class="grid-input" style="grid-template-columns: 1.5fr 1fr 2.5fr 1fr 1fr 1fr 1fr;">
-            <div class="input-group"><label>Nama Transaksi</label><input type="text" id="gen-nama"></div>
-            <div class="input-group"><label>Akaun</label>
+        <div class="grid-input" style="grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 1fr;">
+            <div class="input-group"><label>Nama Transaksi</label><input type="text" id="gen-nama" placeholder="Cth: Sewa Khemah / Jualan Kupon"></div>
+            <div class="input-group"><label>Jenis Akaun</label>
                 <select id="gen-akaun">
                     <option value="Sumbangan">Sumbangan</option><option value="Pelbagai">Pelbagai Masuk</option>
-                    <option value="Utiliti">Utiliti</option><option value="Jamuan">Jamuan</option><option value="Alatan">Alatan Pejabat</option>
+                    <option value="Utiliti">Utiliti</option><option value="Jamuan">Jamuan</option><option value="Alatan">Alatan Pejabat</option><option value="Lain-lain">Lain-lain</option>
                 </select>
             </div>
-            <div class="input-group"><label>Butiran</label><input type="text" id="gen-detail"></div>
             <div class="input-group"><label>Tarikh</label><input type="date" id="gen-tkh"></div>
-            <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref"></div>
-            <div class="input-group"><label>Amaun</label><input type="number" id="gen-amt" step="0.01"></div>
+            <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref" placeholder="No. Resit/Baucar"></div>
+            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="gen-amt" step="0.01"></div>
             <div style="display:flex; gap:4px;">
                 <button class="btn btn-green" onclick="rekodGen('DEBIT')">MASUK</button>
                 <button class="btn btn-red" onclick="rekodGen('KREDIT')">KELUAR</button>
@@ -107,11 +106,11 @@
     <div class="no-print section">
         <div class="grid-input" style="grid-template-columns: 2fr 1fr 0.8fr 1fr 1fr 1fr 1fr;">
             <div class="input-group"><label>Nama Ahli</label><select id="yur-id"></select></div>
-            <div class="input-group"><label>Akaun</label><input type="text" value="Yuran Ahli" readonly style="background:#f9f9f9"></div>
+            <div class="input-group"><label>Jenis Akaun</label><input type="text" value="Yuran Ahli" readonly style="background:#f9f9f9"></div>
             <div class="input-group"><label>Bulan</label><select id="yur-bulan"><option>Jan</option><option>Feb</option><option>Mac</option><option>Apr</option><option>Mei</option><option>Jun</option><option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option></select></div>
             <div class="input-group"><label>Tarikh</label><input type="date" id="yur-tkh"></div>
             <div class="input-group"><label>Rujukan</label><input type="text" id="yur-ref"></div>
-            <div class="input-group"><label>Amaun</label><input type="number" id="yur-amt" step="0.01"></div>
+            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="yur-amt" step="0.01"></div>
             <button class="btn btn-blue" onclick="rekodYuran()">REKOD YURAN</button>
         </div>
     </div>
@@ -127,10 +126,10 @@
     <div class="section">
         <div class="report-header">II. REKOD TRANSAKSI TUNAI (LEJAR AM)</div>
         <table id="table-lejar">
-            <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Akaun & Butiran Transaksi</th><th>Debit (RM)</th><th>Kredit (RM)</th><th>Baki (RM)</th><th class="no-print">Tindakan</th></tr></thead>
+            <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Akaun & Butiran Transaksi</th><th>Debit (RM)</th><th>Kredit (RM)</th><th>Baki (RM)</th><th class="no-print">Aksi</th></tr></thead>
             <tbody></tbody>
             <tfoot>
-                <tr class="row-footer"><td colspan="3" style="text-align:right">BAKI AKHIR KESELURUHAN</td><td id="foot-debit">0.00</td><td id="foot-kredit">0.00</td><td id="foot-baki" style="background:#fff2cc">0.00</td><td class="no-print"></td></tr>
+                <tr class="row-footer"><td colspan="3" style="text-align:right">JUMLAH KESELURUHAN (RM)</td><td id="foot-debit">0.00</td><td id="foot-kredit">0.00</td><td id="foot-baki" style="background:#fff2cc">0.00</td><td class="no-print"></td></tr>
             </tfoot>
         </table>
     </div>
@@ -163,7 +162,16 @@
         const amt = Number(document.getElementById('gen-amt').value);
         const tkh = document.getElementById('gen-tkh').value;
         if(!amt || !tkh) return alert("Sila isi Tarikh dan Amaun!");
-        transaksi.push({ id: Date.now(), nama: document.getElementById('gen-nama').value, akaun: document.getElementById('gen-akaun').value, detail: document.getElementById('gen-detail').value, tkh: tkh, ref: document.getElementById('gen-ref').value, amt: amt, jenis: jenis, isYuran: false });
+        transaksi.push({ 
+            id: Date.now(), 
+            nama: document.getElementById('gen-nama').value, 
+            akaun: document.getElementById('gen-akaun').value, 
+            tkh: tkh, 
+            ref: document.getElementById('gen-ref').value, 
+            amt: amt, 
+            jenis: jenis, 
+            isYuran: false 
+        });
         refreshSistem();
     }
 
@@ -189,7 +197,7 @@
         let td = 0, tk = 0;
 
         const row0 = tbodyLejar.insertRow();
-        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left"><strong>Baki b/h (Mula)</strong></td><td>-</td><td>-</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print"></td>`;
+        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left"><strong>Baki b/h</strong></td><td>-</td><td>-</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print"></td>`;
 
         transaksi.sort((a,b) => new Date(a.tkh) - new Date(b.tkh)).forEach(t => {
             let d = t.jenis === 'DEBIT' ? t.amt : 0;
@@ -199,8 +207,8 @@
             let p = "";
             if(t.isYuran) {
                 let a = senaraiAhli.find(x => x.id == t.ahliId);
-                if(a) { a.yuran[t.bulan] = t.amt; p = `<strong>Yuran</strong> - ${a.nama} (${t.bulan})`; }
-            } else { p = `<strong>${t.akaun}</strong> - ${t.nama} (${t.detail})`; }
+                if(a) { a.yuran[t.bulan] = t.amt; p = `<strong>Yuran Ahli</strong> - ${a.nama} (${t.bulan})`; }
+            } else { p = `<strong>${t.akaun}</strong> - ${t.nama}`; }
 
             const row = tbodyLejar.insertRow();
             row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left">${p}</td><td class="txt-debit">${d||''}</td><td class="txt-kredit">${k||''}</td><td style="font-weight:bold">${baki.toFixed(2)}</td><td class="no-print">
@@ -209,7 +217,7 @@
             </td>`;
         });
         document.getElementById('foot-debit').innerText = td.toFixed(2);
-        document.getElementById('foot-kredit').innerText = tk.toFixed(2);
+        document.getElementById('foot-kredit').innerText = tk.innerText = tk.toFixed(2);
         document.getElementById('foot-baki').innerText = baki.toFixed(2);
         renderYuranTable();
     }
