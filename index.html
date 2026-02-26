@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Bendahari JK Admin KV Kulim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print { display: none; }
+            .print-only { display: block !important; }
+            body { background: white; }
+            .preview-container { shadow: none; border: none; width: 100%; }
+        }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="no-print bg-white shadow-md p-4 sticky top-0 z-50 flex justify-between items-center">
+        <h1 class="font-bold text-blue-800 text-lg">JK Admin KV Kulim (Bendahari)</h1>
+        <div class="space-x-2">
+            <button onclick="simpanData()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">💾 Simpan</button>
+            <button onclick="bukaData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow">📂 Buka</button>
+            <button onclick="window.print()" class="bg-gray-800 hover:bg-black text-white px-4 py-2 rounded shadow">🖨️ Cetak</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <div class="no-print space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="font-bold text-gray-700 mb-4 border-b pb-2">Entry Akaun Lejar</h2>
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-left border-b">
+                                <th class="p-2">Tarikh</th>
+                                <th class="p-2">Perkara</th>
+                                <th class="p-2 w-20">Debit</th>
+                                <th class="p-2 w-20">Kredit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lejar-input-body">
+                            </tbody>
+                    </table>
+                    <button onclick="tambahBarisLejar()" class="mt-3 text-blue-600 text-sm font-semibold">+ Tambah Baris</button>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+                    <h2 class="font-bold text-gray-700 mb-4 border-b pb-2">Yuran Ahli (Jan - Okt)</h2>
+                    <table class="w-full text-[10px] border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-center">
+                                <th class="border p-1">Nama</th>
+                                <th class="border p-1">Jan</th><th class="border p-1">Feb</th>
+                                <th class="border p-1">Mac</th><th class="border p-1">Apr</th>
+                                <th class="border p-1">Mei</th><th class="border p-1">Jun</th>
+                                <th class="border p-1">Jul</th><th class="border p-1">Ogo</th>
+                                <th class="border p-1">Sep</th><th class="border p-1">Okt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yuran-input-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="preview-container bg-white p-8 rounded-xl shadow-lg min-h-screen">
+                <div id="print-content" class="text-sm">
+                    <div class="text-center mb-6">
+                        <h2 class="text-xl font-bold uppercase">Status Penerimaan Yuran Bulan JK Admin KV Kulim</h2>
+                        <p class="text-gray-500 italic">Laporan Janaaan Sistem Bendahari</p>
+                    </div>
+
+                    <h3 class="font-bold border-l-4 border-blue-600 pl-2 mb-2">Akaun Lejar Semasa</h3>
+                    <table class="w-full border-collapse border mb-8">
+                        <thead>
+                            <tr class="bg-gray-100 text-xs">
+                                <th class="border p-2">Tarikh</th>
+                                <th class="border p-2">Perkara</th>
+                                <th class="border p-2">Debit (RM)</th>
+                                <th class="border p-2">Kredit (RM)</th>
+                                <th class="border p-2">Baki (RM)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lejar-preview-body" class="text-xs"></tbody>
+                    </table>
+
+                    <h3 class="font-bold border-l-4 border-green-600 pl-2 mb-2">Jadual Yuran Ahli</h3>
+                    <table class="w-full border-collapse border text-[9px]">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border p-1">Bil</th>
+                                <th class="border p-1 text-left w-32">Nama</th>
+                                <th class="border p-1">Jan</th><th class="border p-1">Feb</th><th class="border p-1">Mac</th>
+                                <th class="border p-1">Apr</th><th class="border p-1">Mei</th><th class="border p-1">Jun</th>
+                                <th class="border p-1">Jul</th><th class="border p-1">Ogo</th><th class="border p-1">Sep</th>
+                                <th class="border p-1">Okt</th>
+                                <th class="border p-1 font-bold bg-gray-200 text-xs">Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yuran-preview-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Setup 16 Nama Ahli (Boleh tukar di sini)
+        const senaraiNama = [
+            "Ahmad", "Bakri", "Chong", "Danish", "Ezra", "Farah", "Ghani", "Hassan",
+            "Imran", "Jamilah", "Khalid", "Latif", "Musa", "Noor", "Omar", "Puteri"
+        ];
+
+        // Init Data
+        let lejarData = [{ tarikh: '', perkara: '', debit: 0, kredit: 0 }];
+        let yuranData = senaraiNama.map(nama => ({ nama, bulan: Array(10).fill(0) }));
+
+        function init() {
+            renderLejarInput();
+            renderYuranInput();
+            updatePreview();
+        }
+
+        // --- LEJAR LOGIC ---
+        function tambahBarisLejar() {
+            lejarData.push({ tarikh: '', perkara: '', debit: 0, kredit: 0 });
+            renderLejarInput();
+            updatePreview();
+        }
+
+        function renderLejarInput() {
+            const body = document.getElementById('lejar-input-body');
+            body.innerHTML = lejarData.map((row, i) => `
+                <tr>
+                    <td class="p-1"><input type="date" class="border w-full p-1" value="${row.tarikh}" oninput="lejarData[${i}].tarikh=this.value; updatePreview()"></td>
+                    <td class="p-1"><input type="text" class="border w-full p-1" value="${row.perkara}" oninput="lejarData[${i}].perkara=this.value; updatePreview()"></td>
+                    <td class="p-1"><input type="number" class="border w-full p-1 text-right" value="${row.debit}" oninput="lejarData[${i}].debit=Number(this.value); updatePreview()"></td>
+                    <td class="p-1"><input type="number" class="border w-full p-1 text-right" value="${row.kredit}" oninput="lejarData[${i}].kredit=Number(this.value); updatePreview()"></td>
+                </tr>
+            `).join('');
+        }
+
+        // --- YURAN LOGIC ---
+        function renderYuranInput() {
+            const body = document.getElementById('yuran-input-body');
+            body.innerHTML = yuranData.map((ahli, i) => `
+                <tr class="border-b">
+                    <td class="p-1 font-bold text-gray-600">${ahli.nama}</td>
+                    ${ahli.bulan.map((val, m) => `
+                        <td class="p-1"><input type="number" class="w-8 border text-center" value="${val}" oninput="yuranData[${i}].bulan[${m}]=Number(this.value); updatePreview()"></td>
+                    `).join('')}
+                </tr>
+            `).join('');
+        }
+
+        // --- PREVIEW LOGIC ---
+        function updatePreview() {
+            // Update Lejar Preview
+            let baki = 0;
+            document.getElementById('lejar-preview-body').innerHTML = lejarData.map(row => {
+                baki += (row.debit - row.kredit);
+                return `<tr>
+                    <td class="border p-1">${row.tarikh}</td>
+                    <td class="border p-1">${row.perkara}</td>
+                    <td class="border p-1 text-right">${row.debit.toFixed(2)}</td>
+                    <td class="border p-1 text-right">${row.kredit.toFixed(2)}</td>
+                    <td class="border p-1 text-right font-bold">${baki.toFixed(2)}</td>
+                </tr>`;
+            }).join('');
+
+            // Update Yuran Preview
+            document.getElementById('yuran-preview-body').innerHTML = yuranData.map((ahli, i) => {
+                const totalAhli = ahli.bulan.reduce((a, b) => a + b, 0);
+                return `<tr class="text-center">
+                    <td class="border p-1">${i+1}</td>
+                    <td class="border p-1 text-left font-medium">${ahli.nama}</td>
+                    ${ahli.bulan.map(val => `<td class="border p-1 ${val > 0 ? 'text-blue-600 font-bold' : 'text-gray-300'}">${val || '-'}</td>`).join('')}
+                    <td class="border p-1 font-bold bg-gray-50 text-xs">${totalAhli.toFixed(2)}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // --- STORAGE LOGIC ---
+        function simpanData() {
+            const finalData = { lejarData, yuranData };
+            localStorage.setItem('bendahari_kv_data', JSON.stringify(finalData));
+            alert("Data Berjaya Disimpan!");
+        }
+
+        function bukaData() {
+            const saved = localStorage.getItem('bendahari_kv_data');
+            if (saved) {
+                const data = JSON.parse(saved);
+                lejarData = data.lejarData;
+                yuranData = data.yuranData;
+                init();
+            } else {
+                alert("Tiada data tersimpan.");
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
