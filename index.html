@@ -2,138 +2,115 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Pengurusan Kewangan & Ahli</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Sistem Laporan Bendahari</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f0f2f5; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        :root { --primary: #2c3e50; --accent: #3498db; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        .paper { max-width: 900px; margin: auto; background: white; padding: 50px; shadow: 0 0 10px rgba(0,0,0,0.1); border-top: 10px solid var(--primary); }
         
-        h2, h3 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
-        .input-group { margin-bottom: 20px; padding: 15px; border: 1px solid #eee; border-radius: 8px; }
+        h2 { text-align: center; text-transform: uppercase; color: var(--primary); }
+        .input-area { background: #eef2f3; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #ddd; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #3498db; color: white; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ccc; padding: 12px; text-align: left; }
+        th { background: #f8f9fa; }
 
-        /* Kotak Bendahari */
-        .bendahari-box { background: #e8f4fd; padding: 20px; border-radius: 10px; margin-top: 30px; border: 2px dashed #3498db; }
-        
-        /* Gaya Tandatangan (Signature) */
-        .sig-font { font-family: 'Dancing Script', cursive; font-size: 2.2em; color: #2c3e50; margin-top: 10px; }
-        .sig-line { border-top: 1px solid #000; width: 250px; margin-top: 5px; }
+        /* Bahagian Tandatangan */
+        .sig-container { margin-top: 50px; width: 300px; }
+        .sig-font { 
+            font-family: 'Mrs Saint Delafield', cursive; 
+            font-size: 45px; 
+            color: #1a2a6c;
+            margin-bottom: -15px;
+            padding-left: 10px;
+        }
+        .sig-line { border-bottom: 2px solid #333; margin-bottom: 5px; }
+        .sig-name { font-weight: bold; text-transform: uppercase; }
 
-        .btn { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; transition: 0.3s; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .btn-add { background: #27ae60; color: white; margin-bottom: 10px; }
-        .btn-add:hover { background: #219150; }
-        .btn-print { background: #34495e; color: white; width: 100%; padding: 15px; font-size: 1.1em; margin-top: 20px; }
+        .btn-print { background: var(--accent); color: white; width: 100%; margin-top: 20px; font-size: 16px; }
 
-        @media print { .btn, .input-group, h2 { display: none; } .container { box-shadow: none; border: none; } }
+        @media print {
+            .input-area, .btn, .no-print { display: none !important; }
+            body { background: white; padding: 0; }
+            .paper { border: none; box-shadow: none; width: 100%; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Sistem Data Entry Organisasi</h2>
-
-    <div class="input-group">
-        <h3>Senarai Ahli Baru</h3>
-        <button class="btn btn-add" onclick="addRow('table-ahli')">+ Tambah Ahli</button>
-        <table id="table-ahli">
-            <thead>
-                <tr>
-                    <th>Nama Ahli</th>
-                    <th>No. Matrik/ID</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" placeholder="Nama penuh" style="width:95%"></td>
-                    <td><input type="text" placeholder="ID" style="width:90%"></td>
-                    <td><input type="text" placeholder="Aktif" style="width:90%"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="input-group">
-        <h3>Rekod Transaksi Kewangan</h3>
-        <button class="btn btn-add" onclick="addRow('table-transaksi')">+ Tambah Transaksi</button>
-        <table id="table-transaksi">
-            <thead>
-                <tr>
-                    <th>Perkara</th>
-                    <th>Tarikh</th>
-                    <th>Jumlah (RM)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" placeholder="Contoh: Yuran Ahli" style="width:95%"></td>
-                    <td><input type="date" style="width:90%"></td>
-                    <td><input type="number" placeholder="0.00" style="width:90%"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="bendahari-box">
-        <h3>Pengesahan Bendahari</h3>
-        <div style="display: flex; gap: 20px;">
-            <div style="flex: 1;">
-                <label>Nama Bendahari:</label><br>
-                <input type="text" id="inputNama" oninput="updateSig()" placeholder="Taip nama di sini..." style="width:100%; padding:8px; margin-top:5px;">
+<div class="paper">
+    <div class="input-area">
+        <h3>1. Maklumat Bendahari</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+                <label>Nama Penuh Bendahari:</label>
+                <input type="text" id="in-nama" style="width:100%; padding:8px;" placeholder="Contoh: Ali Bin Abu" oninput="sync()">
             </div>
-            <div style="flex: 1;">
-                <label>Jawatan:</label><br>
-                <select id="inputJawatan" onchange="updateSig()" style="width:100%; padding:8px; margin-top:5px;">
-                    <option value="Bendahari Kehormat">Bendahari Kehormat</option>
-                    <option value="AJK Bendahari">AJK Bendahari</option>
-                    <option value="Penolong Bendahari">Penolong Bendahari</option>
-                </select>
+            <div>
+                <label>Jawatan:</label>
+                <input type="text" id="in-jawatan" style="width:100%; padding:8px;" placeholder="AJK Bendahari" oninput="sync()">
             </div>
         </div>
-
-        <div style="margin-top: 30px; text-align: left;">
-            <p>Disediakan oleh,</p>
-            <div id="displaySig" class="sig-font">Nama Bendahari</div>
-            <div class="sig-line"></div>
-            <b id="displayNama">(NAMA PENUH)</b><br>
-            <span id="displayJawatan">BENDAHARI KEHORMAT</span>
-        </div>
     </div>
 
-    <button class="btn btn-print" onclick="window.print()">Cetak Laporan Lengkap</button>
+    <h2>Laporan Kewangan & Ahli</h2>
+    
+    <div class="no-print">
+        <button class="btn btn-add" onclick="tambahBaris()">+ Tambah Baris Transaksi</button>
+    </div>
+
+    <table id="jadual-data">
+        <thead>
+            <tr>
+                <th width="50%">Perkara / Nama Ahli</th>
+                <th>Tarikh / ID</th>
+                <th>Jumlah (RM)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="..." style="width:95%; border:none;"></td>
+                <td><input type="text" placeholder="..." style="width:95%; border:none;"></td>
+                <td><input type="number" placeholder="0.00" style="width:95%; border:none;"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="sig-container">
+        <p>Disediakan oleh,</p>
+        <div id="out-sig" class="sig-font">Nama Bendahari</div>
+        <div class="sig-line"></div>
+        <div id="out-nama" class="sig-name">(NAMA PENUH)</div>
+        <div id="out-jawatan">BENDAHARI</div>
+    </div>
+
+    <button class="btn btn-print" onclick="window.print()">Cetak / Simpan PDF</button>
 </div>
 
 <script>
-    // Fungsi untuk tambah line/baris baru dalam table
-    function addRow(tableId) {
-        const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
-        const newRow = table.insertRow();
-        
-        // Ambil bilangan column dari header table tersebut
-        const colCount = document.getElementById(tableId).rows[0].cells.length;
-
-        for (let i = 0; i < colCount; i++) {
-            let cell = newRow.insertCell(i);
-            let input = document.createElement("input");
-            input.type = (i === 1 && tableId === 'table-transaksi') ? "date" : 
-                         (i === 2 && tableId === 'table-transaksi') ? "number" : "text";
-            input.style.width = "90%";
-            input.placeholder = "...";
-            cell.appendChild(input);
-        }
+    // Fungsi tambah baris baru
+    function tambahBaris() {
+        const table = document.getElementById("jadual-data").getElementsByTagName('tbody')[0];
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td><input type="text" style="width:95%; border:none;"></td>
+            <td><input type="text" style="width:95%; border:none;"></td>
+            <td><input type="number" style="width:95%; border:none;"></td>
+        `;
     }
 
-    // Fungsi untuk update tandatangan secara real-time
-    function updateSig() {
-        const nama = document.getElementById('inputNama').value;
-        const jawatan = document.getElementById('inputJawatan').value;
+    // Fungsi update nama & tandatangan secara live
+    function sync() {
+        const nama = document.getElementById('in-nama').value;
+        const jawatan = document.getElementById('in-jawatan').value;
 
-        document.getElementById('displaySig').innerText = nama || "Nama Bendahari";
-        document.getElementById('displayNama').innerText = "(" + (nama.toUpperCase() || "NAMA PENUH") + ")";
-        document.getElementById('displayJawatan').innerText = jawatan.toUpperCase();
+        document.getElementById('out-sig').innerText = nama || "Nama Bendahari";
+        document.getElementById('out-nama').innerText = "(" + (nama.toUpperCase() || "NAMA PENUH") + ")";
+        document.getElementById('out-jawatan').innerText = jawatan.toUpperCase() || "BENDAHARI";
     }
 </script>
 
