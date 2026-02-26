@@ -2,32 +2,29 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Pengurusan Kewangan & Resit</title>
-    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Sistem Pengurusan Kewangan Organisasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f8f9fa; }
+        :root { --primary: #2c3e50; --accent: #2980b9; --bg: #f4f7f6; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); padding: 20px; }
-        .wrapper { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .wrapper { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         
-        .section { margin-bottom: 25px; padding: 20px; border: 1px solid #eee; border-radius: 10px; background: #fff; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
-        h2 { color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
+        .section { margin-bottom: 25px; padding: 20px; border: 1px solid #eee; border-radius: 10px; background: #fff; }
+        h2 { color: var(--primary); font-size: 1rem; border-left: 4px solid var(--accent); padding-left: 10px; margin-top: 0; text-transform: uppercase; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 5px; box-sizing: border-box; font-size: 0.9rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 0.85rem; }
         
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #eee; padding: 12px; text-align: left; font-size: 0.85rem; }
-        th { background: #f4f6f7; color: var(--primary); font-weight: 600; }
+        th, td { border: 1px solid #eee; padding: 12px; text-align: left; font-size: 0.8rem; }
+        th { background: var(--primary); color: white; }
 
-        /* Signature Area */
-        .sig-container { margin-top: 40px; }
-        .sig-font { font-family: 'Mrs Saint Delafield', cursive; font-size: 45px; color: #1a2a6c; margin-bottom: -15px; }
-        .sig-line { border-bottom: 2px solid #333; width: 250px; margin: 5px 0; }
+        .sig-font { font-family: 'Herr Von Muellerhoff', cursive; font-size: 40px; color: #1a2a6c; line-height: 0.7; margin-bottom: -5px; }
+        .sig-line { border-bottom: 2px solid #333; width: 230px; margin: 5px 0; }
 
-        .btn { padding: 10px 18px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: 0.2s; }
-        .btn-save { background: var(--accent); color: white; margin-top: 15px; }
-        .btn-receipt { background: #ebf5ee; color: #27ae60; font-size: 0.75rem; border: 1px solid #27ae60; }
-        .btn-receipt:hover { background: #27ae60; color: white; }
+        .btn { padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: 0.3s; }
+        .btn-blue { background: var(--accent); color: white; }
+        .btn-receipt { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
 
         @media print { .no-print { display: none !important; } .wrapper { box-shadow: none; border: none; } }
     </style>
@@ -35,52 +32,56 @@
 <body>
 
 <div class="wrapper">
-    <center><h1 id="disp-tajuk">LAPORAN KEWANGAN ORGANISASI</h1></center>
-    <input type="text" class="no-print" placeholder="Tukar Tajuk Akaun Di Sini..." style="margin-bottom:20px; text-align:center;" oninput="document.getElementById('disp-tajuk').innerText = this.value.toUpperCase()">
+    <center><h1 id="disp-tajuk">LAPORAN KEWANGAN & YURAN</h1></center>
+    <input type="text" class="no-print" placeholder="Nama Persatuan/Akaun..." style="text-align:center; margin-bottom:20px;" oninput="document.getElementById('disp-tajuk').innerText = this.value.toUpperCase()">
 
     <div class="grid no-print">
         <div class="section">
-            <h2>Butiran Bendahari</h2>
-            <input type="text" id="ben-nama" placeholder="Nama Bendahari" oninput="updateBen()">
-            <input type="text" id="ben-jawatan" placeholder="Jawatan" oninput="updateBen()">
+            <h2>1. Pendaftaran Ahli (Profil)</h2>
+            <input type="text" id="reg-nama" placeholder="Nama Penuh Ahli">
+            <input type="text" id="reg-ajk" placeholder="Jawatan AJK">
+            <button class="btn btn-blue" style="width:100%; margin-top:10px;" onclick="daftarAhli()">Daftar Ahli</button>
         </div>
 
         <div class="section">
-            <h2>Input Ahli & Yuran</h2>
-            <input type="text" id="ahli-nama" placeholder="Nama Ahli">
-            <input type="text" id="ahli-ajk" placeholder="Jawatan AJK (cth: Setiausaha)">
-            <select id="ahli-bulan">
+            <h2>2. Maklumat Bendahari</h2>
+            <input type="text" id="ben-nama" placeholder="Nama Bendahari" oninput="updateBen()">
+            <input type="text" id="ben-jawatan" placeholder="Jawatan" oninput="updateBen()">
+        </div>
+    </div>
+
+    <div class="section no-print">
+        <h2>3. Kemasukan Transaksi Harian (Termasuk Yuran)</h2>
+        <div class="grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr;">
+            <select id="trx-nama-ahli">
+                <option value="">-- Pilih Ahli (Jika Yuran) --</option>
+            </select>
+            <select id="trx-bulan">
+                <option value="-">-- Pilih Bulan --</option>
                 <option>Januari</option><option>Februari</option><option>Mac</option>
                 <option>April</option><option>Mei</option><option>Jun</option>
                 <option>Julai</option><option>Ogos</option><option>September</option>
                 <option>Oktober</option><option>November</option><option>Disember</option>
             </select>
-            <input type="number" id="ahli-amaun" placeholder="Amaun RM">
-            <button class="btn btn-save" onclick="tambahAhli()">Simpan & Rekod</button>
-        </div>
-    </div>
-
-    <div class="section no-print">
-        <h2>Input Transaksi Keseluruhan</h2>
-        <div class="grid">
+            <input type="text" id="trx-ref" placeholder="No. Rujukan/Resit">
             <input type="date" id="trx-tarikh">
-            <input type="text" id="trx-perkara" placeholder="Perincian (cth: Bayar Elektrik)">
-            <input type="text" id="trx-ref" placeholder="No. Rujukan / Resit">
-            <input type="number" id="trx-amaun" placeholder="RM">
+            <input type="number" id="trx-amaun" placeholder="RM 0.00">
         </div>
-        <button class="btn btn-save" style="background:#34495e" onclick="tambahTrx()">Rekod Transaksi</button>
+        <input type="text" id="trx-perkara" placeholder="Perincian Lain (Jika bukan yuran, contoh: Beli Peralatan)" style="margin-top:5px;">
+        <button class="btn btn-blue" style="margin-top:10px; background: #27ae60;" onclick="rekodTransaksi()">Rekod Transaksi / Bayaran</button>
     </div>
 
     <hr>
 
-    <h3>Laporan Status Yuran Keahlian</h3>
-    <table id="table-ahli">
+    <h3>Laporan Status Yuran Keahlian (Berjadual)</h3>
+    <table id="table-yuran">
         <thead>
             <tr>
                 <th>Bil</th>
-                <th>Nama</th>
+                <th>Nama Ahli</th>
                 <th>Jawatan AJK</th>
                 <th>Bulan</th>
+                <th>No. Rujukan</th>
                 <th>Amaun (RM)</th>
                 <th class="no-print">Tindakan</th>
             </tr>
@@ -93,92 +94,118 @@
         <thead>
             <tr>
                 <th>Tarikh</th>
-                <th>Perincian</th>
-                <th>Rujukan</th>
+                <th>Perincian / Perkara</th>
+                <th>No. Rujukan</th>
                 <th>Amaun (RM)</th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
 
-    <div class="sig-container">
-        <p>Disediakan oleh,</p>
-        <div id="out-sig" class="sig-font">Nama Bendahari</div>
+    <div style="margin-top: 40px;">
+        <p style="font-size: 0.9rem; margin-bottom: 5px;">Disediakan oleh,</p>
+        <div id="out-sig" class="sig-font">Tandatangan</div>
         <div class="sig-line"></div>
-        <strong id="out-nama">(NAMA PENUH)</strong><br>
+        <strong><span id="out-nama">(NAMA PENUH)</span></strong><br>
         <span id="out-jawatan">BENDAHARI</span>
     </div>
 
-    <button class="btn no-print" style="width:100%; background:var(--primary); color:white; margin-top:40px;" onclick="window.print()">CETAK LAPORAN PENUH</button>
+    <button class="btn no-print" style="width:100%; background:var(--primary); color:white; margin-top:40px; padding:15px;" onclick="window.print()">CETAK LAPORAN PENUH</button>
 </div>
 
 <script>
-    let bil = 1;
+    let senaraiAhli = [];
+    let bilYuran = 1;
 
-    function tambahAhli() {
-        const nama = document.getElementById('ahli-nama').value;
-        const ajk = document.getElementById('ahli-ajk').value;
-        const bulan = document.getElementById('ahli-bulan').value;
-        const amaun = document.getElementById('ahli-amaun').value;
+    function daftarAhli() {
+        const nama = document.getElementById('reg-nama').value;
+        const ajk = document.getElementById('reg-ajk').value;
+        if(!nama) return alert("Sila masukkan nama!");
 
-        if(!nama || !amaun) return alert("Lengkapkan data ahli!");
+        senaraiAhli.push({ nama, ajk });
+        
+        // Update Dropdown dalam seksyen transaksi
+        const dropdown = document.getElementById('trx-nama-ahli');
+        const option = document.createElement('option');
+        option.text = nama;
+        option.value = senaraiAhli.length - 1; // Index
+        dropdown.add(option);
 
-        const tbody = document.getElementById('table-ahli').querySelector('tbody');
-        const row = tbody.insertRow();
-        row.innerHTML = `
-            <td>${bil++}</td>
-            <td>${nama}</td>
-            <td>${ajk}</td>
-            <td>${bulan}</td>
-            <td>${parseFloat(amaun).toFixed(2)}</td>
-            <td class="no-print"><button class="btn btn-receipt" onclick="cetakResit('${nama}', '${bulan}', '${amaun}', '${ajk}')">Resit</button></td>
-        `;
-        document.getElementById('ahli-nama').value = '';
+        alert(nama + " telah didaftar.");
+        document.getElementById('reg-nama').value = '';
+        document.getElementById('reg-ajk').value = '';
     }
 
-    function tambahTrx() {
-        const tkh = document.getElementById('trx-tarikh').value;
-        const pkra = document.getElementById('trx-perkara').value;
+    function rekodTransaksi() {
+        const indexAhli = document.getElementById('trx-nama-ahli').value;
+        const bulan = document.getElementById('trx-bulan').value;
         const ref = document.getElementById('trx-ref').value;
-        const amt = document.getElementById('trx-amaun').value;
+        const tarikh = document.getElementById('trx-tarikh').value;
+        const amaun = document.getElementById('trx-amaun').value;
+        const perkara = document.getElementById('trx-perkara').value;
 
-        const tbody = document.getElementById('table-trx').querySelector('tbody');
-        const row = tbody.insertRow();
-        row.innerHTML = `<td>${tkh}</td><td>${pkra}</td><td>${ref || '-'}</td><td>${parseFloat(amt).toFixed(2)}</td>`;
+        if(!amaun) return alert("Sila masukkan amaun!");
+
+        // 1. Jika ia adalah bayaran yuran (ahli dipilih)
+        if(indexAhli !== "") {
+            const ahli = senaraiAhli[indexAhli];
+            const tYuran = document.getElementById('table-yuran').querySelector('tbody');
+            const rowY = tYuran.insertRow();
+            rowY.innerHTML = `
+                <td>${bilYuran++}</td>
+                <td>${ahli.nama}</td>
+                <td>${ahli.ajk || '-'}</td>
+                <td>${bulan}</td>
+                <td>${ref || '-'}</td>
+                <td>${parseFloat(amaun).toFixed(2)}</td>
+                <td class="no-print"><button class="btn btn-receipt" onclick="cetakResit('${ahli.nama}', '${bulan}', '${amaun}', '${ahli.ajk}', '${ref}')">Resit</button></td>
+            `;
+        }
+
+        // 2. Masukkan ke Laporan Transaksi Keseluruhan (Semua masuk sini)
+        const tTrx = document.getElementById('table-trx').querySelector('tbody');
+        const rowT = tTrx.insertRow();
+        const detail = (indexAhli !== "") ? `Yuran Bulan ${bulan} (${senaraiAhli[indexAhli].nama})` : perkara;
+        rowT.innerHTML = `<td>${tarikh}</td><td>${detail}</td><td>${ref || '-'}</td><td>${parseFloat(amaun).toFixed(2)}</td>`;
     }
 
     function updateBen() {
         const n = document.getElementById('ben-nama').value;
         const j = document.getElementById('ben-jawatan').value;
-        document.getElementById('out-sig').innerText = n || "Nama Bendahari";
-        document.getElementById('out-nama').innerText = "(" + (n.toUpperCase() || "NAMA PENUH") + ")";
+        document.getElementById('out-sig').innerText = n || "Tandatangan";
+        document.getElementById('out-nama').innerText = n ? "(" + n.toUpperCase() + ")" : "(NAMA PENUH)";
         document.getElementById('out-jawatan').innerText = j.toUpperCase() || "BENDAHARI";
     }
 
-    function cetakResit(nama, bulan, amaun, ajk) {
+    function cetakResit(nama, bulan, amaun, ajk, ref) {
         const nBen = document.getElementById('ben-nama').value || "Bendahari";
         const tjk = document.getElementById('disp-tajuk').innerText;
-        const windowResit = window.open('', '', 'width=400,height=500');
-        windowResit.document.write(`
-            <html><head><title>Resit Rasmi</title>
+        const win = window.open('', '', 'width=450,height=600');
+        win.document.write(`
+            <html><head>
+            <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
             <style>
-                body { font-family: sans-serif; padding: 20px; text-align: center; border: 2px solid #333; }
-                .line { border-bottom: 1px dashed #333; margin: 10px 0; }
-                .sig { font-family: 'Mrs Saint Delafield', cursive; font-size: 30px; }
+                body { font-family: sans-serif; padding: 30px; border: 1px solid #000; text-align:center; }
+                .amt { font-size: 24px; font-weight: bold; padding: 10px; border: 2px solid #000; display: inline-block; margin: 15px 0; }
+                .sig { font-family: 'Herr Von Muellerhoff', cursive; font-size: 40px; margin-bottom:-10px; }
             </style>
-            <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
             </head><body>
-                <h3>${tjk}</h3>
-                <p><strong>RESIT RASMI YURAN</strong></p>
-                <div class="line"></div>
-                <p align="left">Diterima daripada: <strong>${nama}</strong><br>Jawatan: ${ajk}<br>Bagi Yuran Bulan: ${bulan}</p>
-                <h2>RM ${parseFloat(amaun).toFixed(2)}</h2>
-                <div class="line"></div>
-                <p align="left">Diterima oleh:<br><span class="sig">${nBen}</span><br>_________________<br>Bendahari</p>
-                <button onclick="window.print()">Cetak Resit</button>
+                <h2>${tjk}</h2>
+                <hr>
+                <p><strong>RESIT RASMI PEMBAYARAN</strong></p>
+                <p align="left">No. Rujukan: ${ref}<br>Diterima daripada: <strong>${nama.toUpperCase()}</strong><br>
+                Jawatan: ${ajk}<br>Tujuan: Bayaran Yuran Bulan ${bulan}</p>
+                <div class="amt">RM ${parseFloat(amaun).toFixed(2)}</div>
+                <div align="left" style="margin-top:20px;">
+                    Diterima oleh:<br>
+                    <div class="sig">${nBen}</div>
+                    __________________________<br>
+                    <strong>${nBen.toUpperCase()}</strong><br>Bendahari
+                </div>
+                <button class="no-print" onclick="window.print()" style="margin-top:20px;">Cetak Resit</button>
             </body></html>
         `);
-        windowResit.document.close();
+        win.document.close();
     }
 </script>
 
