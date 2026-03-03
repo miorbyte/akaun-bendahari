@@ -498,8 +498,8 @@
 
     function updateBen() {
         const n = document.getElementById('ben-nama').value.trim();
-        const hurufPertama = n ? n.charAt(0).toUpperCase() : "T";
-        document.getElementById('out-sig').innerText = n ? hurufPertama : "T";
+        const perkataanPertama = n ? n.split(' ')[0] : "Tandatangan";
+        document.getElementById('out-sig').innerText = perkataanPertama;
         document.getElementById('out-nama').innerText = "(" + (n.toUpperCase() || "NAMA") + ")";
         document.getElementById('out-jaw').innerText = document.getElementById('ben-jawatan').value || "Bendahari";
     }
