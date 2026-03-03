@@ -497,8 +497,9 @@
     }
 
     function updateBen() {
-        const n = document.getElementById('ben-nama').value;
-        document.getElementById('out-sig').innerText = n || "Tandatangan";
+        const n = document.getElementById('ben-nama').value.trim();
+        const hurufPertama = n ? n.charAt(0).toUpperCase() : "T";
+        document.getElementById('out-sig').innerText = n ? hurufPertama : "T";
         document.getElementById('out-nama').innerText = "(" + (n.toUpperCase() || "NAMA") + ")";
         document.getElementById('out-jaw').innerText = document.getElementById('ben-jawatan').value || "Bendahari";
     }
