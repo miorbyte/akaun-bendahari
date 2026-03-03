@@ -1,610 +1,983 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ezi Akaun Bendahari - Mobile Friendly</title>
-    <link href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --primary: #1e293b; --accent: #b45309; --bg: #f1f5f9; 
-            --white: #ffffff; --border-thick: #1e293b; --debit: #059669; --kredit: #dc2626;
-        }
-        
-        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 10px; color: #334155; font-size: 13px; margin: 0; }
-        .wrapper { max-width: 1300px; margin: auto; background: var(--white); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        
-        .template-name { text-align: center; font-weight: 800; color: var(--accent); letter-spacing: 2px; font-size: 12px; margin-bottom: 5px; text-transform: uppercase; }
-        .main-header { border-bottom: 4px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
-        .editable-org { font-size: 22px; font-weight: 800; color: var(--primary); width: 100%; text-align: center; text-transform: uppercase; outline: none; background: transparent; border: 2px dashed transparent; border-radius: 6px; padding: 4px 8px; transition: border-color 0.2s, background 0.2s; }
-        .editable-org:hover { border-color: #b45309; background: #fffbeb; }
-        .editable-org:focus { border-color: #b45309; background: #fffbeb; box-shadow: 0 0 0 3px rgba(180,83,9,0.15); }
-        .editable-acc { font-size: 14px; color: #475569; width: 100%; text-align: center; outline: none; background: transparent; font-weight: 600; border: 2px dashed transparent; border-radius: 6px; padding: 4px 8px; transition: border-color 0.2s, background 0.2s; }
-        .editable-acc:hover { border-color: #94a3b8; background: #f8fafc; }
-        .editable-acc:focus { border-color: #475569; background: #f8fafc; box-shadow: 0 0 0 3px rgba(71,85,105,0.12); }
-        .edit-hint { font-size: 10px; color: #94a3b8; text-align: center; margin-top: 6px; letter-spacing: 0.5px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ezi Akaun Bendahari</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Mono:wght@400;500&family=Great+Vibes&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #080b10;
+  --surface:   #0f1420;
+  --surface2:  #141926;
+  --surface3:  #1a2030;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(255,255,255,0.11);
+  --gold:      #c8a86b;
+  --gold2:     #e4c98a;
+  --gold-dim:  rgba(200,168,107,0.10);
+  --gold-glow: rgba(200,168,107,0.22);
+  --green:     #2dd68a;
+  --green-dim: rgba(45,214,138,0.09);
+  --red:       #f05252;
+  --red-dim:   rgba(240,82,82,0.09);
+  --blue:      #60a5fa;
+  --text:      #e4e9f2;
+  --text2:     #8896ad;
+  --text3:     #3d4d62;
+  --font:      'DM Sans', sans-serif;
+  --mono:      'DM Mono', monospace;
+  --display:   'Syne', sans-serif;
+  --script:    'Cormorant Garamond', serif;
+  --r:         14px;
+  --r-sm:      8px;
+}
 
-        .section-title { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--white); background: var(--primary); padding: 4px 10px; border-radius: 4px 4px 0 0; display: inline-block; }
-        .section { background: #fff; border: 2px solid var(--primary); padding: 15px; border-radius: 0 4px 4px 4px; margin-bottom: 20px; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 
-        .grid-input { display: grid; gap: 12px; grid-template-columns: 1fr; }
-        @media (min-width: 768px) {
-            .grid-input { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
-            .grid-input.profile { grid-template-columns: 2fr 1.2fr 0.8fr 2fr 1.2fr; }
-            .grid-input.general { grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr 1.4fr; }
-            .grid-input.yuran { grid-template-columns: 2.5fr 0.8fr 1fr 1fr 1fr 1.5fr; }
-            body { padding: 20px; }
-            .wrapper { padding: 35px; }
-        }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  font-size: 13px; min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200,168,107,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 90% 70%, rgba(96,165,250,0.03) 0%, transparent 50%);
+}
 
-        .input-group { display: flex; flex-direction: column; }
-        .input-group label { font-size: 10px; font-weight: 700; color: var(--primary); margin-bottom: 4px; text-transform: uppercase; }
-        input, select { padding: 12px; border: 2px solid var(--border-thick); border-radius: 6px; font-size: 14px; color: var(--primary); font-weight: 600; width: 100%; box-sizing: border-box; }
-        
-        .btn { padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; border: none; font-size: 12px; text-transform: uppercase; text-align: center; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-accent { background: var(--accent); color: white; }
-        .btn-outline { background: white; border: 2px solid var(--primary); color: var(--primary); font-size: 10px; padding: 8px; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
 
-        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 5px; border: 1px solid #cbd5e1; border-radius: 4px; }
-        table { width: 100%; border-collapse: collapse; min-width: 700px; }
-        th { background: #e2e8f0; color: var(--primary); padding: 10px; border: 1px solid var(--primary); font-size: 11px; }
-        td { padding: 10px; border: 1px solid #cbd5e1; text-align: center; font-size: 12px; }
+/* ── HEADER ── */
+.app-header {
+  background: rgba(15,20,32,0.97);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  display: flex; align-items: stretch; gap: 0;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.header-brand {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 0; border-right: 1px solid var(--border);
+  padding-right: 16px; flex-shrink: 0;
+}
+.logo-badge {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #080b10; font-family: var(--display); font-weight: 800;
+  font-size: 9px; padding: 5px 9px; border-radius: 5px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  box-shadow: 0 2px 12px var(--gold-glow);
+  white-space: nowrap;
+}
+.header-center {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; padding: 10px 16px; min-width: 0;
+}
+.editable-org {
+  font-family: var(--display); font-size: 14px; font-weight: 800;
+  color: var(--text); background: transparent; border: none; outline: none;
+  width: 100%; letter-spacing: 0.5px; text-transform: uppercase;
+  border-bottom: 1px dashed transparent; transition: border-color 0.2s;
+  padding-bottom: 2px;
+}
+.editable-org:hover, .editable-org:focus { border-bottom-color: var(--gold); }
+.editable-acc {
+  font-size: 10px; color: var(--text3); background: transparent;
+  border: none; outline: none; width: 100%;
+  font-family: var(--font); letter-spacing: 0.5px;
+  border-bottom: 1px dashed transparent; transition: border-color 0.2s;
+  margin-top: 3px;
+}
+.editable-acc:hover, .editable-acc:focus { border-bottom-color: var(--text3); color: var(--text2); }
+.edit-hint { font-size: 9px; color: var(--text3); margin-top: 2px; display: none; }
+.header-center:hover .edit-hint { display: block; }
+.header-actions {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 0 12px 12px; border-left: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.hdr-btn {
+  background: var(--surface2); border: 1px solid var(--border2);
+  color: var(--text2); padding: 7px 11px; border-radius: var(--r-sm);
+  cursor: pointer; font-size: 11px; font-weight: 600;
+  font-family: var(--font); transition: all 0.2s; white-space: nowrap;
+}
+.hdr-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.hdr-btn.primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #080b10; border-color: transparent; font-weight: 700;
+  box-shadow: 0 2px 10px var(--gold-glow);
+}
+.hdr-btn.primary:hover { opacity: 0.9; }
 
-        .baki-box { background: #fef3c7; color: #92400e; padding: 15px; border-radius: 6px; border: 2px solid var(--accent); font-weight: 800; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+/* ── BAKI BOX ── */
+.baki-strip {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 12px 16px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+}
+.baki-label { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+.baki-input-wrap { display: flex; align-items: center; gap: 6px; }
+.baki-prefix { font-family: var(--mono); font-size: 12px; color: var(--gold); font-weight: 500; }
+.baki-val {
+  font-family: var(--mono); font-size: 22px; font-weight: 500;
+  color: var(--gold2); background: transparent; border: none; outline: none;
+  width: 130px; text-align: right;
+}
 
-        /* ===== MODAL RESIT ===== */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;
-            backdrop-filter: blur(4px);
-        }
-        .modal-overlay.active { display: flex; }
+/* ── WRAPPER ── */
+.wrapper { max-width: 1300px; margin: 0 auto; padding: 16px; }
+@media(min-width: 768px) { .wrapper { padding: 24px; } }
 
-        .resit-modal {
-            background: white; width: 90%; max-width: 480px; border-radius: 12px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.3); overflow: hidden; animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+/* ── SECTION ── */
+.section-block { margin-bottom: 20px; }
+.section-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.section-badge {
+  font-family: var(--display); font-size: 9px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 2px; color: var(--gold);
+  background: var(--gold-dim); border: 1px solid rgba(200,168,107,0.2);
+  padding: 4px 10px; border-radius: 4px;
+}
+.section-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 18px; position: relative; overflow: hidden;
+}
+.section-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0.4;
+}
 
-        .resit-header {
-            background: var(--primary); color: white; padding: 20px 24px 16px;
-            text-align: center; position: relative;
-        }
-        .resit-header .resit-icon { font-size: 36px; margin-bottom: 6px; }
-        .resit-header h2 { font-family: 'Playfair Display', serif; font-size: 20px; margin: 0 0 4px; letter-spacing: 1px; }
-        .resit-header .resit-org { font-size: 11px; opacity: 0.75; text-transform: uppercase; letter-spacing: 2px; }
+/* ── FORM ELEMENTS ── */
+.input-group { display: flex; flex-direction: column; }
+.input-group label {
+  font-size: 9px; font-weight: 700; color: var(--text3);
+  margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;
+}
+input[type="text"], input[type="number"], input[type="date"], select {
+  padding: 11px 13px; background: var(--surface2);
+  border: 1px solid var(--border2); border-radius: var(--r-sm);
+  color: var(--text); font-family: var(--font); font-size: 13px;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%; -webkit-appearance: none; appearance: none;
+  box-sizing: border-box;
+}
+input:focus, select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+  background: var(--surface3);
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%233d4d62' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  padding-right: 30px;
+}
+select option { background: #1a2030; }
 
-        .resit-number-badge {
-            display: inline-block; background: var(--accent); color: white;
-            padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 800;
-            margin-top: 10px; letter-spacing: 1px;
-        }
+/* ── GRIDS ── */
+.grid-input { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media(min-width: 600px) {
+  .grid-input.profile { grid-template-columns: 2fr 1.2fr auto 2fr 1.2fr; }
+  .grid-input.general { grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr auto; }
+  .grid-input.yuran   { grid-template-columns: 2.5fr 0.8fr 1fr 1fr 1fr auto; }
+}
 
-        .resit-body { padding: 24px; }
+/* ── BUTTONS ── */
+.btn {
+  padding: 11px 16px; border-radius: var(--r-sm); font-weight: 700;
+  cursor: pointer; border: none; font-size: 12px; font-family: var(--font);
+  text-align: center; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #080b10; box-shadow: 0 3px 12px var(--gold-glow);
+}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-accent {
+  background: var(--surface2); color: var(--gold);
+  border: 1px solid rgba(200,168,107,0.3);
+}
+.btn-accent:hover { background: var(--gold-dim); border-color: var(--gold); }
+.btn-green {
+  background: var(--green); color: #080b10; font-weight: 800;
+}
+.btn-green:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-red {
+  background: var(--red); color: white; font-weight: 800;
+}
+.btn-red:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--text2); font-size: 11px;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.btn-sm { padding: 5px 10px; font-size: 10px; }
+.btn-del { background: none; border: 1px solid rgba(240,82,82,0.25); color: var(--red); padding: 3px 8px; border-radius: var(--r-sm); cursor: pointer; font-size: 10px; font-weight: 700; transition: all 0.15s; }
+.btn-del:hover { background: var(--red-dim); border-color: var(--red); }
+.btn-receipt { background: var(--gold-dim); border: 1px solid rgba(200,168,107,0.25); color: var(--gold); padding: 3px 8px; border-radius: var(--r-sm); cursor: pointer; font-size: 12px; transition: all 0.15s; }
+.btn-receipt:hover { background: rgba(200,168,107,0.2); border-color: var(--gold); }
 
-        .resit-status {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: #dcfce7; border: 2px solid #059669; border-radius: 8px;
-            padding: 10px; margin-bottom: 20px; color: #065f46; font-weight: 700; font-size: 13px;
-        }
-        .resit-status::before { content: '✓'; background: #059669; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+/* ── TABLE ── */
+.table-container {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: var(--surface);
+}
+table { width: 100%; border-collapse: collapse; min-width: 700px; }
+th {
+  background: var(--surface2); color: var(--text3); padding: 10px 12px;
+  border-bottom: 1px solid var(--border2); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+  font-family: var(--display);
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text2); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(255,255,255,0.015); }
+tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-top: 1px solid var(--border2); }
 
-        .resit-row {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 10px 0; border-bottom: 1px dashed #e2e8f0;
-        }
-        .resit-row:last-child { border-bottom: none; }
-        .resit-label { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        .resit-value { font-size: 13px; font-weight: 700; color: var(--primary); text-align: right; max-width: 60%; }
+/* ── TABLE SECTION TITLES ── */
+.table-section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px; margin-top: 28px;
+}
+.table-section-title {
+  display: flex; align-items: center; gap: 10px;
+}
+.table-section-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  color: var(--gold); background: var(--gold-dim);
+  border: 1px solid rgba(200,168,107,0.2);
+  padding: 3px 8px; border-radius: 4px;
+}
+.table-section-label {
+  font-family: var(--display); font-size: 12px; font-weight: 700;
+  color: var(--text2); text-transform: uppercase; letter-spacing: 1px;
+}
 
-        .resit-amaun-box {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid var(--accent); border-radius: 10px;
-            padding: 16px; text-align: center; margin: 20px 0;
-        }
-        .resit-amaun-box .label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #92400e; font-weight: 700; }
-        .resit-amaun-box .amount { font-size: 32px; font-weight: 800; color: var(--accent); line-height: 1.1; }
-        .resit-amaun-box .amount span { font-size: 16px; margin-right: 4px; }
+/* ── SIGNATURE ── */
+.sig-container {
+  margin-top: 40px; padding: 24px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); display: inline-block; min-width: 260px;
+}
+.sig-prepared { font-size: 11px; color: var(--text3); margin-bottom: 8px; }
+.sig-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 58px; color: var(--gold);
+  line-height: 1.1; letter-spacing: 1px;
+  min-height: 70px; display: block;
+}
+.sig-line {
+  width: 220px; height: 1px; background: var(--border2);
+  margin: 14px 0 10px;
+}
+.sig-name { font-family: var(--display); font-size: 12px; font-weight: 700; color: var(--text); }
+.sig-role { font-size: 11px; color: var(--text3); margin-top: 3px; }
 
-        .resit-footer-note {
-            text-align: center; font-size: 10px; color: #94a3b8; margin-top: 8px;
-            font-style: italic;
-        }
+/* ── TOAST ── */
+.toast {
+  position: fixed; top: 70px; right: 16px; z-index: 9998;
+  background: var(--surface3); border: 1px solid var(--border2);
+  border-left: 3px solid var(--green);
+  color: var(--text); padding: 12px 16px; border-radius: var(--r-sm);
+  font-weight: 600; font-size: 13px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  animation: toastIn 0.3s ease; max-width: 300px;
+}
+@keyframes toastIn { from { opacity:0; transform: translateX(16px); } to { opacity:1; transform: translateX(0); } }
 
-        .resit-actions { display: flex; gap: 8px; padding: 0 24px 24px; }
-        .resit-actions .btn { flex: 1; font-size: 13px; }
+/* ── MODAL RESIT ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75); z-index: 9999;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  padding: 16px;
+}
+.modal-overlay.active { display: flex; }
 
-        .watermark {
-            text-align: center; font-family: 'Playfair Display', serif;
-            color: #e2e8f0; font-size: 10px; padding: 12px; letter-spacing: 3px;
-            text-transform: uppercase; border-top: 1px solid #e2e8f0;
-        }
+.resit-modal {
+  background: var(--surface); width: 100%; max-width: 460px;
+  border-radius: var(--r); border: 1px solid var(--border2);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6); overflow: hidden;
+  animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes slideUp { from { opacity:0; transform: translateY(24px) scale(0.97); } to { opacity:1; transform: translateY(0) scale(1); } }
 
-        /* ===== PRINT RESIT SAHAJA ===== */
-        @media print {
-            body.print-resit * { display: none !important; }
-            body.print-resit .resit-print-area,
-            body.print-resit .resit-print-area * { display: block !important; }
-            body.print-resit .resit-print-area { 
-                position: fixed; top: 0; left: 0; width: 100%; padding: 30px;
-                box-sizing: border-box; font-family: 'Inter', sans-serif;
-            }
-        }
+.resit-header {
+  background: linear-gradient(160deg, var(--surface2) 0%, var(--surface3) 100%);
+  border-bottom: 1px solid var(--border2);
+  padding: 24px 24px 20px; text-align: center; position: relative;
+}
+.resit-header::after {
+  content: ''; position: absolute; bottom: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.resit-icon { font-size: 32px; margin-bottom: 10px; }
+.resit-title {
+  font-family: var(--script); font-size: 28px; font-weight: 600;
+  color: var(--gold2); letter-spacing: 2px; line-height: 1;
+  margin-bottom: 6px;
+}
+.resit-org-name {
+  font-size: 10px; color: var(--text3); text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 10px;
+}
+.resit-no-badge {
+  display: inline-block;
+  background: var(--gold-dim); border: 1px solid rgba(200,168,107,0.3);
+  color: var(--gold); padding: 4px 14px; border-radius: 20px;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1px;
+}
 
-        /* General print - hide controls */
-        @media print {
-            body:not(.print-resit) .no-print,
-            body:not(.print-resit) .btn,
-            body:not(.print-resit) .section-title,
-            body:not(.print-resit) .template-name { display: none !important; }
-            body:not(.print-resit) .table-container { overflow: visible; border: none; }
-            body:not(.print-resit) table { min-width: 100%; }
-            body:not(.print-resit) .modal-overlay { display: none !important; }
-        }
-    </style>
+.resit-body { padding: 20px 24px; }
+
+.resit-status {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--green-dim); border: 1px solid rgba(45,214,138,0.2);
+  border-radius: var(--r-sm); padding: 10px; margin-bottom: 18px;
+  color: var(--green); font-weight: 700; font-size: 12px;
+}
+.resit-status::before {
+  content: '✓'; background: var(--green); color: #080b10;
+  border-radius: 50%; width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; flex-shrink: 0; font-weight: 900;
+}
+
+.resit-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 9px 0; border-bottom: 1px solid var(--border);
+}
+.resit-row:last-of-type { border-bottom: none; }
+.resit-label { font-size: 10px; color: var(--text3); text-transform: uppercase; font-weight: 700; letter-spacing: 0.8px; }
+.resit-value { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; max-width: 60%; }
+
+.resit-amaun-box {
+  background: var(--gold-dim); border: 1px solid rgba(200,168,107,0.25);
+  border-radius: var(--r-sm); padding: 18px; text-align: center; margin: 18px 0;
+}
+.resit-amaun-box .label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--gold); font-weight: 700; margin-bottom: 8px;
+}
+.resit-amaun-box .amount {
+  font-family: var(--mono); font-size: 34px; font-weight: 500;
+  color: var(--gold2); line-height: 1;
+}
+.resit-amaun-box .amount span { font-size: 16px; margin-right: 3px; opacity: 0.7; }
+
+.resit-footer-note { text-align: center; font-size: 10px; color: var(--text3); font-style: italic; margin-top: 8px; }
+
+.resit-actions {
+  display: flex; gap: 8px; padding: 16px 24px 20px;
+  border-top: 1px solid var(--border);
+}
+.resit-actions .btn { flex: 1; }
+
+.resit-watermark {
+  text-align: center; font-family: var(--display);
+  color: var(--text3); font-size: 9px; padding: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  border-top: 1px solid var(--border);
+}
+
+/* ── PRINT ── */
+@media print {
+  body.print-resit * { display: none !important; }
+  body.print-resit .resit-print-area,
+  body.print-resit .resit-print-area * { display: block !important; }
+  body.print-resit .resit-print-area {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 30px;
+    box-sizing: border-box;
+  }
+  body:not(.print-resit) .no-print { display: none !important; }
+  body:not(.print-resit) .modal-overlay { display: none !important; }
+  body:not(.print-resit) .table-container { overflow: visible; border: none; }
+  body:not(.print-resit) table { min-width: 100%; }
+  body:not(.print-resit) { background: white !important; color: #000 !important; }
+  body:not(.print-resit) .app-header, body:not(.print-resit) .baki-strip { display: none !important; }
+  body:not(.print-resit) th { background: #eee !important; color: #333 !important; }
+  body:not(.print-resit) td { color: #000 !important; border-color: #ddd !important; }
+  body:not(.print-resit) .section-card, body:not(.print-resit) .table-container,
+  body:not(.print-resit) .sig-container { background: white !important; border-color: #ddd !important; }
+}
+
+  @font-face {
+    font-family: 'Authorized Signature';
+    src: url('https://db.onlinewebfonts.com/t/8bc1cf27b1ae3c1ee34a1a4082a7b3aa.woff2') format('woff2'),
+         url('https://db.onlinewebfonts.com/t/8bc1cf27b1ae3c1ee34a1a4082a7b3aa.woff') format('woff');
+    font-weight: normal; font-style: normal;
+  }
+</style>
 </head>
 <body>
 
-<!-- ===== MODAL RESIT ===== -->
+<!-- MODAL RESIT -->
 <div class="modal-overlay" id="modalResit">
-    <div class="resit-modal" id="resitKonten">
-        <div class="resit-header">
-            <div class="resit-icon">🧾</div>
-            <h2>RESIT RASMI</h2>
-            <div class="resit-org" id="resit-org-name">NAMA ORGANISASI</div>
-            <div class="resit-number-badge" id="resit-no">NO. RESIT: #0001</div>
-        </div>
-
-        <div class="resit-body">
-            <div class="resit-status">Pembayaran Diterima dengan Jayanya</div>
-
-            <div class="resit-row">
-                <div class="resit-label">Nama Ahli</div>
-                <div class="resit-value" id="resit-nama">-</div>
-            </div>
-            <div class="resit-row">
-                <div class="resit-label">Jawatan</div>
-                <div class="resit-value" id="resit-jawatan">-</div>
-            </div>
-            <div class="resit-row">
-                <div class="resit-label">Bayaran Untuk Bulan</div>
-                <div class="resit-value" id="resit-bulan">-</div>
-            </div>
-            <div class="resit-row">
-                <div class="resit-label">Tarikh Bayaran</div>
-                <div class="resit-value" id="resit-tarikh">-</div>
-            </div>
-            <div class="resit-row">
-                <div class="resit-label">No. Rujukan</div>
-                <div class="resit-value" id="resit-rujukan">-</div>
-            </div>
-
-            <div class="resit-amaun-box">
-                <div class="label">Jumlah Dibayar (RM)</div>
-                <div class="amount" id="resit-amaun"><span>RM</span>0.00</div>
-            </div>
-
-            <div class="resit-row" style="border-bottom:none; padding-top: 4px;">
-                <div class="resit-label">Diterima Oleh</div>
-                <div class="resit-value" id="resit-bendahari">-</div>
-            </div>
-            <div class="resit-footer-note">* Resit ini adalah dokumen sah. Sila simpan untuk rekod anda.</div>
-        </div>
-
-        <div class="resit-actions no-print">
-            <button class="btn btn-outline" onclick="tutupResit()">✕ Tutup</button>
-            <button class="btn btn-primary" onclick="cetakResit()">🖨️ Cetak Resit</button>
-        </div>
-
-        <div class="watermark">EZI AKAUN BENDAHARI • SISTEM PENGURUSAN KEWANGAN</div>
+  <div class="resit-modal" id="resitKonten">
+    <div class="resit-header">
+      <div class="resit-icon">🧾</div>
+      <div class="resit-title">Resit Rasmi</div>
+      <div class="resit-org-name" id="resit-org-name">NAMA ORGANISASI</div>
+      <div class="resit-no-badge" id="resit-no">RES-0001</div>
     </div>
+    <div class="resit-body">
+      <div class="resit-status">Pembayaran Diterima dengan Jayanya</div>
+      <div class="resit-row">
+        <div class="resit-label">Nama Ahli</div>
+        <div class="resit-value" id="resit-nama">—</div>
+      </div>
+      <div class="resit-row">
+        <div class="resit-label">Jawatan</div>
+        <div class="resit-value" id="resit-jawatan">—</div>
+      </div>
+      <div class="resit-row">
+        <div class="resit-label">Bayaran Bulan</div>
+        <div class="resit-value" id="resit-bulan">—</div>
+      </div>
+      <div class="resit-row">
+        <div class="resit-label">Tarikh Bayaran</div>
+        <div class="resit-value" id="resit-tarikh">—</div>
+      </div>
+      <div class="resit-row">
+        <div class="resit-label">No. Rujukan</div>
+        <div class="resit-value" id="resit-rujukan">—</div>
+      </div>
+      <div class="resit-amaun-box">
+        <div class="label">Jumlah Dibayar</div>
+        <div class="amount" id="resit-amaun"><span>RM</span>0.00</div>
+      </div>
+      <div class="resit-row" style="border-bottom:none;">
+        <div class="resit-label">Diterima Oleh</div>
+        <div class="resit-value" id="resit-bendahari">—</div>
+      </div>
+      <div class="resit-footer-note">* Resit ini adalah dokumen sah. Sila simpan untuk rekod anda.</div>
+    </div>
+    <div class="resit-actions no-print">
+      <button class="btn btn-outline" onclick="tutupResit()">✕ Tutup</button>
+      <button class="btn btn-primary" onclick="cetakResit()">🖨️ Cetak Resit</button>
+    </div>
+    <div class="resit-watermark">Ezi Akaun Bendahari • Sistem Pengurusan Kewangan</div>
+  </div>
 </div>
 
-<!-- ===== HIDDEN PRINT AREA ===== -->
 <div class="resit-print-area" id="resitPrintArea" style="display:none;"></div>
 
-<div class="wrapper">
-    <div class="template-name">EZI AKAUN BENDAHARI</div>
-    <div class="main-header">
-        <input type="text" class="editable-org" value="NAMA ORGANISASI ANDA" id="org-name" title="Klik untuk edit nama organisasi">
-        <input type="text" class="editable-acc" value="Laporan Penyata Kewangan Tahunan 2026" id="acc-name" title="Klik untuk edit tajuk laporan">
-        <div class="edit-hint">✏️ Klik pada teks di atas untuk mengedit</div>
-    </div>
-
-    <div class="no-print">
-        <div style="display:flex; gap:5px; margin-bottom: 10px;">
-            <button class="btn btn-outline" style="flex:1" onclick="saveData()">💾 Simpan</button>
-            <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('fileInput').click()">📂 Buka</button>
-            <button class="btn btn-outline" style="flex:1" onclick="window.print()">🖨️ Cetak</button>
-            <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
-        </div>
-        <div class="baki-box">
-            <span>Baki b/h (RM)</span>
-            <input type="number" id="baki-awal-input" value="0.00" step="0.01" oninput="refreshSistem()" style="border:none; background:transparent; font-weight:900; width:100px; text-align:right; color:inherit; padding:0; font-size: 18px;">
-        </div>
-    </div>
-
-    <div class="no-print section-title">Profil & Bendahari</div>
-    <div class="no-print section">
-        <div class="grid-input profile">
-            <div class="input-group"><label>Nama Ahli</label><input type="text" id="reg-nama" placeholder="Contoh: Ali"></div>
-            <div class="input-group"><label>Jawatan</label><input type="text" id="reg-ajk" placeholder="Contoh: AJK"></div>
-            <button class="btn btn-primary" onclick="daftarAhli()">+ Daftar</button>
-            <div class="input-group"><label>Bendahari</label><input type="text" id="ben-nama" oninput="updateBen()"></div>
-            <div class="input-group"><label>Jawatan</label><input type="text" id="ben-jawatan" oninput="updateBen()"></div>
-        </div>
-    </div>
-
-    <div class="no-print section-title">Transaksi Umum</div>
-    <div class="no-print section">
-        <div class="grid-input general">
-            <div class="input-group"><label>Keterangan</label><input type="text" id="gen-nama"></div>
-            <div class="input-group"><label>Kategori</label>
-                <select id="gen-akaun">
-                    <option>Sumbangan</option><option>Pelbagai Masuk</option><option>Utiliti</option><option>Jamuan</option><option>Alatan Pejabat</option>
-                </select>
-            </div>
-            <div class="input-group"><label>Tarikh</label><input type="date" id="gen-tkh"></div>
-            <div class="input-group"><label>Rujukan</label><input type="text" id="gen-ref"></div>
-            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="gen-amt" step="0.01"></div>
-            <div style="display:flex; gap:5px;">
-                <button class="btn btn-primary" style="background:#059669; flex:1;" onclick="rekodGen('DEBIT')">Masuk</button>
-                <button class="btn btn-primary" style="background:#dc2626; flex:1;" onclick="rekodGen('KREDIT')">Keluar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="no-print section-title">Kutipan Yuran</div>
-    <div class="no-print section">
-        <div class="grid-input yuran">
-            <div class="input-group"><label>Pilih Ahli</label><select id="yur-id"></select></div>
-            <div class="input-group"><label>Bulan</label><select id="yur-bulan"><option>Jan</option><option>Feb</option><option>Mac</option><option>Apr</option><option>Mei</option><option>Jun</option><option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option></select></div>
-            <div class="input-group"><label>Tarikh</label><input type="date" id="yur-tkh"></div>
-            <div class="input-group"><label>Rujukan</label><input type="text" id="yur-ref"></div>
-            <div class="input-group"><label>Amaun (RM)</label><input type="number" id="yur-amt" step="0.01"></div>
-            <button class="btn btn-accent" onclick="rekodYuran()">Rekod & Jana Resit</button>
-        </div>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; color: var(--primary);">I. RINGKASAN STATUS YURAN AHLI</div>
-        <button class="btn btn-outline no-print" onclick="cetakBahagian('yuran')" style="font-size:11px; padding:6px 14px;">🖨️ Cetak</button>
-    </div>
-    <div class="table-container">
-        <table id="table-yuran">
-            <thead><tr><th>Bil</th><th>Nama Ahli</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center; margin: 30px 0 10px 0;">
-        <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; color: var(--primary);">II. BUKU TUNAI / LEJAR AM</div>
-        <button class="btn btn-outline no-print" onclick="cetakBahagian('lejar')" style="font-size:11px; padding:6px 14px;">🖨️ Cetak</button>
-    </div>
-    <div class="table-container">
-        <table id="table-lejar">
-            <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Perincian Transaksi</th><th>Debit</th><th>Kredit</th><th>Baki</th><th class="no-print">Aksi</th></tr></thead>
-            <tbody></tbody>
-            <tfoot>
-                <tr style="background:#f8fafc; font-weight:800; border-top: 2px solid var(--primary);">
-                    <td colspan="3" style="text-align:right">JUMLAH (RM)</td><td id="foot-debit"></td><td id="foot-kredit"></td><td id="foot-baki" style="color:var(--accent)"></td><td class="no-print"></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-    <div class="sig-container" style="margin-top: 40px;">
-        <p>Disediakan oleh,</p>
-        <div id="out-sig" style="font-family:'Herr Von Muellerhoff', cursive; font-size:55px; color:var(--primary); line-height:0.4;">Tandatangan</div>
-        <div style="border-bottom: 2px solid var(--primary); width: 220px; margin: 10px 0;"></div>
-        <strong id="out-nama">(NAMA PENUH)</strong><br><span id="out-jaw">Bendahari</span>
-    </div>
-
+<!-- HEADER -->
+<div class="app-header no-print">
+  <div class="header-brand">
+    <div class="logo-badge">EAB</div>
+  </div>
+  <div class="header-center">
+    <input type="text" class="editable-org" value="NAMA ORGANISASI ANDA" id="org-name" title="Klik untuk edit">
+    <input type="text" class="editable-acc" value="Laporan Penyata Kewangan Tahunan 2026" id="acc-name" title="Klik untuk edit">
+    <div class="edit-hint">✏️ klik untuk edit</div>
+  </div>
+  <div class="header-actions">
+    <button class="hdr-btn" onclick="saveData()" title="Simpan">💾</button>
+    <button class="hdr-btn" onclick="document.getElementById('fileInput').click()" title="Buka">📂</button>
+    <button class="hdr-btn primary" onclick="window.print()" title="Cetak">🖨️</button>
+    <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
+  </div>
 </div>
+
+<!-- BAKI STRIP -->
+<div class="baki-strip no-print">
+  <div class="baki-label">Baki Bawa Hadapan (RM)</div>
+  <div class="baki-input-wrap">
+    <span class="baki-prefix">RM</span>
+    <input type="number" id="baki-awal-input" class="baki-val" value="0.00" step="0.01" oninput="refreshSistem()">
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- SECTION: PROFIL & BENDAHARI -->
+  <div class="section-block no-print">
+    <div class="section-head">
+      <span class="section-badge">Profil & Bendahari</span>
+    </div>
+    <div class="section-card">
+      <div class="grid-input profile">
+        <div class="input-group">
+          <label>Nama Ahli</label>
+          <input type="text" id="reg-nama" placeholder="Contoh: Ahmad">
+        </div>
+        <div class="input-group">
+          <label>Jawatan</label>
+          <input type="text" id="reg-ajk" placeholder="Contoh: AJK">
+        </div>
+        <button class="btn btn-primary" onclick="daftarAhli()" style="align-self:flex-end;">+ Daftar</button>
+        <div class="input-group">
+          <label>Nama Bendahari</label>
+          <input type="text" id="ben-nama" oninput="updateBen()" placeholder="Nama penuh...">
+        </div>
+        <div class="input-group">
+          <label>Jawatan Bendahari</label>
+          <input type="text" id="ben-jawatan" oninput="updateBen()" placeholder="cth: Bendahari">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: TRANSAKSI UMUM -->
+  <div class="section-block no-print">
+    <div class="section-head">
+      <span class="section-badge">Transaksi Umum</span>
+    </div>
+    <div class="section-card">
+      <div class="grid-input general">
+        <div class="input-group">
+          <label>Keterangan</label>
+          <input type="text" id="gen-nama" placeholder="Perihal transaksi...">
+        </div>
+        <div class="input-group">
+          <label>Kategori</label>
+          <select id="gen-akaun">
+            <option>Sumbangan</option>
+            <option>Pelbagai Masuk</option>
+            <option>Utiliti</option>
+            <option>Jamuan</option>
+            <option>Alatan Pejabat</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Tarikh</label>
+          <input type="date" id="gen-tkh">
+        </div>
+        <div class="input-group">
+          <label>Rujukan</label>
+          <input type="text" id="gen-ref" placeholder="Bil / No. Resit">
+        </div>
+        <div class="input-group">
+          <label>Amaun (RM)</label>
+          <input type="number" id="gen-amt" step="0.01" placeholder="0.00">
+        </div>
+        <div style="display:flex; gap:6px; align-self:flex-end;">
+          <button class="btn btn-green" style="flex:1;" onclick="rekodGen('DEBIT')">↑ Masuk</button>
+          <button class="btn btn-red" style="flex:1;" onclick="rekodGen('KREDIT')">↓ Keluar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: KUTIPAN YURAN -->
+  <div class="section-block no-print">
+    <div class="section-head">
+      <span class="section-badge">Kutipan Yuran</span>
+    </div>
+    <div class="section-card">
+      <div class="grid-input yuran">
+        <div class="input-group">
+          <label>Pilih Ahli</label>
+          <select id="yur-id"></select>
+        </div>
+        <div class="input-group">
+          <label>Bulan</label>
+          <select id="yur-bulan">
+            <option>Jan</option><option>Feb</option><option>Mac</option>
+            <option>Apr</option><option>Mei</option><option>Jun</option>
+            <option>Jul</option><option>Ogo</option><option>Sep</option><option>Okt</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Tarikh</label>
+          <input type="date" id="yur-tkh">
+        </div>
+        <div class="input-group">
+          <label>Rujukan</label>
+          <input type="text" id="yur-ref" placeholder="Pilihan">
+        </div>
+        <div class="input-group">
+          <label>Amaun (RM)</label>
+          <input type="number" id="yur-amt" step="0.01" placeholder="0.00">
+        </div>
+        <button class="btn btn-accent" onclick="rekodYuran()" style="align-self:flex-end;">🧾 Rekod & Jana Resit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE I: YURAN -->
+  <div class="table-section-header">
+    <div class="table-section-title">
+      <span class="table-section-num">I</span>
+      <span class="table-section-label">Ringkasan Status Yuran Ahli</span>
+    </div>
+    <button class="btn btn-outline btn-sm no-print" onclick="cetakBahagian('yuran')">🖨️ Cetak</button>
+  </div>
+  <div class="table-container">
+    <table id="table-yuran">
+      <thead>
+        <tr>
+          <th>Bil</th><th style="text-align:left;">Nama Ahli</th><th>Jawatan</th>
+          <th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th>
+          <th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th>
+          <th>Jumlah</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TABLE II: LEJAR -->
+  <div class="table-section-header">
+    <div class="table-section-title">
+      <span class="table-section-num">II</span>
+      <span class="table-section-label">Buku Tunai / Lejar Am</span>
+    </div>
+    <button class="btn btn-outline btn-sm no-print" onclick="cetakBahagian('lejar')">🖨️ Cetak</button>
+  </div>
+  <div class="table-container">
+    <table id="table-lejar">
+      <thead>
+        <tr>
+          <th>Tarikh</th><th>Rujukan</th>
+          <th style="text-align:left;">Perincian Transaksi</th>
+          <th>Debit</th><th>Kredit</th><th>Baki</th>
+          <th class="no-print">Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="text-align:right; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text3);">Jumlah (RM)</td>
+          <td id="foot-debit" style="color:var(--green); font-family:var(--mono); font-weight:600;"></td>
+          <td id="foot-kredit" style="color:var(--red); font-family:var(--mono); font-weight:600;"></td>
+          <td id="foot-baki" style="color:var(--gold); font-family:var(--mono); font-weight:600;"></td>
+          <td class="no-print"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- TANDATANGAN -->
+  <div style="margin-top: 40px;">
+    <div class="sig-container">
+      <div class="sig-prepared">Disediakan oleh,</div>
+      <div class="sig-script" id="out-sig">Tandatangan</div>
+      <div class="sig-line"></div>
+      <div class="sig-name" id="out-nama">(NAMA PENUH)</div>
+      <div class="sig-role" id="out-jaw">Bendahari</div>
+    </div>
+  </div>
+
+</div><!-- end wrapper -->
 
 <script>
-    let senaraiAhli = [];
-    let transaksi = [];
-    let noResitKira = 1;
-    const bulanKeys = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogo', 'Sep', 'Okt'];
+  let senaraiAhli = [];
+  let transaksi = [];
+  let noResitKira = 1;
+  const bulanKeys = ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogo','Sep','Okt'];
 
-    function daftarAhli() {
-        const n = document.getElementById('reg-nama').value;
-        const j = document.getElementById('reg-ajk').value;
-        if (!n) return;
-        senaraiAhli.push({ id: Date.now(), nama: n, jawatan: j, yuran: {} });
-        refreshSistem();
-        document.getElementById('reg-nama').value = '';
-        document.getElementById('reg-ajk').value = '';
+  // Set today's date
+  const todayStr = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('input[type="date"]').forEach(el => el.value = todayStr);
+
+  function showToast(msg, isError) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.style.borderLeftColor = isError ? 'var(--red)' : 'var(--green)';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2800);
+  }
+
+  function daftarAhli() {
+    const n = document.getElementById('reg-nama').value.trim();
+    const j = document.getElementById('reg-ajk').value.trim();
+    if (!n) return showToast('⚠️ Sila isi nama ahli!', true);
+    senaraiAhli.push({ id: Date.now(), nama: n, jawatan: j, yuran: {} });
+    refreshSistem();
+    document.getElementById('reg-nama').value = '';
+    document.getElementById('reg-ajk').value = '';
+    showToast('✅ Ahli berjaya didaftarkan!');
+  }
+
+  function rekodGen(jenis) {
+    const amt = Number(document.getElementById('gen-amt').value);
+    const tkh = document.getElementById('gen-tkh').value;
+    if (!amt || !tkh) return showToast('⚠️ Isi Tarikh & Amaun!', true);
+    transaksi.push({
+      id: Date.now(),
+      nama: document.getElementById('gen-nama').value,
+      akaun: document.getElementById('gen-akaun').value,
+      tkh: tkh, ref: document.getElementById('gen-ref').value,
+      amt: amt, jenis: jenis, isYuran: false
+    });
+    refreshSistem();
+    document.getElementById('gen-amt').value = '';
+    document.getElementById('gen-nama').value = '';
+    document.getElementById('gen-ref').value = '';
+    showToast(jenis === 'DEBIT' ? '✅ Wang masuk direkodkan!' : '✅ Wang keluar direkodkan!');
+  }
+
+  function rekodYuran() {
+    const ahliId = Number(document.getElementById('yur-id').value);
+    const amt = Number(document.getElementById('yur-amt').value);
+    const tkh = document.getElementById('yur-tkh').value;
+    const bulan = document.getElementById('yur-bulan').value;
+    const ref = document.getElementById('yur-ref').value;
+    if (!ahliId || !amt || !tkh) return showToast('⚠️ Lengkapkan maklumat!', true);
+
+    const benNama = document.getElementById('ben-nama').value.trim();
+    const benJawatan = document.getElementById('ben-jawatan').value.trim();
+    if (!benNama || !benJawatan) {
+      showToast('⚠️ Isi Nama dan Jawatan Bendahari dahulu!', true);
+      document.getElementById('ben-nama').focus();
+      return;
     }
 
-    function rekodGen(jenis) {
-        const amt = Number(document.getElementById('gen-amt').value);
-        const tkh = document.getElementById('gen-tkh').value;
-        if (!amt || !tkh) return alert("Isi Tarikh & Amaun!");
-        transaksi.push({
-            id: Date.now(),
-            nama: document.getElementById('gen-nama').value,
-            akaun: document.getElementById('gen-akaun').value,
-            tkh: tkh,
-            ref: document.getElementById('gen-ref').value,
-            amt: amt, jenis: jenis, isYuran: false
-        });
-        refreshSistem();
+    const noResit = 'RES-' + String(noResitKira).padStart(4, '0');
+    noResitKira++;
+
+    transaksi.push({
+      id: Date.now(), ahliId: ahliId, akaun: 'Yuran Ahli',
+      bulan: bulan, tkh: tkh, ref: ref || noResit,
+      amt: amt, jenis: 'DEBIT', isYuran: true, noResit: noResit
+    });
+    refreshSistem();
+
+    const ahli = senaraiAhli.find(x => x.id == ahliId);
+    tunjukResit({
+      noResit: noResit,
+      nama: ahli ? ahli.nama : '-',
+      jawatan: ahli ? ahli.jawatan : '-',
+      bulan: bulan, tarikh: tkh,
+      rujukan: ref || noResit, amaun: amt
+    });
+    document.getElementById('yur-amt').value = '';
+    document.getElementById('yur-ref').value = '';
+  }
+
+  function formatTarikh(t) {
+    if (!t) return '—';
+    const [y, m, d] = t.split('-');
+    const bln = ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogo','Sep','Okt','Nov','Dis'];
+    return `${d} ${bln[Number(m)-1]} ${y}`;
+  }
+
+  function tunjukResit(data) {
+    const orgName = document.getElementById('org-name').value || 'NAMA ORGANISASI';
+    const bendahari = document.getElementById('ben-nama').value || '—';
+    document.getElementById('resit-org-name').innerText = orgName;
+    document.getElementById('resit-no').innerText = data.noResit;
+    document.getElementById('resit-nama').innerText = data.nama;
+    document.getElementById('resit-jawatan').innerText = data.jawatan || '—';
+    document.getElementById('resit-bulan').innerText = data.bulan;
+    document.getElementById('resit-tarikh').innerText = formatTarikh(data.tarikh);
+    document.getElementById('resit-rujukan').innerText = data.rujukan || '—';
+    document.getElementById('resit-amaun').innerHTML = '<span>RM</span>' + Number(data.amaun).toFixed(2);
+    document.getElementById('resit-bendahari').innerText = bendahari;
+    document.getElementById('modalResit').classList.add('active');
+  }
+
+  function tutupResit() { document.getElementById('modalResit').classList.remove('active'); }
+
+  function cetakResit() {
+    const konten = document.getElementById('resitKonten').cloneNode(true);
+    konten.querySelector('.resit-actions')?.remove();
+    const printArea = document.getElementById('resitPrintArea');
+    printArea.innerHTML = '';
+    printArea.appendChild(konten);
+    document.body.classList.add('print-resit');
+    window.print();
+    document.body.classList.remove('print-resit');
+  }
+
+  function hapus(id) {
+    if (confirm("Padam transaksi ini?")) {
+      transaksi = transaksi.filter(t => t.id !== id);
+      refreshSistem();
     }
+  }
 
-    function rekodYuran() {
-        const ahliId = Number(document.getElementById('yur-id').value);
-        const amt = Number(document.getElementById('yur-amt').value);
-        const tkh = document.getElementById('yur-tkh').value;
-        const bulan = document.getElementById('yur-bulan').value;
-        const ref = document.getElementById('yur-ref').value;
-        if (!ahliId || !amt || !tkh) return alert("Lengkapkan maklumat!");
+  function bukaResit(id) {
+    const t = transaksi.find(x => x.id === id);
+    if (!t || !t.isYuran) return;
+    const ahli = senaraiAhli.find(x => x.id == t.ahliId);
+    tunjukResit({
+      noResit: t.noResit || t.ref || '—',
+      nama: ahli ? ahli.nama : '—',
+      jawatan: ahli ? ahli.jawatan : '—',
+      bulan: t.bulan, tarikh: t.tkh,
+      rujukan: t.ref, amaun: t.amt
+    });
+  }
 
-        const benNama = document.getElementById('ben-nama').value.trim();
-        const benJawatan = document.getElementById('ben-jawatan').value.trim();
-        if (!benNama || !benJawatan) {
-            alert("⚠️ Sila isi Nama dan Jawatan Bendahari terlebih dahulu!\n\nMaklumat ini diperlukan untuk resit rasmi.");
-            document.getElementById('ben-nama').focus();
-            return;
-        }
+  function refreshSistem() {
+    const sel = document.getElementById('yur-id');
+    sel.innerHTML = '';
+    senaraiAhli.forEach(a => {
+      sel.add(new Option(a.nama, a.id));
+      bulanKeys.forEach(b => a.yuran[b] = 0);
+    });
 
-        const noResit = 'RES-' + String(noResitKira).padStart(4, '0');
-        noResitKira++;
+    const tbodyLejar = document.querySelector('#table-lejar tbody');
+    tbodyLejar.innerHTML = '';
+    let baki = Number(document.getElementById('baki-awal-input').value) || 0;
+    let td = 0, tk = 0;
 
-        transaksi.push({
-            id: Date.now(),
-            ahliId: ahliId,
-            akaun: 'Yuran Ahli',
-            bulan: bulan,
-            tkh: tkh,
-            ref: ref || noResit,
-            amt: amt,
-            jenis: 'DEBIT',
-            isYuran: true,
-            noResit: noResit
-        });
+    const row0 = tbodyLejar.insertRow();
+    row0.innerHTML = `
+      <td style="color:var(--text3);">—</td>
+      <td style="color:var(--text3);">—</td>
+      <td style="text-align:left; color:var(--text3); font-style:italic;">Baki Bawa Hadapan</td>
+      <td>—</td><td>—</td>
+      <td style="font-family:var(--mono); font-weight:600; color:var(--gold);">${baki.toFixed(2)}</td>
+      <td class="no-print"></td>`;
 
-        refreshSistem();
+    transaksi.sort((a,b) => new Date(a.tkh)-new Date(b.tkh)).forEach(t => {
+      let d = t.jenis === 'DEBIT' ? t.amt : 0;
+      let k = t.jenis === 'KREDIT' ? t.amt : 0;
+      baki += (d - k); td += d; tk += k;
 
-        // Jana & tunjuk resit
-        const ahli = senaraiAhli.find(x => x.id == ahliId);
-        tunjukResit({
-            noResit: noResit,
-            nama: ahli ? ahli.nama : '-',
-            jawatan: ahli ? ahli.jawatan : '-',
-            bulan: bulan,
-            tarikh: tkh,
-            rujukan: ref || noResit,
-            amaun: amt
-        });
-    }
+      let p = t.isYuran
+        ? `<span style="color:var(--gold);font-weight:600;">Yuran</span> — ${senaraiAhli.find(x=>x.id==t.ahliId)?.nama || '?'} <span style="color:var(--text3);">(${t.bulan})</span>`
+        : `<span style="color:var(--text2);font-weight:600;">${t.akaun}</span> — ${t.nama}`;
 
-    function formatTarikh(t) {
-        if (!t) return '-';
-        const [y, m, d] = t.split('-');
-        const bln = ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogo','Sep','Okt','Nov','Dis'];
-        return `${d} ${bln[Number(m)-1]} ${y}`;
-    }
+      if (t.isYuran) {
+        const af = senaraiAhli.find(x=>x.id==t.ahliId);
+        if (af) af.yuran[t.bulan] = t.amt;
+      }
 
-    function tunjukResit(data) {
-        const orgName = document.getElementById('org-name').value || 'NAMA ORGANISASI';
-        const bendahari = document.getElementById('ben-nama').value || 'Bendahari';
+      const resitBtn = t.isYuran
+        ? `<button class="btn-receipt" onclick="bukaResit(${t.id})" title="Lihat Resit">🧾</button>`
+        : '';
 
-        document.getElementById('resit-org-name').innerText = orgName;
-        document.getElementById('resit-no').innerText = 'NO. RESIT: ' + data.noResit;
-        document.getElementById('resit-nama').innerText = data.nama;
-        document.getElementById('resit-jawatan').innerText = data.jawatan || '-';
-        document.getElementById('resit-bulan').innerText = data.bulan;
-        document.getElementById('resit-tarikh').innerText = formatTarikh(data.tarikh);
-        document.getElementById('resit-rujukan').innerText = data.rujukan || '-';
-        document.getElementById('resit-amaun').innerHTML = '<span>RM</span>' + Number(data.amaun).toFixed(2);
-        document.getElementById('resit-bendahari').innerText = bendahari;
+      const row = tbodyLejar.insertRow();
+      row.innerHTML = `
+        <td style="font-family:var(--mono); font-size:11px; color:var(--text3);">${t.tkh}</td>
+        <td style="font-size:11px; color:var(--text3);">${t.ref}</td>
+        <td style="text-align:left;">${p}</td>
+        <td style="color:var(--green); font-family:var(--mono); font-weight:600;">${d ? d.toFixed(2) : '—'}</td>
+        <td style="color:var(--red); font-family:var(--mono); font-weight:600;">${k ? k.toFixed(2) : '—'}</td>
+        <td style="font-family:var(--mono); font-weight:600; color:${baki >= 0 ? 'var(--gold)' : 'var(--red)'};">${baki.toFixed(2)}</td>
+        <td class="no-print" style="display:flex; gap:5px; justify-content:center;">
+          ${resitBtn}
+          <button class="btn-del" onclick="hapus(${t.id})">×</button>
+        </td>`;
+    });
 
-        document.getElementById('modalResit').classList.add('active');
-    }
+    document.getElementById('foot-debit').innerText = td.toFixed(2);
+    document.getElementById('foot-kredit').innerText = tk.toFixed(2);
+    document.getElementById('foot-baki').innerText = baki.toFixed(2);
 
-    function tutupResit() {
-        document.getElementById('modalResit').classList.remove('active');
-    }
+    const tbodyYur = document.querySelector('#table-yuran tbody');
+    tbodyYur.innerHTML = '';
+    senaraiAhli.forEach((a, i) => {
+      let sum = 0;
+      const tr = tbodyYur.insertRow();
+      tr.innerHTML = `
+        <td style="color:var(--text3); font-family:var(--mono);">${i+1}</td>
+        <td style="text-align:left; font-weight:600; color:var(--text);">${a.nama}</td>
+        <td style="font-size:11px; color:var(--text3);">${a.jawatan}</td>
+        ${bulanKeys.map(b => {
+          let v = a.yuran[b] || 0; sum += v;
+          return v
+            ? `<td style="color:var(--green); font-family:var(--mono); font-size:11px;">${v.toFixed(2)}</td>`
+            : `<td style="color:var(--text3);">—</td>`;
+        }).join('')}
+        <td style="font-family:var(--mono); font-weight:600; color:var(--gold);">${sum.toFixed(2)}</td>`;
+    });
+  }
 
-    function cetakResit() {
-        // Clone content untuk print
-        const konten = document.getElementById('resitKonten').cloneNode(true);
-        // Buang butang dalam clone
-        const actions = konten.querySelector('.resit-actions');
-        if (actions) actions.remove();
+  function updateBen() {
+    const n = document.getElementById('ben-nama').value.trim();
+    const rawWord = n ? n.split(' ')[0] : 'Tandatangan';
+    const sigText = rawWord.charAt(0).toUpperCase() + rawWord.slice(1).toLowerCase();
+    document.getElementById('out-sig').innerText = sigText;
+    document.getElementById('out-nama').innerText = '(' + (n.toUpperCase() || 'NAMA PENUH') + ')';
+    document.getElementById('out-jaw').innerText = document.getElementById('ben-jawatan').value || 'Bendahari';
+  }
 
-        const printArea = document.getElementById('resitPrintArea');
-        printArea.innerHTML = '';
-        printArea.appendChild(konten);
+  function saveData() {
+    const data = JSON.stringify({
+      ahli: senaraiAhli, trx: transaksi, noResitKira,
+      bakiAwal: document.getElementById('baki-awal-input').value,
+      config: {
+        org: document.getElementById('org-name').value,
+        acc: document.getElementById('acc-name').value,
+        ben: document.getElementById('ben-nama').value,
+        jaw: document.getElementById('ben-jawatan').value
+      }
+    });
+    const blob = new Blob([data], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `EziAkaun_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    showToast('✅ Data berjaya disimpan!');
+  }
 
-        document.body.classList.add('print-resit');
-        window.print();
-        document.body.classList.remove('print-resit');
-    }
+  function loadData(e) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const data = JSON.parse(event.target.result);
+      senaraiAhli = data.ahli;
+      transaksi = data.trx;
+      noResitKira = data.noResitKira || 1;
+      document.getElementById('baki-awal-input').value = data.bakiAwal;
+      document.getElementById('org-name').value = data.config.org;
+      document.getElementById('acc-name').value = data.config.acc;
+      document.getElementById('ben-nama').value = data.config.ben;
+      document.getElementById('ben-jawatan').value = data.config.jaw;
+      refreshSistem();
+      updateBen();
+      showToast('✅ Data berjaya dimuatkan!');
+    };
+    reader.readAsText(e.target.files[0]);
+  }
 
-    function hapus(id) {
-        if (confirm("Padam transaksi?")) {
-            transaksi = transaksi.filter(t => t.id !== id);
-            refreshSistem();
-        }
-    }
+  function cetakBahagian(bahagian) {
+    const orgName = document.getElementById('org-name').value || 'NAMA ORGANISASI';
+    const accName = document.getElementById('acc-name').value || '';
+    const benNama = document.getElementById('ben-nama').value || '';
+    const benJaw = document.getElementById('ben-jawatan').value || 'Bendahari';
+    const tajuk = bahagian === 'yuran' ? 'I. RINGKASAN STATUS YURAN AHLI' : 'II. BUKU TUNAI / LEJAR AM';
+    const tableId = bahagian === 'yuran' ? 'table-yuran' : 'table-lejar';
+    let tableHTML = document.getElementById(tableId).outerHTML;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(tableHTML, 'text/html');
+    doc.querySelectorAll('.no-print').forEach(el => el.remove());
+    tableHTML = doc.body.innerHTML;
 
-    // Buka semula resit dari lejar
-    function bukaResit(id) {
-        const t = transaksi.find(x => x.id === id);
-        if (!t || !t.isYuran) return;
-        const ahli = senaraiAhli.find(x => x.id == t.ahliId);
-        tunjukResit({
-            noResit: t.noResit || t.ref || '-',
-            nama: ahli ? ahli.nama : '-',
-            jawatan: ahli ? ahli.jawatan : '-',
-            bulan: t.bulan,
-            tarikh: t.tkh,
-            rujukan: t.ref,
-            amaun: t.amt
-        });
-    }
-
-    function refreshSistem() {
-        const sel = document.getElementById('yur-id');
-        sel.innerHTML = '';
-        senaraiAhli.forEach(a => {
-            sel.add(new Option(a.nama, a.id));
-            bulanKeys.forEach(b => a.yuran[b] = 0);
-        });
-
-        const tbodyLejar = document.querySelector('#table-lejar tbody');
-        tbodyLejar.innerHTML = '';
-        let baki = Number(document.getElementById('baki-awal-input').value) || 0;
-        let td = 0, tk = 0;
-
-        const row0 = tbodyLejar.insertRow();
-        row0.innerHTML = `<td>-</td><td>-</td><td style="text-align:left; color:#64748b">Baki Bawa Hadapan</td><td>-</td><td>-</td><td style="font-weight:700">${baki.toFixed(2)}</td><td class="no-print"></td>`;
-
-        transaksi.sort((a, b) => new Date(a.tkh) - new Date(b.tkh)).forEach(t => {
-            let d = t.jenis === 'DEBIT' ? t.amt : 0;
-            let k = t.jenis === 'KREDIT' ? t.amt : 0;
-            baki += (d - k); td += d; tk += k;
-
-            let p = t.isYuran
-                ? `<strong>Yuran</strong> - ${senaraiAhli.find(x => x.id == t.ahliId)?.nama || '?'} (${t.bulan})`
-                : `<strong>${t.akaun}</strong> - ${t.nama}`;
-
-            if (t.isYuran) {
-                const ahliFound = senaraiAhli.find(x => x.id == t.ahliId);
-                if (ahliFound) ahliFound.yuran[t.bulan] = t.amt;
-            }
-
-            const resitBtn = t.isYuran
-                ? `<button class="btn btn-outline" style="padding:1px 6px; background:#fef3c7; border-color:#b45309; color:#b45309;" onclick="bukaResit(${t.id})" title="Lihat Resit">🧾</button>`
-                : '';
-
-            const row = tbodyLejar.insertRow();
-            row.innerHTML = `<td>${t.tkh}</td><td>${t.ref}</td><td style="text-align:left">${p}</td>
-                <td style="color:var(--debit); font-weight:700;">${d || ''}</td>
-                <td style="color:var(--kredit); font-weight:700;">${k || ''}</td>
-                <td style="font-weight:700">${baki.toFixed(2)}</td>
-                <td class="no-print" style="display:flex; gap:4px; justify-content:center;">
-                    ${resitBtn}
-                    <button class="btn btn-outline" style="padding:1px 6px;" onclick="hapus(${t.id})">×</button>
-                </td>`;
-        });
-
-        document.getElementById('foot-debit').innerText = td.toFixed(2);
-        document.getElementById('foot-kredit').innerText = tk.toFixed(2);
-        document.getElementById('foot-baki').innerText = baki.toFixed(2);
-
-        const tbodyYur = document.querySelector('#table-yuran tbody');
-        tbodyYur.innerHTML = '';
-        senaraiAhli.forEach((a, i) => {
-            let sum = 0;
-            let tr = tbodyYur.insertRow();
-            tr.innerHTML = `<td>${i + 1}</td><td style="text-align:left; font-weight:700">${a.nama}</td><td style="font-size:11px; color:#475569">${a.jawatan}</td>
-                ${bulanKeys.map(b => { let v = a.yuran[b] || 0; sum += v; return `<td>${v || ''}</td>`; }).join('')}
-                <td><strong>${sum.toFixed(2)}</strong></td>`;
-        });
-    }
-
-    function updateBen() {
-        const n = document.getElementById('ben-nama').value.trim();
-        const perkataanPertama = n ? n.split(' ')[0] : "Tandatangan";
-        document.getElementById('out-sig').innerText = perkataanPertama;
-        document.getElementById('out-nama').innerText = "(" + (n.toUpperCase() || "NAMA") + ")";
-        document.getElementById('out-jaw').innerText = document.getElementById('ben-jawatan').value || "Bendahari";
-    }
-
-    function saveData() {
-        const data = JSON.stringify({
-            ahli: senaraiAhli, trx: transaksi,
-            noResitKira: noResitKira,
-            bakiAwal: document.getElementById('baki-awal-input').value,
-            config: {
-                org: document.getElementById('org-name').value,
-                acc: document.getElementById('acc-name').value,
-                ben: document.getElementById('ben-nama').value,
-                jaw: document.getElementById('ben-jawatan').value
-            }
-        });
-        const blob = new Blob([data], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `EziAkaun_Mobile.json`;
-        a.click();
-    }
-
-    function loadData(e) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const data = JSON.parse(event.target.result);
-            senaraiAhli = data.ahli;
-            transaksi = data.trx;
-            noResitKira = data.noResitKira || 1;
-            document.getElementById('baki-awal-input').value = data.bakiAwal;
-            document.getElementById('org-name').value = data.config.org;
-            document.getElementById('acc-name').value = data.config.acc;
-            document.getElementById('ben-nama').value = data.config.ben;
-            document.getElementById('ben-jawatan').value = data.config.jaw;
-            refreshSistem();
-            updateBen();
-        };
-        reader.readAsText(e.target.files[0]);
-    }
-
-
-    function cetakBahagian(bahagian) {
-        const orgName = document.getElementById('org-name').value || 'NAMA ORGANISASI';
-        const accName = document.getElementById('acc-name').value || '';
-        const benNama = document.getElementById('ben-nama').value || '';
-        const benJaw = document.getElementById('ben-jawatan').value || 'Bendahari';
-
-        let tajuk = bahagian === 'yuran' ? 'I. RINGKASAN STATUS YURAN AHLI' : 'II. BUKU TUNAI / LEJAR AM';
-        let tableId = bahagian === 'yuran' ? 'table-yuran' : 'table-lejar';
-        let tableHTML = document.getElementById(tableId).outerHTML;
-
-        // Remove no-print columns from clone
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(tableHTML, 'text/html');
-        doc.querySelectorAll('.no-print').forEach(el => el.remove());
-        tableHTML = doc.body.innerHTML;
-
-        const printWin = window.open('', '_blank', 'width=900,height=700');
-        printWin.document.write(`<!DOCTYPE html>
-<html><head>
-<meta charset="UTF-8">
-<title>${tajuk}</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    const printWin = window.open('', '_blank', 'width=900,height=700');
+    printWin.document.write(`<!DOCTYPE html><html><head>
+<meta charset="UTF-8"><title>${tajuk}</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'Inter', sans-serif; padding: 30px; color: #1e293b; font-size: 12px; }
-  .header { text-align: center; border-bottom: 4px solid #b45309; padding-bottom: 12px; margin-bottom: 20px; }
-  .header h1 { font-size: 18px; font-weight: 800; margin: 0 0 4px; text-transform: uppercase; }
-  .header p { font-size: 12px; color: #475569; margin: 0; }
-  .tajuk { font-weight: 800; border-left: 5px solid #b45309; padding-left: 10px; margin-bottom: 10px; font-size: 13px; }
-  table { width: 100%; border-collapse: collapse; }
-  th { background: #e2e8f0; padding: 8px; border: 1px solid #1e293b; font-size: 11px; }
-  td { padding: 8px; border: 1px solid #cbd5e1; text-align: center; font-size: 11px; }
-  .footer { margin-top: 40px; font-size: 11px; color: #64748b; text-align: right; }
-</style>
-</head><body>
-<div class="header">
-  <h1>${orgName}</h1>
-  <p>${accName}</p>
-</div>
+  body{font-family:'DM Sans',sans-serif;padding:32px;color:#1a202c;font-size:12px;background:#fff;}
+  .header{text-align:center;border-bottom:3px solid #c8a86b;padding-bottom:14px;margin-bottom:22px;}
+  .header h1{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;}
+  .header p{font-size:11px;color:#64748b;margin:0;}
+  .tajuk{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#c8a86b;padding-left:12px;border-left:4px solid #c8a86b;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;}
+  th{background:#f1f5f9;padding:9px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#64748b;border-bottom:2px solid #e2e8f0;}
+  td{padding:9px 10px;border-bottom:1px solid #f1f5f9;text-align:center;font-size:11px;color:#334155;}
+  tfoot td{background:#f8fafc;font-weight:700;border-top:2px solid #e2e8f0;}
+  .footer{margin-top:40px;font-size:10px;color:#94a3b8;text-align:right;border-top:1px solid #e2e8f0;padding-top:12px;}
+</style></head><body>
+<div class="header"><h1>${orgName}</h1><p>${accName}</p></div>
 <div class="tajuk">${tajuk}</div>
 ${tableHTML}
-<div class="footer">Disediakan oleh: ${benNama} &nbsp;|&nbsp; ${benJaw} &nbsp;|&nbsp; Dicetak: ${new Date().toLocaleDateString('ms-MY')}</div>
+<div class="footer">Disediakan oleh: <strong>${benNama}</strong> &nbsp;•&nbsp; ${benJaw} &nbsp;•&nbsp; ${new Date().toLocaleDateString('ms-MY')}</div>
 <script>window.onload=function(){window.print();window.close();}<\/script>
 </body></html>`);
-        printWin.document.close();
-    }
+    printWin.document.close();
+  }
 
-    // Tutup modal bila klik luar
-    document.getElementById('modalResit').addEventListener('click', function(e) {
-        if (e.target === this) tutupResit();
-    });
+  document.getElementById('modalResit').addEventListener('click', function(e) {
+    if (e.target === this) tutupResit();
+  });
+
+  refreshSistem();
 </script>
-
 </body>
 </html>
