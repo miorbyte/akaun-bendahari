@@ -16,8 +16,13 @@
         
         .template-name { text-align: center; font-weight: 800; color: var(--accent); letter-spacing: 2px; font-size: 12px; margin-bottom: 5px; text-transform: uppercase; }
         .main-header { border-bottom: 4px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
-        .editable-org { font-size: 22px; font-weight: 800; color: var(--primary); border: none; width: 100%; text-align: center; text-transform: uppercase; outline: none; background: transparent; }
-        .editable-acc { font-size: 14px; color: #475569; border: none; width: 100%; text-align: center; outline: none; background: transparent; font-weight: 600; }
+        .editable-org { font-size: 22px; font-weight: 800; color: var(--primary); width: 100%; text-align: center; text-transform: uppercase; outline: none; background: transparent; border: 2px dashed transparent; border-radius: 6px; padding: 4px 8px; transition: border-color 0.2s, background 0.2s; }
+        .editable-org:hover { border-color: #b45309; background: #fffbeb; }
+        .editable-org:focus { border-color: #b45309; background: #fffbeb; box-shadow: 0 0 0 3px rgba(180,83,9,0.15); }
+        .editable-acc { font-size: 14px; color: #475569; width: 100%; text-align: center; outline: none; background: transparent; font-weight: 600; border: 2px dashed transparent; border-radius: 6px; padding: 4px 8px; transition: border-color 0.2s, background 0.2s; }
+        .editable-acc:hover { border-color: #94a3b8; background: #f8fafc; }
+        .editable-acc:focus { border-color: #475569; background: #f8fafc; box-shadow: 0 0 0 3px rgba(71,85,105,0.12); }
+        .edit-hint { font-size: 10px; color: #94a3b8; text-align: center; margin-top: 6px; letter-spacing: 0.5px; }
 
         .section-title { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--white); background: var(--primary); padding: 4px 10px; border-radius: 4px 4px 0 0; display: inline-block; }
         .section { background: #fff; border: 2px solid var(--primary); padding: 15px; border-radius: 0 4px 4px 4px; margin-bottom: 20px; }
@@ -202,14 +207,16 @@
 <div class="wrapper">
     <div class="template-name">EZI AKAUN BENDAHARI</div>
     <div class="main-header">
-        <input type="text" class="editable-org" value="NAMA ORGANISASI ANDA" id="org-name">
-        <input type="text" class="editable-acc" value="Laporan Penyata Kewangan Tahunan 2026" id="acc-name">
+        <input type="text" class="editable-org" value="NAMA ORGANISASI ANDA" id="org-name" title="Klik untuk edit nama organisasi">
+        <input type="text" class="editable-acc" value="Laporan Penyata Kewangan Tahunan 2026" id="acc-name" title="Klik untuk edit tajuk laporan">
+        <div class="edit-hint">✏️ Klik pada teks di atas untuk mengedit</div>
     </div>
 
     <div class="no-print">
         <div style="display:flex; gap:5px; margin-bottom: 10px;">
             <button class="btn btn-outline" style="flex:1" onclick="saveData()">💾 Simpan</button>
             <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('fileInput').click()">📂 Buka</button>
+            <button class="btn btn-outline" style="flex:1" onclick="window.print()">🖨️ Cetak</button>
             <input type="file" id="fileInput" style="display:none" onchange="loadData(event)">
         </div>
         <div class="baki-box">
@@ -260,7 +267,10 @@
         </div>
     </div>
 
-    <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; margin-bottom:10px; color: var(--primary);">I. RINGKASAN STATUS YURAN AHLI</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; color: var(--primary);">I. RINGKASAN STATUS YURAN AHLI</div>
+        <button class="btn btn-outline no-print" onclick="cetakBahagian('yuran')" style="font-size:11px; padding:6px 14px;">🖨️ Cetak</button>
+    </div>
     <div class="table-container">
         <table id="table-yuran">
             <thead><tr><th>Bil</th><th>Nama Ahli</th><th>Jawatan</th><th>Jan</th><th>Feb</th><th>Mac</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Ogo</th><th>Sep</th><th>Okt</th><th>Jumlah</th></tr></thead>
@@ -268,7 +278,10 @@
         </table>
     </div>
 
-    <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; margin: 30px 0 10px 0; color: var(--primary);">II. BUKU TUNAI / LEJAR AM</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin: 30px 0 10px 0;">
+        <div style="font-weight:800; border-left: 5px solid var(--accent); padding-left: 10px; color: var(--primary);">II. BUKU TUNAI / LEJAR AM</div>
+        <button class="btn btn-outline no-print" onclick="cetakBahagian('lejar')" style="font-size:11px; padding:6px 14px;">🖨️ Cetak</button>
+    </div>
     <div class="table-container">
         <table id="table-lejar">
             <thead><tr><th>Tarikh</th><th>Rujukan</th><th style="text-align:left">Perincian Transaksi</th><th>Debit</th><th>Kredit</th><th>Baki</th><th class="no-print">Aksi</th></tr></thead>
@@ -288,7 +301,6 @@
         <strong id="out-nama">(NAMA PENUH)</strong><br><span id="out-jaw">Bendahari</span>
     </div>
 
-    <button class="btn btn-print no-print" onclick="window.print()">Cetak Laporan Keseluruhan</button>
 </div>
 
 <script>
@@ -539,6 +551,53 @@
             updateBen();
         };
         reader.readAsText(e.target.files[0]);
+    }
+
+
+    function cetakBahagian(bahagian) {
+        const orgName = document.getElementById('org-name').value || 'NAMA ORGANISASI';
+        const accName = document.getElementById('acc-name').value || '';
+        const benNama = document.getElementById('ben-nama').value || '';
+        const benJaw = document.getElementById('ben-jawatan').value || 'Bendahari';
+
+        let tajuk = bahagian === 'yuran' ? 'I. RINGKASAN STATUS YURAN AHLI' : 'II. BUKU TUNAI / LEJAR AM';
+        let tableId = bahagian === 'yuran' ? 'table-yuran' : 'table-lejar';
+        let tableHTML = document.getElementById(tableId).outerHTML;
+
+        // Remove no-print columns from clone
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(tableHTML, 'text/html');
+        doc.querySelectorAll('.no-print').forEach(el => el.remove());
+        tableHTML = doc.body.innerHTML;
+
+        const printWin = window.open('', '_blank', 'width=900,height=700');
+        printWin.document.write(`<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>${tajuk}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; padding: 30px; color: #1e293b; font-size: 12px; }
+  .header { text-align: center; border-bottom: 4px solid #b45309; padding-bottom: 12px; margin-bottom: 20px; }
+  .header h1 { font-size: 18px; font-weight: 800; margin: 0 0 4px; text-transform: uppercase; }
+  .header p { font-size: 12px; color: #475569; margin: 0; }
+  .tajuk { font-weight: 800; border-left: 5px solid #b45309; padding-left: 10px; margin-bottom: 10px; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #e2e8f0; padding: 8px; border: 1px solid #1e293b; font-size: 11px; }
+  td { padding: 8px; border: 1px solid #cbd5e1; text-align: center; font-size: 11px; }
+  .footer { margin-top: 40px; font-size: 11px; color: #64748b; text-align: right; }
+</style>
+</head><body>
+<div class="header">
+  <h1>${orgName}</h1>
+  <p>${accName}</p>
+</div>
+<div class="tajuk">${tajuk}</div>
+${tableHTML}
+<div class="footer">Disediakan oleh: ${benNama} &nbsp;|&nbsp; ${benJaw} &nbsp;|&nbsp; Dicetak: ${new Date().toLocaleDateString('ms-MY')}</div>
+<script>window.onload=function(){window.print();window.close();}<\/script>
+</body></html>`);
+        printWin.document.close();
     }
 
     // Tutup modal bila klik luar
