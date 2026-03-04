@@ -389,23 +389,36 @@ tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-
 }
 
 /* ── PRINT ── */
+/* Print resit sahaja (melalui butang Cetak Resit dalam modal) */
 @media print {
-  body.print-resit * { display: none !important; }
-  body.print-resit .resit-print-area,
-  body.print-resit .resit-print-area * { display: block !important; }
-  body.print-resit .resit-print-area {
-    position: fixed; top: 0; left: 0; width: 100%; padding: 30px;
+  /* Mod cetak resit */
+  body.print-resit > *:not(#resitPrintArea) { display: none !important; }
+  body.print-resit #resitPrintArea {
+    display: block !important;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 30px;
     box-sizing: border-box;
+    background: white;
+    color: #000;
   }
+  body.print-resit #resitPrintArea * { display: block !important; }
+  body.print-resit #resitPrintArea .resit-actions { display: none !important; }
+
+  /* Mod cetak halaman penuh (butang 🖨️ header) */
   body:not(.print-resit) .no-print { display: none !important; }
   body:not(.print-resit) .modal-overlay { display: none !important; }
+  body:not(.print-resit) #resitPrintArea { display: none !important; }
   body:not(.print-resit) .table-container { overflow: visible; border: none; }
   body:not(.print-resit) table { min-width: 100%; }
   body:not(.print-resit) { background: white !important; color: #000 !important; }
-  body:not(.print-resit) .app-header, body:not(.print-resit) .baki-strip { display: none !important; }
+  body:not(.print-resit) .app-header,
+  body:not(.print-resit) .baki-strip { display: none !important; }
   body:not(.print-resit) th { background: #eee !important; color: #333 !important; }
   body:not(.print-resit) td { color: #000 !important; border-color: #ddd !important; }
-  body:not(.print-resit) .section-card, body:not(.print-resit) .table-container,
+  body:not(.print-resit) .section-card,
+  body:not(.print-resit) .table-container,
   body:not(.print-resit) .sig-container { background: white !important; border-color: #ddd !important; }
 }
 
@@ -468,7 +481,8 @@ tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-
   </div>
 </div>
 
-<div class="resit-print-area" id="resitPrintArea" style="display:none;"></div>
+<!-- PRINT AREA UNTUK RESIT — dibina semula setiap kali cetak -->
+<div id="resitPrintArea" style="display:none;"></div>
 
 <!-- HEADER -->
 <div class="app-header no-print">
@@ -780,15 +794,28 @@ tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-
 
   function tutupResit() { document.getElementById('modalResit').classList.remove('active'); }
 
+  // ✅ FUNGSI CETAK RESIT — DIPERBAIKI
+  // Masalah asal: resitPrintArea ada style="display:none" yang tidak dibuang sebelum print
+  // Penyelesaian: bina semula kandungan printArea, buang inline style, kemudian print
   function cetakResit() {
     const konten = document.getElementById('resitKonten').cloneNode(true);
-    konten.querySelector('.resit-actions')?.remove();
+    // Buang butang aksi dari salinan
+    const actionsEl = konten.querySelector('.resit-actions');
+    if (actionsEl) actionsEl.remove();
+
     const printArea = document.getElementById('resitPrintArea');
     printArea.innerHTML = '';
     printArea.appendChild(konten);
+
+    // PENTING: Buang inline style="display:none" supaya CSS print boleh mengawal paparan
+    printArea.style.removeProperty('display');
+
     document.body.classList.add('print-resit');
     window.print();
     document.body.classList.remove('print-resit');
+
+    // Pulihkan semula selepas print
+    printArea.style.display = 'none';
   }
 
   function hapus(id) {
