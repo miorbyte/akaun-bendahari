@@ -303,7 +303,7 @@ tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-
 
 .resit-modal {
   background: var(--surface); width: 100%; max-width: 460px;
-  border-radius: var(--r); border: 1px solid var(--border2);
+  border-radius: var(--r); border: 1px solid #000000;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6); overflow: hidden;
   animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
@@ -352,12 +352,12 @@ tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-
 }
 
 .resit-row {
-  display: flex; justify-content: space-between; align-items: flex-start;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 9px 0; border-bottom: 1px solid var(--border);
 }
 .resit-row:last-of-type { border-bottom: none; }
-.resit-label { font-size: 10px; color: var(--text3); text-transform: uppercase; font-weight: 700; letter-spacing: 0.8px; }
-.resit-value { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; max-width: 60%; }
+.resit-label { font-size: 10px; color: var(--text3); text-transform: uppercase; font-weight: 700; letter-spacing: 0.8px; flex-shrink: 0; }
+.resit-value { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; flex: 1; padding-left: 12px; }
 
 .resit-amaun-box {
   background: var(--gold-dim); border: 1px solid rgba(200,168,107,0.25);
