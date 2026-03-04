@@ -400,11 +400,30 @@ tfoot td { padding: 12px; background: var(--surface2); font-weight: 700; border-
     width: 100%;
     padding: 30px;
     box-sizing: border-box;
-    background: white;
+    background: white !important;
     color: #000;
   }
   body.print-resit #resitPrintArea * { display: block !important; }
   body.print-resit #resitPrintArea .resit-actions { display: none !important; }
+  body.print-resit #resitPrintArea .resit-modal {
+    background: white !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+  }
+  body.print-resit #resitPrintArea .resit-header {
+    background: #f8f8f8 !important;
+  }
+  body.print-resit #resitPrintArea .resit-title { color: #b8860b !important; }
+  body.print-resit #resitPrintArea .resit-org-name,
+  body.print-resit #resitPrintArea .resit-label,
+  body.print-resit #resitPrintArea .resit-footer-note,
+  body.print-resit #resitPrintArea .resit-watermark { color: #555 !important; }
+  body.print-resit #resitPrintArea .resit-value,
+  body.print-resit #resitPrintArea .resit-no-badge { color: #000 !important; }
+  body.print-resit #resitPrintArea .resit-amaun-box { background: #fffbf0 !important; border-color: #e0c060 !important; }
+  body.print-resit #resitPrintArea .resit-amaun-box .amount { color: #b8860b !important; }
+  body.print-resit #resitPrintArea .resit-status { background: #f0fff8 !important; border-color: #a0d8c0 !important; color: #1a7a50 !important; }
+  body.print-resit #resitPrintArea .resit-row { border-bottom-color: #eee !important; }
 
   /* Mod cetak halaman penuh (butang 🖨️ header) */
   body:not(.print-resit) .no-print { display: none !important; }
